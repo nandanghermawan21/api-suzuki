@@ -84,7 +84,7 @@ class Customer extends BD_Controller
      */
     public function updateImage_post()
     {
-        if ($this->user_data->type == "customer") {
+        // if ($this->user_data->type == "customer") {
             try {
                 // $id = $this->user_data->id;
                 // $path = $this->input->get("path", true);
@@ -126,8 +126,8 @@ class Customer extends BD_Controller
                 $error->message = $e->getMessage();
                 $this->response($error, 500);
             }
-        } else {
-            $this->response("forbidden access", 500);
-        }
+        // } else {
+        //     $this->response("forbidden access", 500);
+        // }
     }
 }
