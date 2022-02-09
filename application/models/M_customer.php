@@ -85,7 +85,7 @@ class M_customer extends CI_Model
 	}
 
 
-	function get_user($q)
+	function get_customer($q)
 	{
 		return $this->db->get_where($this->tableName, $q);
 	}
