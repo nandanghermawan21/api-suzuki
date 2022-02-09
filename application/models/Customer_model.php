@@ -227,7 +227,7 @@ class Customer_model extends CI_Model
 			$this->genderId = $json[$this->genderIdJsonKey()];
 		}
 		if (isset($json[$this->cityIdJsonKey()])) {
-			$this->city = $json[$this->cityIdJsonKey()];
+			$this->cityId = $json[$this->cityIdJsonKey()];
 		}
 		if (isset($json[$this->phoneNumberJsonKey()])) {
 			$this->phoneNumber = $json[$this->phoneNumberJsonKey()];
