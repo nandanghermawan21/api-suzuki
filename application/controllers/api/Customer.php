@@ -61,7 +61,7 @@ class Customer extends BD_Controller
      *   @OA\Parameter(
      *       name="imageId",
      *       in="query",
-     *       required=false,
+     *       required=true,
      *       @OA\Schema(type="string")
      *   ),
      *   @OA\Response(response=200,
