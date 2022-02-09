@@ -115,7 +115,7 @@ class Customer extends BD_Controller
                 }
                 
                 $this->response(array(
-                    "token" => $$this->input->get_request_header('Authorization'),
+                    "token" => $headers,
                     "token" => $token,
                     "kunci" => $kunci,
                     "jwt" => JWT::decode($token, $kunci, array('HS256'))
