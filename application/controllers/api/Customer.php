@@ -37,7 +37,7 @@ class Customer extends BD_Controller
     {
         try {
             $jsonBody  = json_decode(file_get_contents('php://input'), true);
-            // $customer = $this->customer->fromJson($jsonBody);
+            $customer = $this->customer->fromJson($jsonBody);
 
             // if ($customer->checkUsernameExist() == true) {
             //     $this->response("Username Is Exist", 400);
@@ -47,7 +47,7 @@ class Customer extends BD_Controller
             //     $result = $this->customer->fromJson($jsonBody)->add();
             //     $this->response($result, 200);
             // }
-            $this->response($jsonBody, 200);
+            $this->response($customer, 200);
         } catch (\Exception $e) {
             $error = new errormodel();
             $error->status = 500;
