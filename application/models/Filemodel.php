@@ -7,10 +7,8 @@
 class filemodel extends CI_Model
 {
 
-    public function tableName(): string
-    {
-        return "svc_file";
-    }
+    private  $tableName =  "svc_file";
+
 
     /**
      * @OA\Property()
@@ -89,7 +87,7 @@ class filemodel extends CI_Model
     public $url;
     public function createUrl(): String
     {
-        $this->url =  $this->config->item("upload_url") . $this->filename;
+        $this->url =  $this->config->item("upload_url") . $this->path . '/' . $this->filename;
         return $this->url;
     }
 
@@ -131,9 +129,9 @@ class filemodel extends CI_Model
             //generate key
             $this->id = random_string('numeric', 12);
 
-            $this->db->insert($this->tableName(), $this->toArray());
+            $this->db->insert($this->tableName, $this->toArray());
 
-            $data = $this->db->get_where($this->tableName(), array('id' => $this->id));
+            $data = $this->db->get_where($this->tableName, array($this->idField() => $this->id));
 
             return $this->fromRow($data->result()[0]);
         } catch (Exception $e) {
@@ -143,7 +141,7 @@ class filemodel extends CI_Model
 
     public function fromId($id)
     {
-        $data = $this->db->get_where($this->tableName(), array('id' => $id));
+        $data = $this->db->get_where($this->tableName, array($this->idField() => $id));
 
         $result = $data->result();
 

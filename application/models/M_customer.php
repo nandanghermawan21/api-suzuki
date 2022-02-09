@@ -66,13 +66,18 @@ class M_customer extends CI_Model
 	 */
 	public $token;
 
-
+	function __construct()
+    {
+        // Construct the parent class
+        parent::__construct();
+        $this->load->model('Filemodel','file');
+    }
 
 	function fromRow($row)
 	{
 		$data = new M_customer();
 		$data->nik = $row->nik;
-		$data->imageUrl = $row->photo_image_id;
+		$data->imageUrl = $row->file->fromId($row->photo_image_id)->createUrl();
 		$data->fullName = $row->full_name;
 		$data->genderId = $row->gender_id;
 		$data->cityId = $row->city_id;
