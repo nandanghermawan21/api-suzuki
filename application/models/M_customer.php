@@ -5,7 +5,7 @@
  */
 class M_customer extends CI_Model
 {
-	private $tableName = "m_user";
+	private $tableName = "m_customer";
 	/**
 	 * @OA\Property()
 	 * @var int
