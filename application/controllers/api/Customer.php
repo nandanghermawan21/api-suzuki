@@ -14,6 +14,7 @@ class Customer extends BD_Controller
     {
         parent::__construct();
         $this->load->model('Customer_model', 'customer');
+        $this->load->model('File_model', 'file');
     }
 
     /**
@@ -42,7 +43,7 @@ class Customer extends BD_Controller
 
             if ($customer->checkUsernameExist() == true) {
                 $this->response("Username Is Exist", 400);
-            }  else if ($customer->checkPhoneExist() == true) {
+            } else if ($customer->checkPhoneExist() == true) {
                 $this->response("Phone Is Exist", 400);
             } else {
                 $result = $customer->add();
@@ -59,12 +60,20 @@ class Customer extends BD_Controller
     /**
      * @OA\Post(path="/api/customer/updateImage",tags={"customer"},
      *   operationId="updateImageId customer",
-     *   @OA\Parameter(
-     *       name="imageId",
-     *       in="query",
+     *   @OA\RequestBody(
      *       required=true,
-     *       @OA\Schema(type="string")
-     *   ),
+     *       @OA\MediaType(
+     *           mediaType="multipart/form-data",
+     *           @OA\Schema(
+     *               @OA\Property(
+     *                   property="media",
+     *                   description="media",
+     *                   type="file",
+     *                   @OA\Items(type="string", format="binary")
+     *                ),
+     *            ),
+     *        ),
+     *    ),
      *   @OA\Response(response=200,
      *     description="register customer",
      *     @OA\JsonContent(
@@ -78,12 +87,23 @@ class Customer extends BD_Controller
         $this->auth();
         if ($this->user_data->type == "customer") {
             try {
-               $id = $this->user_data->id;
-               $imageId = $this->get("imageId", true);
-               $customer = $this->customer->fromId($id);
-               $customer->imageId = $imageId;
-               $customer->update();
-               $this->response($customer, 200);
+                $id = $this->user_data->id;
+                $path = $this->input->get("path", true);
+                $name = $this->input->get("name", true);
+                if (!empty($_FILES["media"])) {
+                    $media    = $_FILES["media"];
+
+                    if ($media["error"] !== UPLOAD_ERR_OK) {
+                        $this->response("upload gagal", 500);
+                        exit;
+                    } else {
+                        $file = $this->file->upload($path, $name, $media);
+                        $customer = $this->customer->fromId($id);
+                        $customer->imageId = $file->id;
+                        $customer->update();
+                        $this->response($customer,200);
+                    }
+                }
             } catch (\Exception $e) {
                 $error = new errormodel();
                 $error->status = 500;

@@ -183,7 +183,7 @@ class Customer_model extends CI_Model
 		$this->load->model('Gender_model', 'gender');
 	}
 
-	function fromRow($row)
+	public function  fromRow($row)
 	{
 		$data = new Customer_model();
 		$data->id = $row->id;
@@ -205,12 +205,12 @@ class Customer_model extends CI_Model
 	}
 
 
-	function get_customer($q)
+	public function  get_customer($q)
 	{
 		return $this->db->get_where($this->tableName, $q);
 	}
 
-	function fromId($id)
+	public function  fromId($id)
 	{
 		$data = $this->db->get_where($this->idField(), $id);
 		$result = $data->result();
@@ -222,7 +222,7 @@ class Customer_model extends CI_Model
 		}
 	}
 
-	function fromJson($json): Customer_model
+	public function  fromJson($json): Customer_model
 	{
 		if (isset($json[$this->idjsonKey()])) {
 			$this->id = $json[$this->idjsonKey()];
@@ -259,7 +259,7 @@ class Customer_model extends CI_Model
 		return $this;
 	}
 
-	function add(): Customer_model
+	public function  add(): Customer_model
 	{
 		try {
 			//generate key
@@ -278,7 +278,7 @@ class Customer_model extends CI_Model
 		}
 	}
 
-	function update(): Customer_model
+	public function  update(): Customer_model
 	{
 		try {
 			if ($this->id != null) {
@@ -292,7 +292,7 @@ class Customer_model extends CI_Model
 		}
 	}
 
-	function toArray(): array
+	public function  toArray(): array
 	{
 		$data = array(
 			$this->idField() => $this->id,

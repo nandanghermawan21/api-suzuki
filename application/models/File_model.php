@@ -151,4 +151,54 @@ class File_model extends CI_Model
             return new File_model();
         }
     }
+
+    public function upload($path, $name, $file)
+    {
+        if ($file != null) {
+            $media    = $file;
+            $ext    = pathinfo($file["name"], PATHINFO_EXTENSION);
+            $size    = $file["size"];
+            // $tgl    = date("Y-m-d");
+            
+            // filename yang aman
+            $currentName = preg_replace("/[^A-Z0-9._-]/i", "_", $media["name"]);
+            if ($name == "" || $name == null) {
+                $name = $currentName;
+            } else {
+                $name = $name . "." . pathinfo($currentName)["extension"];
+            }
+
+            // menambahkan path
+            $name = $path . "/" . $name;
+
+            // create path jika tidak ada
+            if (!is_dir(UPLOAD_DIR . "/" . $path)) {
+                mkdir(UPLOAD_DIR . "/" . $path, 0777, TRUE);
+            }
+
+            // mencegah overwrite filename
+            // $i = 0;
+            $parts = pathinfo($name);
+            // while (file_exists(UPLOAD_DIR . $name)) {
+            //     $i++;
+            //     $name =  $parts["filename"] . "-" . $i . "." . $parts["extension"];
+            // }
+
+            $success = move_uploaded_file($media["tmp_name"], UPLOAD_DIR . $name);
+
+            if ($success) {
+                $data = new FileModel();
+                $data->filename = $name;
+                $data->path = $path;
+                $data->extention = $ext;
+                $data->size = $size;
+                
+                // $filemodel->size = filesize(UPLOAD_DIR . "/" . $path . "/" . $name);
+                $data->url = $data->createUrl();
+                $data->add();
+                return $data;
+            }
+        }
+    }
+
 }
