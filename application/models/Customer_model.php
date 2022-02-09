@@ -15,18 +15,28 @@ class Customer_model extends CI_Model
 	 * @var int
 	 */
 	public $id;
-	private $idField = "id";
-	private $idJsonKey = "id";
-
+	public function idField(): string
+	{
+		return "id";
+	}
+	public function idJsonKey(): string
+	{
+		return "id";
+	}
 
 	/**
 	 * @OA\Property()
 	 * @var string
 	 */
 	public $nik;
-	private $nikField = "nik";
-	private $nikJsonKey = "nik";
-
+	public function nikField(): string
+	{
+		return "nik";
+	}
+	public function nikJsonKey(): string
+	{
+		return "nik";
+	}
 
 	/**
 	 * @OA\Property()
@@ -39,27 +49,42 @@ class Customer_model extends CI_Model
 	 * @var string
 	 */
 	public $imageId;
-	private $imageIdJField = "photo_image_id";
-	private $imageIdJsonKey = "imageId";
-
+	public function imageIdJField(): string
+	{
+		return "photo_image_id";
+	}
+	public function imageIdJsonKey(): string
+	{
+		return "imageId";
+	}
 
 	/**
 	 * @OA\Property()
 	 * @var string
 	 */
 	public $fullName;
-	private $fullNameField = "full_name";
-	private $fullNamseJsonKey = "fullName";
-
+	public function fullNameField(): string
+	{
+		return "full_name";
+	}
+	public function fullNamseJsonKey(): string
+	{
+		return "fullName";
+	}
 
 	/**
 	 * @OA\Property()
 	 * @var string
 	 */
 	public $genderId;
-	private $genderIdField = "gender_id";
-	private $genderIdJsonKey = "genderId";
-
+	public function genderIdField(): string
+	{
+		return "gender_id";
+	}
+	public function genderIdJsonKey(): string
+	{
+		return "genderId";
+	}
 
 	/**
 	 * @OA\Property()
@@ -72,9 +97,14 @@ class Customer_model extends CI_Model
 	 * @var string
 	 */
 	public $cityId;
-	private $cityIdField = "city_id";
-	private $cityIdJsonKey = "cityId";
-
+	public function cityIdField(): string
+	{
+		return "city_id";
+	}
+	public function cityIdJsonKey(): string
+	{
+		return "cityId";
+	}
 
 	/**
 	 * @OA\Property()
@@ -87,41 +117,57 @@ class Customer_model extends CI_Model
 	 * @var string
 	 */
 	public $phoneNumber;
-	private $phoneNumberField = "phone_number";
-	private $phoneNumberJsonKey = "phoneNumber";
-
+	public function phoneNumberField(): string
+	{
+		return "phone_number";
+	}
+	public function phoneNumberJsonKey(): string
+	{
+		return "phoneNumber";
+	}
 
 	/**
 	 * @OA\Property()
 	 * @var string
 	 */
 	public $username;
-	private $usernameField = "username";
-	private $usernameJsonKey = "username";
-
+	public function usernameField(): string
+	{
+		return "username";
+	}
+	public function usernameJsonKey(): string
+	{
+		return "username";
+	}
 
 	/**
 	 * @OA\Property()
 	 * @var int
 	 */
 	public $level;
-	private $levelField = "level";
-	private $levelJsonKey = "level";
-
+	public function levelField(): string
+	{
+		return "level";
+	}
+	public function levelJsonKey(): string
+	{
+		return "level";
+	}
 
 	/**
 	 * @OA\Property()
 	 * @var string
 	 */
 	public $token;
+
 	function __construct()
-	{
-		// Construct the parent class
-		parent::__construct();
-		$this->load->model('File_model', 'file');
-		$this->load->model('City_model', 'city');
-		$this->load->model('Gender_model', 'gender');
-	}
+    {
+        // Construct the parent class
+        parent::__construct();
+        $this->load->model('File_model', 'file');
+        $this->load->model('City_model', 'city');
+        $this->load->model('Gender_model', 'gender');
+    }
 
 	function fromRow($row)
 	{
@@ -151,34 +197,34 @@ class Customer_model extends CI_Model
 
 	function fromJson($json): Customer_model
 	{
-		if (isset($json[$this->idJsonKey])) {
-			$this->id = $json[$this->idJsonKey];
+		if (isset($json[$this->idjsonKey()])) {
+			$this->id = $json[$this->idjsonKey()];
 		}
-		if (isset($json[$this->nikJsonKey])) {
-			$this->nik = $json[$this->nikJsonKey];
+		if (isset($json[$this->nikJsonKey()])) {
+			$this->nik = $json[$this->nikField()];
 		}
-		if (isset($json[$this->imageIdJsonKey])) {
-			$this->imageId = $json[$this->imageIdJsonKey];
+		if (isset($json[$this->imageIdJsonKey()])) {
+			$this->imageId = $json[$this->imageIdJsonKey()];
 		}
-		if (isset($json[$this->fullNamseJsonKey])) {
-			$this->fullName = $json[$this->fullNamseJsonKey];
+		if (isset($json[$this->fullNamseJsonKey()])) {
+			$this->fullName = $json[$this->fullNamseJsonKey()];
 		}
-		if (isset($json[$this->genderIdJsonKey])) {
-			$this->genderId = $json[$this->genderIdJsonKey];
+		if (isset($json[$this->genderIdJsonKey()])) {
+			$this->genderId = $json[$this->genderIdJsonKey()];
 		}
-		if (isset($json[$this->cityIdJsonKey])) {
-			$this->cityId = $json[$this->cityIdJsonKey];
+		if (isset($json[$this->cityIdJsonKey()])) {
+			$this->city = $json[$this->cityIdJsonKey()];
 		}
-		if (isset($json[$this->phoneNumberJsonKey])) {
-			$this->phoneNumber = $json[$this->phoneNumberJsonKey];
+		if (isset($json[$this->phoneNumberJsonKey()])) {
+			$this->phoneNumber = $json[$this->phoneNumberJsonKey()];
 		}
-		if (isset($json[$this->usernameJsonKey])) {
-			$this->username = $json[$this->usernameJsonKey];
+		if (isset($json[$this->usernameJsonKey()])) {
+			$this->username = $json[$this->usernameJsonKey()];
 		}
-		if (isset($json[$this->levelJsonKey])) {
-			$this->level = $json[$this->levelJsonKey];
+		if (isset($json[$this->levelJsonKey()])) {
+			$this->level = $json[$this->levelJsonKey()];
 		}
-
+		
 
 		return $this;
 	}

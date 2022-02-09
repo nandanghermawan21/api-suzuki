@@ -15,27 +15,42 @@ class City_model extends CI_Model
      * @var string
      */
     public $id;
-    public $idField = "id";
-    public $idJsonKey =  "id";
-    
+    private function idField(): string
+    {
+        return "id";
+    }
+    public function idJsonKey(): string
+    {
+        return "id";
+    }
 
     /**
      * @OA\Property()
      * @var string
      */
     public $provinceId;
-    public $provinceIdField = "province_id";
-    public $provinceIdJsonKey = "provinceId";
-    
+    public function provinceIdField(): string
+    {
+        return "province_id";
+    }
+    public function provinceIdJsonKey(): string
+    {
+        return "provinceId";
+    }
 
     /**
      * @OA\Property()
      * @var int
      */
     public $name;
-    public $nameField = "name";
-    public $nameJsonKey = "name";
-    
+    public function nameField(): string
+    {
+        return "name";
+    }
+    public function nameJsonKey(): string
+    {
+        return "name";
+    }
 
 
     function __construct()
@@ -57,9 +72,9 @@ class City_model extends CI_Model
     public function toArray(): array
     {
         $data = array(
-            $this->idField => $this->id,
-            $this->provinceIdField => $this->provinceId,
-            $this->nameField => $this->name,
+            $this->idField() => $this->id,
+            $this->provinceIdField() => $this->provinceId,
+            $this->nameField() => $this->name,
         );
 
         return $data;
@@ -67,7 +82,7 @@ class City_model extends CI_Model
 
     public function fromId($id)
     {
-        $data = $this->db->get_where($this->tableName, array($this->idField => $id));
+        $data = $this->db->get_where($this->tableName, array($this->idField() => $id));
 
         $result = $data->result();
 
