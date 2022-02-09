@@ -198,7 +198,7 @@ class Customer_model extends CI_Model
 		$data->phoneNumber = $row->phone_number;
 		$data->phoneNumber = $row->phone_number;
 		$data->username = $row->username;
-		$data->password = $row->passwprd;
+		$data->password = $row->password;
 		$data->level =  $row->level;
 
 		return $data;
