@@ -70,7 +70,7 @@ class Auth extends BD_Controller
             $output['token'] = JWT::encode($token, $kunci); //This is the output token
 
             //result the user
-            $user = $this->user->fromRow($val);
+            $user = $this->customer->fromRow($val);
             $user->token = $output['token'];
 
             $this->set_response($user, 200); //This is the respon if success
