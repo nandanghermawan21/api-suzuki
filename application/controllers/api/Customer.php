@@ -54,4 +54,42 @@ class Customer extends BD_Controller
             $this->response($error, 500);
         }
     }
+
+    /**
+     * @OA\Post(path="/api/customer/updateImage",tags={"customer"},
+     *   operationId="updateImageId customer",
+     *   @OA\Parameter(
+     *       name="imageId",
+     *       in="query",
+     *       required=false,
+     *       @OA\Schema(type="string")
+     *   ),
+     *   @OA\Response(response=200,
+     *     description="register customer",
+     *     @OA\JsonContent(
+     *       @OA\Items(ref="#/components/schemas/CustomerModel")
+     *     ),
+     *   ),
+     * )
+     */
+    public function updateImage_post()
+    {
+        if ($this->user_data->type == "customer") {
+            try {
+               $id = $this->user_data->id;
+               $imageId = $this->get("imageId", true);
+               $customer = $this->customer->fromId($id);
+               $customer->imageId = $imageId;
+               $customer->update();
+               $this->response($customer, 200);
+            } catch (\Exception $e) {
+                $error = new errormodel();
+                $error->status = 500;
+                $error->message = $e->getMessage();
+                $this->response($error, 500);
+            }
+        } else {
+            $this->response("Access Denied", 500);
+        }
+    }
 }

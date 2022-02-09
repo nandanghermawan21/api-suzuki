@@ -198,6 +198,7 @@ class Customer_model extends CI_Model
 		$data->phoneNumber = $row->phone_number;
 		$data->phoneNumber = $row->phone_number;
 		$data->username = $row->username;
+		$data->password = $row->passwprd;
 		$data->level =  $row->level;
 
 		return $data;
@@ -207,6 +208,18 @@ class Customer_model extends CI_Model
 	function get_customer($q)
 	{
 		return $this->db->get_where($this->tableName, $q);
+	}
+
+	function fromId($id)
+	{
+		$data = $this->db->get_where($this->idField(), $id);
+		$result = $data->result();
+
+		if (count($result) > 0) {
+			return $this->fromRow($result[0]);
+		} else {
+			return new City_model();
+		}
 	}
 
 	function fromJson($json): Customer_model
@@ -235,6 +248,9 @@ class Customer_model extends CI_Model
 		if (isset($json[$this->usernameJsonKey()])) {
 			$this->username = $json[$this->usernameJsonKey()];
 		}
+		if (isset($json[$this->passwordJsonKey()])) {
+			$this->password = $json[$this->passwordJsonKey()];
+		}
 		if (isset($json[$this->levelJsonKey()])) {
 			$this->level = $json[$this->levelJsonKey()];
 		}
@@ -257,6 +273,20 @@ class Customer_model extends CI_Model
 			$data = $this->db->get_where($this->tableName, array($this->usernameField() => $this->username));
 
 			return $this->fromRow($data->result()[0]);
+		} catch (Exception $e) {
+			throw $e;
+		}
+	}
+
+	function update(): Customer_model
+	{
+		try {
+			if ($this->id != null) {
+				$this->db->update($this->tableName, $this->toArray());
+				return  $this->fromId($this->id);
+			}else{
+				return $this;
+			}
 		} catch (Exception $e) {
 			throw $e;
 		}
