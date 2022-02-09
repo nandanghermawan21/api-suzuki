@@ -4,7 +4,7 @@
 /**
  * @OA\Schema(schema="FileModel")
  */
-class FileModel extends CI_Model
+class File_model extends CI_Model
 {
 
     private  $tableName =  "svc_file";
@@ -98,7 +98,7 @@ class FileModel extends CI_Model
         $this->load->helper('string');
     }
 
-    public function fromRow($row): FileModel
+    public function fromRow($row): File_model
     {
         $this->id = $row->id;
         $this->filename = $row->filename;
@@ -148,7 +148,7 @@ class FileModel extends CI_Model
         if (count($result) > 0) {
             return $this->fromRow($result[0]);
         } else {
-            return new FileModel();
+            return new File_model();
         }
     }
 }

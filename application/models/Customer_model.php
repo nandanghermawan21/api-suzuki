@@ -3,7 +3,7 @@
 /**
  * @OA\Schema(schema="CustomerModel")
  */
-class Customer_Model extends CI_Model
+class Customer_model extends CI_Model
 {
 	private $tableName = "m_customer";
 	/**
@@ -70,12 +70,12 @@ class Customer_Model extends CI_Model
     {
         // Construct the parent class
         parent::__construct();
-        $this->load->model('FileModel', 'file');
+        $this->load->model('File_model', 'file');
     }
 
 	function fromRow($row)
 	{
-		$data = new Customer_Model();
+		$data = new Customer_model();
 		$data->nik = $row->nik;
 		$data->imageUrl = $this->file->fromId($row->photo_image_id)->createUrl();
 		$data->fullName = $row->full_name;

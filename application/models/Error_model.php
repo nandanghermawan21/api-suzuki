@@ -4,7 +4,7 @@
 /**
  * @OA\Schema(schema="ErrorModel")
  */
-class Error_Model extends CI_Model
+class Error_model extends CI_Model
 {
     /**
      * @OA\Property()
