@@ -252,8 +252,6 @@ class Customer_model extends CI_Model
 			$this->password = sha1($this->password);
 			$this->level = 1;
 
-			$this->add();
-
 			$this->db->insert($this->tableName, $this->toArray());
 
 			$data = $this->db->get_where($this->tableName, array($this->idField() => $this->id));
