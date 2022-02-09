@@ -75,22 +75,22 @@ class Customer extends BD_Controller
      */
     public function updateImage_post()
     {
-        if ($this->user_data->type == "customer") {
-            try {
-               $id = $this->user_data->id;
-               $imageId = $this->get("imageId", true);
-               $customer = $this->customer->fromId($id);
-               $customer->imageId = $imageId;
-               $customer->update();
-               $this->response($customer, 200);
-            } catch (\Exception $e) {
-                $error = new errormodel();
-                $error->status = 500;
-                $error->message = $e->getMessage();
-                $this->response($error, 500);
-            }
-        } else {
-            $this->response("Access Denied", 500);
-        }
+        // if ($this->user_data->type == "customer") {
+        //     try {
+        //        $id = $this->user_data->id;
+        //        $imageId = $this->get("imageId", true);
+        //        $customer = $this->customer->fromId($id);
+        //        $customer->imageId = $imageId;
+        //        $customer->update();
+        //        $this->response($customer, 200);
+        //     } catch (\Exception $e) {
+        //         $error = new errormodel();
+        //         $error->status = 500;
+        //         $error->message = $e->getMessage();
+        //         $this->response($error, 500);
+        //     }
+        // } else {
+            $this->response($this->user_data, 200);
+        // }
     }
 }
