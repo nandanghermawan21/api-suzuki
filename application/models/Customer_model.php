@@ -142,6 +142,20 @@ class Customer_model extends CI_Model
 
 	/**
 	 * @OA\Property()
+	 * @var string
+	 */
+	public $password;
+	public function passwordField(): string
+	{
+		return "password";
+	}
+	public function passwordJsonKey(): string
+	{
+		return "password";
+	}
+
+	/**
+	 * @OA\Property()
 	 * @var int
 	 */
 	public $level;
@@ -161,13 +175,13 @@ class Customer_model extends CI_Model
 	public $token;
 
 	function __construct()
-    {
-        // Construct the parent class
-        parent::__construct();
-        $this->load->model('File_model', 'file');
-        $this->load->model('City_model', 'city');
-        $this->load->model('Gender_model', 'gender');
-    }
+	{
+		// Construct the parent class
+		parent::__construct();
+		$this->load->model('File_model', 'file');
+		$this->load->model('City_model', 'city');
+		$this->load->model('Gender_model', 'gender');
+	}
 
 	function fromRow($row)
 	{
@@ -224,8 +238,70 @@ class Customer_model extends CI_Model
 		if (isset($json[$this->levelJsonKey()])) {
 			$this->level = $json[$this->levelJsonKey()];
 		}
-		
+
 
 		return $this;
+	}
+
+	function add(): Customer_model
+	{
+		try {
+			//generate key
+			$this->id = null;
+			$this->password = $this->password == "" ? $this->username :  $this->password;
+			$this->password = sha1($this->password);
+
+			$this->add();
+
+			$this->db->insert($this->tableName, $this->toArray());
+
+			$data = $this->db->get_where($this->tableName, array($this->idField() => $this->id));
+
+			return $this->fromRow($data->result()[0]);
+		} catch (Exception $e) {
+			throw $e;
+		}
+	}
+
+	function toArray(): array
+	{
+		$data = array(
+			$this->idField() => $this->id,
+			$this->nikField() => $this->nik,
+			$this->imageIdJField() => $this->imageId,
+			$this->fullNameField() => $this->fullName,
+			$this->genderIdField() => $this->genderId,
+			$this->cityIdField() => $this->cityId,
+			$this->phoneNumberField() => $this->phoneNumber,
+			$this->usernameField() => $this->username,
+			$this->passwordField() => $this->password,
+			$this->levelField() => $this->level,
+		);
+
+		return $data;
+	}
+
+	public function checkUsernameExist(): bool
+	{
+		$this->db->select('*');
+		$this->db->from($this->tableName);
+
+		$this->db->where($this->usernameField(), $this->username);
+
+		$count = $this->db->count_all_results();
+
+		return $count > 0 ? true : false;
+	}
+
+	public function checkPhoneExist(): bool
+	{
+		$this->db->select('*');
+		$this->db->from($this->tableName);
+
+		$this->db->where($this->phoneNumberField(), $this->phoneNumber);
+
+		$count = $this->db->count_all_results();
+
+		return $count > 0 ? true : false;
 	}
 }

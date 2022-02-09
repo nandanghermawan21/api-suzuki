@@ -28,7 +28,7 @@ class Customer extends BD_Controller
      *   @OA\Response(response=200,
      *     description="register customer",
      *     @OA\JsonContent(
-     *       @OA\Items(ref="#/components/schemas/member")
+     *       @OA\Items(ref="#/components/schemas/CustomerModel")
      *     ),
      *   ),
      * )
@@ -41,8 +41,6 @@ class Customer extends BD_Controller
 
             if ($customer->checkUsernameExist() == true) {
                 $this->response("Username Is Exist", 400);
-            } else if ($customer->checkEmailExist() == true) {
-                $this->response("Email Is Exist", 400);
             } else if ($customer->checkPhoneExist() == true) {
                 $this->response("Phone Is Exist", 400);
             } else {
