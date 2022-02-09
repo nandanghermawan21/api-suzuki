@@ -56,7 +56,7 @@ class Auth extends BD_Controller
         $q = array('username' => $u); //For where query condition
         $kunci = $this->config->item('thekey');
         $val = $this->customer->get_customer($q)->row(); //Model to get single data row from database base on username
-        if ($this->user->get_customer($q)->num_rows() == 0) {
+        if ($this->customer->get_customer($q)->num_rows() == 0) {
             $this->response("invalid login", 403);
         }
         $match = $val->password;   //Get password for user from database
