@@ -13,7 +13,6 @@ class Customer extends BD_Controller
     function __construct()
     {
         parent::__construct();
-        $this->auth();
         $this->load->model('Customer_model', 'customer');
     }
 
@@ -76,6 +75,7 @@ class Customer extends BD_Controller
      */
     public function updateImage_post()
     {
+        $this->auth();
         if ($this->user_data->type == "customer") {
             try {
                $id = $this->user_data->id;
