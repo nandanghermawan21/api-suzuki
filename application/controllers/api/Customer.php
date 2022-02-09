@@ -90,7 +90,7 @@ class Customer extends BD_Controller
         //         $this->response($error, 500);
         //     }
         // } else {
-            $this->response($this->user_data, 200);
+            $this->response($this->input->get_request_header('Authorization'), 200);
         // }
     }
 }
