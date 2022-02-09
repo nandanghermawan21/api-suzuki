@@ -13,7 +13,7 @@ class Customer extends BD_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('M_customer', 'customer');
+        $this->load->model('Customer_model', 'customer');
     }
 
     /**
