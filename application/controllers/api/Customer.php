@@ -13,7 +13,6 @@ class Customer extends BD_Controller
     function __construct()
     {
         parent::__construct();
-        $this->auth();
         $this->load->model('Customer_model', 'customer');
     }
 
@@ -36,6 +35,7 @@ class Customer extends BD_Controller
      */
     public function register_post()
     {
+        $this->auth();
         try {
             $jsonBody  = json_decode(file_get_contents('php://input'), true);
             $customer = $this->customer->fromJson($jsonBody);
