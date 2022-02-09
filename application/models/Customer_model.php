@@ -70,7 +70,7 @@ class CustomerModel extends CI_Model
     {
         // Construct the parent class
         parent::__construct();
-        $this->load->model('File_model', 'file');
+        $this->load->model('FileModel', 'file');
     }
 
 	function fromRow($row)
