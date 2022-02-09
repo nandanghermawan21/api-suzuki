@@ -15,8 +15,8 @@ class Customer_model extends CI_Model
 	 * @var int
 	 */
 	public $id;
-	public $idField = "id";
-	public $idJsonKey = "id";
+	private $idField = "id";
+	private $idJsonKey = "id";
 
 
 	/**
@@ -24,8 +24,8 @@ class Customer_model extends CI_Model
 	 * @var string
 	 */
 	public $nik;
-	public $nikField = "nik";
-	public $nikJsonKey = "nik";
+	private $nikField = "nik";
+	private $nikJsonKey = "nik";
 
 
 	/**
@@ -39,8 +39,8 @@ class Customer_model extends CI_Model
 	 * @var string
 	 */
 	public $imageId;
-	public $imageIdJField = "photo_image_id";
-	public $imageIdJsonKey = "imageId";
+	private $imageIdJField = "photo_image_id";
+	private $imageIdJsonKey = "imageId";
 
 
 	/**
@@ -48,8 +48,8 @@ class Customer_model extends CI_Model
 	 * @var string
 	 */
 	public $fullName;
-	public $fullNameField = "full_name";
-	public $fullNamseJsonKey = "fullName";
+	private $fullNameField = "full_name";
+	private $fullNamseJsonKey = "fullName";
 
 
 	/**
@@ -57,8 +57,8 @@ class Customer_model extends CI_Model
 	 * @var string
 	 */
 	public $genderId;
-	public $genderIdField = "gender_id";
-	public $genderIdJsonKey = "genderId";
+	private $genderIdField = "gender_id";
+	private $genderIdJsonKey = "genderId";
 
 
 	/**
@@ -72,8 +72,8 @@ class Customer_model extends CI_Model
 	 * @var string
 	 */
 	public $cityId;
-	public $cityIdField = "city_id";
-	public $cityIdJsonKey = "cityId";
+	private $cityIdField = "city_id";
+	private $cityIdJsonKey = "cityId";
 
 
 	/**
@@ -87,8 +87,8 @@ class Customer_model extends CI_Model
 	 * @var string
 	 */
 	public $phoneNumber;
-	public $phoneNumberField = "phone_number";
-	public $phoneNumberJsonKey = "phoneNumber";
+	private $phoneNumberField = "phone_number";
+	private $phoneNumberJsonKey = "phoneNumber";
 
 
 	/**
@@ -96,8 +96,8 @@ class Customer_model extends CI_Model
 	 * @var string
 	 */
 	public $username;
-	public $usernameField = "username";
-	public $usernameJsonKey = "username";
+	private $usernameField = "username";
+	private $usernameJsonKey = "username";
 
 
 	/**
@@ -105,8 +105,8 @@ class Customer_model extends CI_Model
 	 * @var int
 	 */
 	public $level;
-	public $levelField = "level";
-	public $levelJsonKey = "level";
+	private $levelField = "level";
+	private $levelJsonKey = "level";
 
 
 	/**
@@ -174,6 +174,9 @@ class Customer_model extends CI_Model
 		}
 		if (isset($json[$this->usernameJsonKey])) {
 			$this->username = $json[$this->usernameJsonKey];
+		}
+		if (isset($json[$this->levelJsonKey])) {
+			$this->level = $json[$this->levelJsonKey];
 		}
 
 
