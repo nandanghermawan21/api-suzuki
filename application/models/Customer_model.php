@@ -314,43 +314,43 @@ class CustomerRegister
 {
 	/**
 	 * @OA\Property()
-	 * @var int
+	 * @var String
 	 */
 	public $nik;
 
 	/**
 	 * @OA\Property()
-	 * @var int
+	 * @var String
 	 */
 	public $fullName;
 
 	/**
 	 * @OA\Property()
-	 * @var int
+	 * @var String
 	 */
 	public $genderId;
 
 	/**
 	 * @OA\Property()
-	 * @var int
+	 * @var String
 	 */
 	public $cityId;
 
 	/**
 	 * @OA\Property()
-	 * @var int
+	 * @var String
 	 */
 	public $phoneNumber;
 
 	/**
 	 * @OA\Property()
-	 * @var int
+	 * @var String
 	 */
 	public $username;
 
 	/**
 	 * @OA\Property()
-	 * @var int
+	 * @var String
 	 */
 	public $password;
 }
