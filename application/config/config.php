@@ -25,8 +25,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 */
 $config['base_url']    = "http://" . $_SERVER['HTTP_HOST'];
 $config['base_url'] .= preg_replace('@/+$@', '', dirname($_SERVER['SCRIPT_NAME'])) . '/';
-$config['upload_dir'] = '../upload/dev/';
-$config['upload_url'] = 'http://turnamengame.com/upload/dev/';
+$config['upload_dir'] = '../upload/api-suzuki/';
+$config['upload_url'] = 'http://file.api-suzuki.lemburkuring.id/';
 
 /*
 |--------------------------------------------------------------------------
