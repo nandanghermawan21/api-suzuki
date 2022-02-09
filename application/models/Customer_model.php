@@ -250,6 +250,7 @@ class Customer_model extends CI_Model
 			$this->id = null;
 			$this->password = $this->password == "" ? $this->username :  $this->password;
 			$this->password = sha1($this->password);
+			$this->level = 1;
 
 			$this->add();
 
@@ -304,4 +305,52 @@ class Customer_model extends CI_Model
 
 		return $count > 0 ? true : false;
 	}
+}
+
+/**
+ * @OA\Schema(schema="CustomerRegister")
+ */
+class CustomerRegister
+{
+	/**
+	 * @OA\Property()
+	 * @var int
+	 */
+	public $nik;
+
+	/**
+	 * @OA\Property()
+	 * @var int
+	 */
+	public $fullName;
+
+	/**
+	 * @OA\Property()
+	 * @var int
+	 */
+	public $genderId;
+
+	/**
+	 * @OA\Property()
+	 * @var int
+	 */
+	public $cityId;
+
+	/**
+	 * @OA\Property()
+	 * @var int
+	 */
+	public $phoneNumber;
+
+	/**
+	 * @OA\Property()
+	 * @var int
+	 */
+	public $username;
+
+	/**
+	 * @OA\Property()
+	 * @var int
+	 */
+	public $password;
 }
