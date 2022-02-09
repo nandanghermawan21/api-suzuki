@@ -25,7 +25,7 @@ class Auth extends BD_Controller
     }
 
     /**
-     * @OA\Post(path="/api/auth/login",tags={"Auth"},
+     * @OA\Post(path="/api/auth/customerLogin",tags={"Auth"},
      * @OA\RequestBody(
      *      @OA\MediaType(
      *          mediaType="multipart/form-data",
@@ -51,7 +51,7 @@ class Auth extends BD_Controller
      *   ),
      * )
      */
-    public function login_post()
+    public function customerLogin_post()
     {
         $u = $this->post('username'); //Username Posted
         $p = sha1($this->post('password')); //Pasword Posted
@@ -65,7 +65,7 @@ class Auth extends BD_Controller
         if ($p == $match) {  //Condition if password matched
             $token['id'] = $val->id;  //From here
             $token['username'] = $u;
-            $token['type'] = "admin";
+            $token['type'] = "customer";
             $date = new DateTime();
             $token['iat'] = $date->getTimestamp();
             $token['exp'] = $date->getTimestamp() + 60 * 60 * 5; //To here is to generate token
@@ -79,112 +79,6 @@ class Auth extends BD_Controller
 
         } else {
             $this->set_response("invalid login", 403); //This is the respon if failed
-        }
-    }
-
-
-    /**
-     * @OA\Post(path="/api/auth/memberlogin",tags={"Auth"},
-     * @OA\RequestBody(
-     *      @OA\MediaType(
-     *          mediaType="multipart/form-data",
-     *          @OA\Schema(
-     *              @OA\Property(
-     *                  property="username",
-     *                  type="string",
-     *                  description="username"
-     *              ),
-     *              @OA\Property(
-     *                  property="password",
-     *                  type="string",
-     *                  description="password"
-     *              )
-     *          )
-     *      )
-     *  ),
-     *   @OA\Response(response=200,
-     *     description="basic user info",
-     *     @OA\JsonContent(
-     *       @OA\Items(ref="#/components/schemas/user")
-     *     ),
-     *   ),
-     * )
-     */
-    public function memberlogin_post()
-    {
-        $u = $this->post('username'); //Username Posted
-        $p = $this->post('password'); //Pasword Posted
-        $kunci = $this->config->item('thekey');
-        $val = $this->member->login($u, $p); //Model to get single data row from database base on username
-        if ($val == null) {
-            $this->response("invalid login", 403);
-        } else {
-            $token['id'] = $val->id;  //From here
-            $token['username'] = $u;
-            $token['type'] = "member";
-            $date = new DateTime();
-            $token['iat'] = $date->getTimestamp();
-            $token['exp'] = $date->getTimestamp() + 60 * 60 * 5; //To here is to generate token
-            $output['token'] = JWT::encode($token, $kunci); //This is the output token
-
-            //result the user
-            $user = $val;
-            $user->token = $output['token'];
-
-            $this->set_response($user, 200); //This is the respon if success
-        }
-    }
-
-     /**
-     * @OA\Post(path="/api/auth/cashierlogin",tags={"Auth"},
-     * @OA\RequestBody(
-     *      @OA\MediaType(
-     *          mediaType="multipart/form-data",
-     *          @OA\Schema(
-     *              @OA\Property(
-     *                  property="username",
-     *                  type="string",
-     *                  description="username"
-     *              ),
-     *              @OA\Property(
-     *                  property="password",
-     *                  type="string",
-     *                  description="password"
-     *              )
-     *          )
-     *      )
-     *  ),
-     *   @OA\Response(response=200,
-     *     description="basic user info",
-     *     @OA\JsonContent(
-     *       @OA\Items(ref="#/components/schemas/user")
-     *     ),
-     *   ),
-     * )
-     */
-    public function cashierlogin_post()
-    {
-        $u = $this->post('username'); //Username Posted
-        $p = $this->post('password'); //Pasword Posted
-        $kunci = $this->config->item('thekey');
-        $val = $this->cashier->login($u, $p); //Model to get single data row from database base on username
-        if ($val == null) {
-            $this->response("invalid login", 403);
-        } else {
-            $token['id'] = $val->id;  //From here
-            $token['code'] = $val->code;  //From here
-            $token['username'] = $u;
-            $token['type'] = "cashier";
-            $date = new DateTime();
-            $token['iat'] = $date->getTimestamp();
-            $token['exp'] = $date->getTimestamp() + 60 * 60 * 5; //To here is to generate token
-            $output['token'] = JWT::encode($token, $kunci); //This is the output token
-
-            //result the user
-            $user = $val;
-            $user->token = $output['token'];
-
-            $this->set_response($user, 200); //This is the respon if success
         }
     }
 }
