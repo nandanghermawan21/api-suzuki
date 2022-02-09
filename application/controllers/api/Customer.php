@@ -13,6 +13,7 @@ class Customer extends BD_Controller
     function __construct()
     {
         parent::__construct();
+        $this->auth();
         $this->load->model('Customer_model', 'customer');
     }
 
@@ -75,22 +76,22 @@ class Customer extends BD_Controller
      */
     public function updateImage_post()
     {
-        // if ($this->user_data->type == "customer") {
-        //     try {
-        //        $id = $this->user_data->id;
-        //        $imageId = $this->get("imageId", true);
-        //        $customer = $this->customer->fromId($id);
-        //        $customer->imageId = $imageId;
-        //        $customer->update();
-        //        $this->response($customer, 200);
-        //     } catch (\Exception $e) {
-        //         $error = new errormodel();
-        //         $error->status = 500;
-        //         $error->message = $e->getMessage();
-        //         $this->response($error, 500);
-        //     }
-        // } else {
-            $this->response($this->input->get_request_header('Authorization'), 200);
-        // }
+        if ($this->user_data->type == "customer") {
+            try {
+               $id = $this->user_data->id;
+               $imageId = $this->get("imageId", true);
+               $customer = $this->customer->fromId($id);
+               $customer->imageId = $imageId;
+               $customer->update();
+               $this->response($customer, 200);
+            } catch (\Exception $e) {
+                $error = new errormodel();
+                $error->status = 500;
+                $error->message = $e->getMessage();
+                $this->response($error, 500);
+            }
+        } else {
+            $this->response("forbidden access", 500);
+        }
     }
 }
