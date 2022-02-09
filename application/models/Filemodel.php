@@ -2,9 +2,9 @@
 
 
 /**
- * @OA\Schema(schema="filemodel")
+ * @OA\Schema(schema="FileModel")
  */
-class filemodel extends CI_Model
+class FileModel extends CI_Model
 {
 
     private  $tableName =  "svc_file";

@@ -2,9 +2,9 @@
 
 
 /**
- * @OA\Schema(schema="errormodel")
+ * @OA\Schema(schema="ErrorModel")
  */
-class Errormodel extends CI_Model
+class ErrorModel extends CI_Model
 {
     /**
      * @OA\Property()

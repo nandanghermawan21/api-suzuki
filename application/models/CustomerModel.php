@@ -1,9 +1,9 @@
 <?php if (!defined('BASEPATH')) exit('No direct script allowed');
 
 /**
- * @OA\Schema(schema="customer")
+ * @OA\Schema(schema="CustomerModel")
  */
-class M_customer extends CI_Model
+class CustomerModel extends CI_Model
 {
 	private $tableName = "m_customer";
 	/**
@@ -70,12 +70,12 @@ class M_customer extends CI_Model
     {
         // Construct the parent class
         parent::__construct();
-        $this->load->model('Filemodel', 'file');
+        $this->load->model('FileModel', 'file');
     }
 
 	function fromRow($row)
 	{
-		$data = new M_customer();
+		$data = new CustomerModel();
 		$data->nik = $row->nik;
 		$data->imageUrl = $this->file->fromId($row->photo_image_id)->createUrl();
 		$data->fullName = $row->full_name;
