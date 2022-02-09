@@ -44,7 +44,7 @@ class Auth extends BD_Controller
      *   @OA\Response(response=200,
      *     description="basic customer info",
      *     @OA\JsonContent(
-     *       @OA\Items(ref="#/components/schemas/customer")
+     *       @OA\Items(ref="#/components/schemas/CustomerModel")
      *     ),
      *   ),
      * )
