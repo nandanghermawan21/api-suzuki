@@ -15,70 +15,45 @@ class File_model extends CI_Model
      * @var string
      */
     public $id;
-    public function idField(): string
-    {
-        return "id";
-    }
-    public function idJsonKey(): string
-    {
-        return "id";
-    }
+    public $idField = "id";
+    public $idJsonKey =  "id";
+    
 
     /**
      * @OA\Property()
      * @var string
      */
     public $filename;
-    public function fileNameField(): string
-    {
-        return "filename";
-    }
-    public function fileNameJsonKey(): string
-    {
-        return "filename";
-    }
+    public $fileNameField = "filename";
+    public $fileNameJsonKey = "filename";
+    
 
     /**
      * @OA\Property()
      * @var int
      */
     public $size;
-    public function sizeField(): string
-    {
-        return "size";
-    }
-    public function sizeJsonKey(): string
-    {
-        return "size";
-    }
+    public $sizeField ="size";
+    public $sizeJsonKey = "size";
+    
 
     /**
      * @OA\Property()
      * @var string
      */
     public $extention;
-    public function extentionField(): string
-    {
-        return "extention";
-    }
-    public function extentionJsonKey(): string
-    {
-        return "extention";
-    }
+    public $extentionField = "extention";
+    public $extentionJsonKey = "extention";
+    
 
     /**
      * @OA\Property()
      * @var string
      */
     public $path;
-    public function pathField(): string
-    {
-        return "path";
-    }
-    public function pathJsonKey(): string
-    {
-        return "path";
-    }
+    public $pathField =  "path";
+    public $pathJsonKey ="path";
+    
 
     /**
      * @OA\Property()
@@ -113,11 +88,11 @@ class File_model extends CI_Model
     public function toArray(): array
     {
         $data = array(
-            $this->idField() => $this->id,
-            $this->fileNameField() => $this->filename,
-            $this->sizeField() => $this->size,
-            $this->extentionField() => $this->extention,
-            $this->pathField() => $this->path,
+            $this->idField => $this->id,
+            $this->fileNameField => $this->filename,
+            $this->sizeField => $this->size,
+            $this->extentionField => $this->extention,
+            $this->pathField => $this->path,
         );
 
         return $data;
@@ -131,7 +106,7 @@ class File_model extends CI_Model
 
             $this->db->insert($this->tableName, $this->toArray());
 
-            $data = $this->db->get_where($this->tableName, array($this->idField() => $this->id));
+            $data = $this->db->get_where($this->tableName, array($this->idField => $this->id));
 
             return $this->fromRow($data->result()[0]);
         } catch (Exception $e) {
@@ -141,7 +116,7 @@ class File_model extends CI_Model
 
     public function fromId($id)
     {
-        $data = $this->db->get_where($this->tableName, array($this->idField() => $id));
+        $data = $this->db->get_where($this->tableName, array($this->idField => $id));
 
         $result = $data->result();
 
