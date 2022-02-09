@@ -87,23 +87,40 @@ class Customer extends BD_Controller
         $this->auth();
         if ($this->user_data->type == "customer") {
             try {
-                $id = $this->user_data->id;
-                $path = $this->input->get("path", true);
-                $name = $this->input->get("name", true);
-                if (!empty($_FILES["media"])) {
-                    $media    = $_FILES["media"];
+                // $id = $this->user_data->id;
+                // $path = $this->input->get("path", true);
+                // $name = $this->input->get("name", true);
+                // if (!empty($_FILES["media"])) {
+                //     $media    = $_FILES["media"];
 
-                    if ($media["error"] !== UPLOAD_ERR_OK) {
-                        $this->response("upload gagal", 500);
-                        exit;
-                    } else {
-                        $file = $this->file->upload($path, $name, $media);
-                        $customer = $this->customer->fromId($id);
-                        $customer->imageId = $file->id;
-                        $customer->update();
-                        $this->response($customer,200);
+                //     if ($media["error"] !== UPLOAD_ERR_OK) {
+                //         $this->response("upload gagal", 500);
+                //         exit;
+                //     } else {
+                //         $file = $this->file->upload($path, $name, $media);
+                //         $customer = $this->customer->fromId($id);
+                //         $customer->imageId = $file->id;
+                //         $customer->update();
+                //         $this->response($customer,200);
+                //     }
+                // }
+                $headers = $this->input->get_request_header('Authorization');
+                $kunci = $this->config->item('thekey');
+                $token = "token";
+                if (!empty($headers)) {
+                    if (preg_match('/Bearer\s(\S+)/', $headers, $matches)) {
+                        $token = $matches[1];
+                    } else if (preg_match('/bearer\s(\S+)/', $headers, $matches)) {
+                        $token = $matches[1];
                     }
                 }
+                
+                $this->response(array(
+                    "token" => $$this->input->get_request_header('Authorization'),
+                    "token" => $token,
+                    "kunci" => $kunci,
+                    "jwt" => JWT::decode($token, $kunci, array('HS256'))
+                ),200);
             } catch (\Exception $e) {
                 $error = new errormodel();
                 $error->status = 500;
