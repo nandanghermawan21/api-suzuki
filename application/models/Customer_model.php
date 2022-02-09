@@ -170,7 +170,7 @@ class Customer_model extends CI_Model
 		$data = new Customer_model();
 		$data->id = $row->id;
 		$data->nik = $row->nik;
-		$data->imageId = $row->prhoto_image_id;
+		$data->imageId = $row->photo_image_id;
 		$data->imageUrl = $this->file->fromId($row->photo_image_id)->createUrl();
 		$data->fullName = $row->full_name;
 		$data->genderId = $row->gender_id;
