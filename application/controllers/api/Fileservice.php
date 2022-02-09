@@ -56,7 +56,7 @@ class Fileservice extends BD_Controller
      *    @OA\Response(response=200,
      *     description="file info",
      *     @OA\JsonContent(
-     *       @OA\Items(ref="#/components/schemas/File_model")
+     *       @OA\Items(ref="#/components/schemas/FileName")
      *     ),
      *    ),
      *   security={{"token": {}}},
