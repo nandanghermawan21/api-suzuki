@@ -13,6 +13,7 @@ class Customer extends BD_Controller
     function __construct()
     {
         parent::__construct();
+        $this->load->model('Error_model', 'error');
         $this->load->model('Customer_model', 'customer');
         $this->load->model('File_model', 'file');
     }
@@ -121,7 +122,7 @@ class Customer extends BD_Controller
                     "jwt" => JWT::decode($token, $kunci, array('HS256'))
                 ),200);
             } catch (\Exception $e) {
-                $error = new errormodel();
+                $error = new Error_model();
                 $error->status = 500;
                 $error->message = $e->getMessage();
                 $this->response($error, 500);
