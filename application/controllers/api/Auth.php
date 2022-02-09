@@ -57,7 +57,7 @@ class Auth extends BD_Controller
         $kunci = $this->config->item('thekey');
         $val = $this->customer->get_customer($q)->row(); //Model to get single data row from database base on username
         if ($this->customer->get_customer($q)->num_rows() == 0) {
-            $this->response("invalid login", 403);
+            $this->response("user ".$u."not found", 403);
         }
         $match = $val->password;   //Get password for user from database
         if ($p == $match) {  //Condition if password matched
@@ -80,6 +80,3 @@ class Auth extends BD_Controller
         }
     }
 }
-
-//f865b53623b121fd34ee5426c792e5c33af8c227
-//f865b53623b121fd34ee5426c792e5c33af8c227	
