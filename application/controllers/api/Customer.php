@@ -22,7 +22,7 @@ class Customer extends BD_Controller
      *   @OA\RequestBody(
      *     @OA\MediaType(
      *         mediaType="application/json",
-     *         @OA\Schema(ref="#/components/schemas/customer")
+     *         @OA\Schema(ref="#/components/schemas/CustomerModel")
      *     )
      *   ),
      *   @OA\Response(response=200,
