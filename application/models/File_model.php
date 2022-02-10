@@ -95,7 +95,6 @@ class File_model extends CI_Model
     {
         // Construct the parent class
         parent::__construct();
-        define("UPLOAD_DIR", $this->config->item("upload_dir"));
         $this->load->helper('string');
     }
 
@@ -173,8 +172,8 @@ class File_model extends CI_Model
             $name = $path . "/" . $name;
 
             // create path jika tidak ada
-            if (!is_dir(UPLOAD_DIR . "/" . $path)) {
-                mkdir(UPLOAD_DIR . "/" . $path, 0777, TRUE);
+            if (!is_dir($this->config->item("upload_dir") . "/" . $path)) {
+                mkdir($this->config->item("upload_dir") . "/" . $path, 0777, TRUE);
             }
 
             // mencegah overwrite filename
@@ -185,7 +184,7 @@ class File_model extends CI_Model
             //     $name =  $parts["filename"] . "-" . $i . "." . $parts["extension"];
             // }
 
-            $success = move_uploaded_file($media["tmp_name"], UPLOAD_DIR . $name);
+            $success = move_uploaded_file($media["tmp_name"], $this->config->item("upload_dir") . $name);
 
             if ($success) {
                 $data = new File_model();
