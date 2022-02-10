@@ -158,30 +158,10 @@ class File_model extends CI_Model
             $media    = $file;
             $ext    = pathinfo($file["name"], PATHINFO_EXTENSION);
             $size    = $file["size"];
-            // $tgl    = date("Y-m-d");
 
-            // filename yang aman
-            $currentName = preg_replace("/[^A-Z0-9._-]/i", "_", $media["name"]);
-            if ($name == "" || $name == null) {
-                $name = $currentName;
-            } else {
-                $name = $name . "." . pathinfo($currentName)["extension"];
-            }
-
-
-
-            // create path jika tidak ada
             if (!is_dir($this->config->item("upload_dir") . "/" . $path)) {
                 mkdir($this->config->item("upload_dir") . "/" . $path, 0777, TRUE);
             }
-
-            // mencegah overwrite filename
-            // $i = 0;
-            $parts = pathinfo($name);
-            // while (file_exists(UPLOAD_DIR . $name)) {
-            //     $i++;
-            //     $name =  $parts["filename"] . "-" . $i . "." . $parts["extension"];
-            // }
 
             $success = move_uploaded_file($media["tmp_name"], $this->config->item("upload_dir") . $path . "/" .  $name);
 
