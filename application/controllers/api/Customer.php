@@ -17,6 +17,7 @@ class Customer extends BD_Controller
         $this->load->model('Error_model', 'error');
         $this->load->model('Customer_model', 'customer');
         $this->load->model('File_model', 'file');
+        $this->load->model('User_model', 'user');
     }
 
     /**
@@ -41,13 +42,17 @@ class Customer extends BD_Controller
         try {
             $jsonBody  = json_decode(file_get_contents('php://input'), true);
             $customer = $this->customer->fromJson($jsonBody);
+            $user = $this->user->fromJson($jsonBody);
 
             if ($customer->checkUsernameExist() == true) {
                 $this->response("Username Is Exist", 400);
             } else if ($customer->checkPhoneExist() == true) {
                 $this->response("Phone Is Exist", 400);
             } else {
-                $result = $customer->add();
+                //add
+                $customer->add();
+                //login
+                $result =  $this->customer->login($user);
                 $this->response($result, 200);
             }
         } catch (\Exception $e) {

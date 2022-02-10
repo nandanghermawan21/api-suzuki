@@ -435,4 +435,10 @@ class CustomerRegister
 	 * @var String
 	 */
 	public $password;
+
+	/**
+	 * @OA\Property()
+	 * @var String
+	 */
+	public $deviceId;
 }
