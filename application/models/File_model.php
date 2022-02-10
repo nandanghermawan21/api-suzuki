@@ -188,7 +188,7 @@ class File_model extends CI_Model
             $success = move_uploaded_file($media["tmp_name"], UPLOAD_DIR . $name);
 
             if ($success) {
-                $data = new FileModel();
+                $data = new File_model();
                 $data->filename = $name;
                 $data->path = $path;
                 $data->extention = $ext;
