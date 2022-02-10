@@ -212,7 +212,7 @@ class Customer_model extends CI_Model
 
 	public function  fromId($id)
 	{
-		$data = $this->db->get_where($this->tableName, array($this->idField() => $this->id));
+		$data = $this->db->get_where($this->tableName, array($this->idField() => $id));
 		$result = $data->result();
 
 		if (count($result) > 0) {

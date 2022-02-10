@@ -100,7 +100,7 @@ class Customer extends BD_Controller
                         $customer = $this->customer->fromId($id);
                         // $customer->imageId = $file->id;
                         // $customer->update();
-                        $this->response($this->getData()->id, 200);
+                        $this->response($customer, 200);
                     }
                 }
             } catch (\Exception $e) {
