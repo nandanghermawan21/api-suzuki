@@ -171,7 +171,7 @@ class File_model extends CI_Model
                 $this->extention = $ext;
                 $this->size = $size;
                 $this->url = $this->createUrl();
-                $this->add();
+                // $this->add();
                 return $this;
             }
         }
