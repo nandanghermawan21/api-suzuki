@@ -20,6 +20,7 @@ class Fileservice extends BD_Controller
         parent::__construct();
         //mendefinisikan folder upload
         define("UPLOAD_DIR", $this->config->item("upload_dir"));
+        $this->load->model('Error_model', 'error');
         $this->load->model('File_model', 'filemodel');
         $this->load->helper('file', 'file');
     }
