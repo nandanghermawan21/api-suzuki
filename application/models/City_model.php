@@ -100,7 +100,7 @@ class City_model extends CI_Model
         $this->db->select('*');
 		$this->db->from($this->tableName);
 
-		$this->db->order_by($this->idField(), "asc");
+		$this->db->order_by($this->nameField(), "asc");
 
 		$query = $this->db->get();
 
