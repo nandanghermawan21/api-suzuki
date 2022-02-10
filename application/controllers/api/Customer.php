@@ -33,7 +33,6 @@ class Customer extends BD_Controller
      *       @OA\Items(ref="#/components/schemas/CustomerModel")
      *     ),
      *   ),
-     *   security={{"token": {}}},
      * )
      */
     public function register_post()
@@ -81,6 +80,7 @@ class Customer extends BD_Controller
      *       @OA\Items(ref="#/components/schemas/CustomerModel")
      *     ),
      *   ),
+     *   security={{"token": {}}},
      * )
      */
     public function updateImage_post()
