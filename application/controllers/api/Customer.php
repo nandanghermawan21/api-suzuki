@@ -13,6 +13,7 @@ class Customer extends BD_Controller
     function __construct()
     {
         parent::__construct();
+        $this->load->helper('string');
         $this->load->model('Error_model', 'error');
         $this->load->model('Customer_model', 'customer');
         $this->load->model('File_model', 'file');
@@ -96,7 +97,7 @@ class Customer extends BD_Controller
                         $this->response("upload gagal", 500);
                         exit;
                     } else {
-                        $file = $this->file->upload($path, null, $media);
+                        $file = $this->file->upload($path, random_string('alnum', 12) , $media);
                         $customer = $this->customer->fromId($id);
                         $customer->imageId = $file->id;
                         $customer->update();
