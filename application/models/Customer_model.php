@@ -218,7 +218,7 @@ class Customer_model extends CI_Model
 		if (count($result) > 0) {
 			return $this->fromRow($result[0]);
 		} else {
-			return new City_model();
+			return new Customer_model();
 		}
 	}
 

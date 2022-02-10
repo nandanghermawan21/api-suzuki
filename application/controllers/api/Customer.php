@@ -98,8 +98,8 @@ class Customer extends BD_Controller
                     } else {
                         $file = $this->file->upload($path, null, $media);
                         $customer = $this->customer->fromId($id);
-                        $customer->imageId = $file->id;
-                        $customer->update();
+                        // $customer->imageId = $file->id;
+                        // $customer->update();
                         $this->response($customer, 200);
                     }
                 }
