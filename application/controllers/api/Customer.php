@@ -88,8 +88,7 @@ class Customer extends BD_Controller
         if ($this->getData()->type == "customer") {
             try {
                 $id = $this->getData()->id;
-                $path = $this->input->get("path", true);
-                $name = $this->input->get("name", true);
+                $path = "customer_photo";
                 if (!empty($_FILES["media"])) {
                     $media    = $_FILES["media"];
 
@@ -97,7 +96,7 @@ class Customer extends BD_Controller
                         $this->response("upload gagal", 500);
                         exit;
                     } else {
-                        $file = $this->file->upload($path, $name, $media);
+                        $file = $this->file->upload($path, null, $media);
                         $customer = $this->customer->fromId($id);
                         $customer->imageId = $file->id;
                         $customer->update();
