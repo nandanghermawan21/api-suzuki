@@ -76,4 +76,17 @@ class Gender_model extends CI_Model
             return new Gender_model();
         }
     }
+
+    public function getAll() : array
+    {
+        $query = $this->db->get($this->tableName);
+        
+        $result = [];
+		foreach ($query->result() as $row) {
+			$gender = new Gender_model();
+			$result[] = $gender->fromRow($row);
+		}
+
+        return $result;
+    }
 }

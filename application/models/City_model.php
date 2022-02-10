@@ -94,4 +94,17 @@ class City_model extends CI_Model
             return new City_model();
         }
     }
+
+    public function getAll() : array
+    {
+        $query = $this->db->get($this->tableName);
+        
+        $result = [];
+		foreach ($query->result() as $row) {
+			$city = new City_model();
+			$result[] = $city->fromRow($row);
+		}
+
+        return $result;
+    }
 }
