@@ -87,9 +87,6 @@ class Fileservice extends BD_Controller
                 $name = $name . "." . pathinfo($currentName)["extension"];
             }
 
-            // menambahkan path
-            $name = $path . "/" . $name;
-
             // create path jika tidak ada
             if (!is_dir(UPLOAD_DIR . "/" . $path)) {
                 mkdir(UPLOAD_DIR . "/" . $path, 0777, TRUE);
