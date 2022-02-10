@@ -159,19 +159,20 @@ class File_model extends CI_Model
             $ext    = pathinfo($file["name"], PATHINFO_EXTENSION);
             $size    = $file["size"];
 
-            if (!is_dir($this->config->item("upload_dir") . "/" . $path)) {
-                mkdir($this->config->item("upload_dir") . "/" . $path, 0777, TRUE);
-            }
+            // if (!is_dir($this->config->item("upload_dir") . "/" . $path)) {
+            //     mkdir($this->config->item("upload_dir") . "/" . $path, 0777, TRUE);
+            // }
 
-            $success = move_uploaded_file($media["tmp_name"], $this->config->item("upload_dir") . $path . "/" .  $name);
+            // $success = move_uploaded_file($media["tmp_name"], $this->config->item("upload_dir") . $path . "/" .  $name);
 
+            $success = true;
             if ($success) {
                 $this->filename = $name;
                 $this->path = $path;
                 $this->extention = $ext;
                 $this->size = $size;
                 $this->url = $this->createUrl();
-                // $this->add();
+                $this->add();
                 return $this;
             }
         }
