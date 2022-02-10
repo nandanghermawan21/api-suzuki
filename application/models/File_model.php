@@ -159,7 +159,7 @@ class File_model extends CI_Model
             $ext    = pathinfo($file["name"], PATHINFO_EXTENSION);
             $size    = $file["size"];
             // $tgl    = date("Y-m-d");
-            
+
             // filename yang aman
             $currentName = preg_replace("/[^A-Z0-9._-]/i", "_", $media["name"]);
             if ($name == "" || $name == null) {
@@ -168,8 +168,7 @@ class File_model extends CI_Model
                 $name = $name . "." . pathinfo($currentName)["extension"];
             }
 
-            // menambahkan path
-            $name = $path . "/" . $name;
+
 
             // create path jika tidak ada
             if (!is_dir($this->config->item("upload_dir") . "/" . $path)) {
@@ -184,21 +183,19 @@ class File_model extends CI_Model
             //     $name =  $parts["filename"] . "-" . $i . "." . $parts["extension"];
             // }
 
-            $success = move_uploaded_file($media["tmp_name"], $this->config->item("upload_dir") . $name);
+            $success = move_uploaded_file($media["tmp_name"], $this->config->item("upload_dir") . $path . "/" .  $name);
 
             if ($success) {
-                $data = new File_model();
-                $data->filename = $name;
-                $data->path = $path;
-                $data->extention = $ext;
-                $data->size = $size;
-                
+                $this->filename = $name;
+                $this->path = $path;
+                $this->extention = $ext;
+                $this->size = $size;
+
                 // $filemodel->size = filesize(UPLOAD_DIR . "/" . $path . "/" . $name);
-                $data->url = $data->createUrl();
-                $data->add();
-                return $data;
+                $this->url = $this->createUrl();
+                $this->add();
+                return $this;
             }
         }
     }
-
 }
