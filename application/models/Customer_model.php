@@ -185,23 +185,22 @@ class Customer_model extends CI_Model
 
 	public function  fromRow($row)
 	{
-		$data = new Customer_model();
-		$data->id = $row->id;
-		$data->nik = $row->nik;
-		$data->imageId = $row->photo_image_id;
-		$data->imageUrl = $this->file->fromId($row->photo_image_id)->createUrl();
-		$data->fullName = $row->full_name;
-		$data->genderId = $row->gender_id;
-		$data->genderName = $this->gender->fromId($row->gender_id)->name;
-		$data->cityId = $row->city_id;
-		$data->cityName = $this->city->fromId($row->city_id)->name;
-		$data->phoneNumber = $row->phone_number;
-		$data->phoneNumber = $row->phone_number;
-		$data->username = $row->username;
-		$data->password = $row->password;
-		$data->level =  $row->level;
-
-		return $data;
+		$this->id = $row->id;
+		$this->nik = $row->nik;
+		$this->imageId = $row->photo_image_id;
+		$this->imageUrl = $this->file->fromId($row->photo_image_id)->createUrl();
+		$this->fullName = $row->full_name;
+		$this->genderId = $row->gender_id;
+		$this->genderName = $this->gender->fromId($row->gender_id)->name;
+		$this->cityId = $row->city_id;
+		$this->cityName = $this->city->fromId($row->city_id)->name;
+		$this->phoneNumber = $row->phone_number;
+		$this->phoneNumber = $row->phone_number;
+		$this->username = $row->username;
+		$this->password = $row->password;
+		$this->level =  $row->level;
+		
+		return $this ;
 	}
 
 
