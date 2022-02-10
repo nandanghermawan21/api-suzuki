@@ -95,6 +95,7 @@ class File_model extends CI_Model
     {
         // Construct the parent class
         parent::__construct();
+        define("UPLOAD_DIR", $this->config->item("upload_dir"));
         $this->load->helper('string');
     }
 
