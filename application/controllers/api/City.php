@@ -19,7 +19,7 @@ class City extends BD_Controller
     }
 
     /**
-     * @OA\Post(path="/api/city/getAll",tags={"city"},
+     * @OA\Get(path="/api/city/getAll",tags={"city"},
      *   operationId="get all city",
      *   @OA\Response(response=200,
      *     description="get all city",

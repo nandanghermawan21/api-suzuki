@@ -19,7 +19,7 @@ class Gender extends BD_Controller
     }
 
     /**
-     * @OA\Post(path="/api/gender/getAll",tags={"gender"},
+     * @OA\Get(path="/api/gender/getAll",tags={"gender"},
      *   operationId="Get all gender",
      *   @OA\Response(response=200,
      *     description="Get all gender",
