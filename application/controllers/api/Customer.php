@@ -85,52 +85,33 @@ class Customer extends BD_Controller
      */
     public function updateImage_post()
     {
-        // if ($this->user_data->type == "customer") {
+        if ($this->getData()->type == "customer") {
             try {
-                // $id = $this->user_data->id;
-                // $path = $this->input->get("path", true);
-                // $name = $this->input->get("name", true);
-                // if (!empty($_FILES["media"])) {
-                //     $media    = $_FILES["media"];
+                $id = $this->getData()->id;
+                $path = $this->input->get("path", true);
+                $name = $this->input->get("name", true);
+                if (!empty($_FILES["media"])) {
+                    $media    = $_FILES["media"];
 
-                //     if ($media["error"] !== UPLOAD_ERR_OK) {
-                //         $this->response("upload gagal", 500);
-                //         exit;
-                //     } else {
-                //         $file = $this->file->upload($path, $name, $media);
-                //         $customer = $this->customer->fromId($id);
-                //         $customer->imageId = $file->id;
-                //         $customer->update();
-                //         $this->response($customer,200);
-                //     }
-                // }
-                $headers = $this->input->get_request_header('Authorization');
-                $kunci = $this->config->item('thekey');
-                $token = "token";
-                if (!empty($headers)) {
-                    if (preg_match('/Bearer\s(\S+)/', $headers, $matches)) {
-                        $token = $matches[1];
-                    } else if (preg_match('/bearer\s(\S+)/', $headers, $matches)) {
-                        $token = $matches[1];
+                    if ($media["error"] !== UPLOAD_ERR_OK) {
+                        $this->response("upload gagal", 500);
+                        exit;
+                    } else {
+                        $file = $this->file->upload($path, $name, $media);
+                        $customer = $this->customer->fromId($id);
+                        $customer->imageId = $file->id;
+                        $customer->update();
+                        $this->response($customer, 200);
                     }
                 }
-                
-                $this->response(array(
-                    "header" => $headers,
-                    "token" => $token,
-                    "kunci" => $kunci,
-                    "jwt" => JWT::decode($token, $kunci, array('HS256')),
-                    "data" => $this->getData(),
-                    "customer" => $this->getData()->type,
-                ),200);
             } catch (\Exception $e) {
                 $error = new Error_model();
                 $error->status = 500;
                 $error->message = $e->getMessage();
                 $this->response($error, 500);
             }
-        // } else {
-        //     $this->response("forbidden access", 500);
-        // }
+        } else {
+            $this->response("forbidden access", 500);
+        }
     }
 }
