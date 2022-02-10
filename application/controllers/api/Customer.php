@@ -119,7 +119,7 @@ class Customer extends BD_Controller
                     "token" => $headers,
                     "token" => $token,
                     "kunci" => $kunci,
-                    "jwt" => JWT::decode($token, $kunci, array('HS256'))
+                    // "jwt" => JWT::decode($token, $kunci, array('HS256'))
                 ),200);
             } catch (\Exception $e) {
                 $error = new Error_model();
