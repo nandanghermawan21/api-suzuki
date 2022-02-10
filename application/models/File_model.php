@@ -170,8 +170,6 @@ class File_model extends CI_Model
                 $this->path = $path;
                 $this->extention = $ext;
                 $this->size = $size;
-
-                // $filemodel->size = filesize(UPLOAD_DIR . "/" . $path . "/" . $name);
                 $this->url = $this->createUrl();
                 $this->add();
                 return $this;

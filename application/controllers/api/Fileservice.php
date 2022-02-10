@@ -105,7 +105,7 @@ class Fileservice extends BD_Controller
             $success = move_uploaded_file($media["tmp_name"], UPLOAD_DIR . $name);
 
             if ($success) {
-                $filemodel = new FileModel();
+                $filemodel = new File_model();
                 $filemodel->filename = $name;
                 $filemodel->path = $path;
                 $filemodel->extention = $parts["extension"];
