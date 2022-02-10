@@ -71,5 +71,10 @@ ALTER TABLE `m_customer`
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
+
+use u1276530_suzuki;
+ALTER TABLE `m_customer`
+  ADD  `device_id` varchar(50) ;
+
 use u1276530_suzuki;
 SELECT * from m_customer
