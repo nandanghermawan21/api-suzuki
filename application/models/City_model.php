@@ -97,7 +97,12 @@ class City_model extends CI_Model
 
     public function getAll() : array
     {
-        $query = $this->db->get($this->tableName)->order_by($this->nameField(), 'ASC');
+        $this->db->select('*');
+		$this->db->from($this->tableName);
+
+		$this->db->order_by($this->idField(), "asc");
+
+		$query = $this->db->get();
 
         $result = [];
 		foreach ($query->result() as $row) {
