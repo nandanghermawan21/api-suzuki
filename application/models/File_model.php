@@ -129,11 +129,13 @@ class File_model extends CI_Model
             //generate key
             $this->id = random_string('numeric', 12);
 
-            $this->db->insert($this->tableName, $this->toArray());
+            // $this->db->insert($this->tableName, $this->toArray());
 
-            $data = $this->db->get_where($this->tableName, array($this->idField() => $this->id));
+            // $data = $this->db->get_where($this->tableName, array($this->idField() => $this->id));
 
-			return $this->fromRow($data->result()[0]);
+			// return $this->fromRow($data->result()[0]);
+            
+            return $this;
         } catch (Exception $e) {
             throw $e;
         }
