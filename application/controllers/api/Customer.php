@@ -100,7 +100,7 @@ class Customer extends BD_Controller
                         $file = $this->file->upload($path, random_string('alnum', 100) , $media);
                         $customer = $this->customer->fromId($id);
                         $customer->imageId = $file->id;
-                        $customer->update();
+                        // $customer->update();
                         $this->response($customer, 200);
                     }
                 }
