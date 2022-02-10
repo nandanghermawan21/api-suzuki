@@ -1,8 +1,9 @@
 <?php
 
-use Customer_model as GlobalCustomer_model;
-
 if (!defined('BASEPATH')) exit('No direct script allowed');
+require_once APPPATH . '/libraries/JWT.php';
+
+use \Firebase\JWT\JWT;
 
 /**
  * @OA\Schema(schema="CustomerModel")
