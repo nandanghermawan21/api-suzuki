@@ -66,7 +66,7 @@ class City_model extends CI_Model
         $data = new City_model();
         $data->id = $row->id;
         $data->provinceId = $row->province_id;
-        $data->name = $row->name;
+        $data->name = str_replace("Kota","",$row->name);
 
         return $data;
     }
@@ -95,20 +95,20 @@ class City_model extends CI_Model
         }
     }
 
-    public function getAll() : array
+    public function getAll(): array
     {
         $this->db->select('*');
-		$this->db->from($this->tableName);
+        $this->db->from($this->tableName);
         $this->db->like($this->nameField(), 'Kota', 'after');
-		$this->db->order_by($this->nameField(), "asc");
+        $this->db->order_by($this->nameField(), "asc");
 
-		$query = $this->db->get();
+        $query = $this->db->get();
 
         $result = [];
-		foreach ($query->result() as $row) {
-			$city = new City_model();
-			$result[] = $city->fromRow($row);
-		}
+        foreach ($query->result() as $row) {
+            $city = new City_model();
+            $result[] = $city->fromRow($row);
+        }
 
         return $result;
     }
