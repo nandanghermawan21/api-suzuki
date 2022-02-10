@@ -213,7 +213,7 @@ class Customer_model extends CI_Model
 			));
 
 			if ($query->num_rows() == 0) {
-				throw new Exception("username not found");
+				throw new Exception("username ".$user->username." not found");
 			}
 
 			$customer = $this->fromRow($query->row());
@@ -230,6 +230,8 @@ class Customer_model extends CI_Model
 				$customer->token = $output['token'];
 
 				return $customer;
+			}else{
+				throw new Exception("password is invalid");
 			}
 
 		} catch (\Exception $e) {
