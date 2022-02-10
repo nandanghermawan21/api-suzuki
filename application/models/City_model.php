@@ -99,7 +99,7 @@ class City_model extends CI_Model
     {
         $this->db->select('*');
 		$this->db->from($this->tableName);
-        $this->db->like($this->nameField(), 'Kota%');
+        $this->db->like($this->nameField(), 'Kota', 'after');
 		$this->db->order_by($this->nameField(), "asc");
 
 		$query = $this->db->get();
