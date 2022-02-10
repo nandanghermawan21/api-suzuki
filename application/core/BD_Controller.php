@@ -12,7 +12,6 @@ use \Firebase\JWT\JWT;
 
 class BD_Controller extends REST_Controller
 {
-    public $user_data;
     private $user_credential;
     public function auth()
     {
