@@ -285,7 +285,7 @@ class Customer_model extends CI_Model
 				$data = $this->toArray();
 				unset($data[$this->idField()]);
 				$this->db->update($this->tableName, $data, array(
-					$this->idField() => $this->add()
+					$this->idField() => $this->id
 				));
 				return  $this->fromId($this->id);
 			} else {
