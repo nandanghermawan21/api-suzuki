@@ -51,7 +51,7 @@ class Customer extends BD_Controller
                 $this->response($result, 200);
             }
         } catch (\Exception $e) {
-            $error = new errormodel();
+            $error = new Error_model();
             $error->status = 500;
             $error->message = $e->getMessage();
             $this->response($error, 500);
