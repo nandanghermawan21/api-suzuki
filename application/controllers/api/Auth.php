@@ -44,9 +44,9 @@ class Auth extends BD_Controller
         try {
             $jsonBody  = json_decode(file_get_contents('php://input'), true);
             $user = $this->user->fromJson($jsonBody);
-            $customer = $this->customer->login(
-                $user
-            );
+            // $customer = $this->customer->login(
+            //     $user
+            // );
             $this->response($user, 200);
         } catch (\Exception $e) {
             $error = new Error_model();
