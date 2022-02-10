@@ -70,48 +70,13 @@ class Fileservice extends BD_Controller
 
         if (!empty($_FILES["media"])) {
             $media    = $_FILES["media"];
-            $ext    = pathinfo($_FILES["media"]["name"], PATHINFO_EXTENSION);
-            $size    = $_FILES["media"]["size"];
-            $tgl    = date("Y-m-d");
 
             if ($media["error"] !== UPLOAD_ERR_OK) {
                 $this->response("upload gagal", 500);
                 exit;
-            }
-
-            // filename yang aman
-            $currentName = preg_replace("/[^A-Z0-9._-]/i", "_", $media["name"]);
-            if ($name == "" || $name == null) {
-                $name = $currentName;
             } else {
-                $name = $name . "." . pathinfo($currentName)["extension"];
-            }
-
-            // create path jika tidak ada
-            if (!is_dir(UPLOAD_DIR . "/" . $path)) {
-                mkdir(UPLOAD_DIR . "/" . $path, 0777, TRUE);
-            }
-
-            // mencegah overwrite filename
-            // $i = 0;
-            $parts = pathinfo($name);
-            // while (file_exists(UPLOAD_DIR . $name)) {
-            //     $i++;
-            //     $name =  $parts["filename"] . "-" . $i . "." . $parts["extension"];
-            // }
-
-            $success = move_uploaded_file($media["tmp_name"], UPLOAD_DIR . $name);
-
-            if ($success) {
-                $filemodel = new File_model();
-                $filemodel->filename = $name;
-                $filemodel->path = $path;
-                $filemodel->extention = $parts["extension"];
-                // $filemodel->size = filesize(UPLOAD_DIR . "/" . $path . "/" . $name);
-                $filemodel->url = $filemodel->createUrl();
-                $filemodel->add();
-                $this->response($filemodel, 200);
-                exit;
+                $file = $this->file->upload($path, $name, $media);
+                $this->response($file, 200);
             }
         }
     }
