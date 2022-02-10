@@ -87,7 +87,7 @@ class File_model extends CI_Model
     public $url;
     public function createUrl(): String
     {
-        $this->url =  $this->config->item("upload_url") . $this->path . '/' . $this->filename;
+        $this->url =  $this->config->item("upload_url") . $this->path . '/' . $this->filename . '.' . $this->extention;
         return $this->url;
     }
 
@@ -134,8 +134,8 @@ class File_model extends CI_Model
 
             $data = $this->db->get_where($this->tableName, array($this->idField() => $this->id));
 
-			return $this->fromRow($data->result()[0]);
-            
+            return $this->fromRow($data->result()[0]);
+
             return $this;
         } catch (Exception $e) {
             throw $e;
