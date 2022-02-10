@@ -99,9 +99,9 @@ class Customer extends BD_Controller
                     } else {
                         $file = $this->file->upload($path, random_string('alnum', 100) , $media);
                         $customer = $this->customer->fromId($id);
-                        $customer = $customer->imageId = $file->id;
+                        $customer->imageId = $file->id;
                         $customer = $customer->update();
-                        $this->response($file, 200);
+                        $this->response($customer, 200);
                     }
                 }
             } catch (\Exception $e) {
