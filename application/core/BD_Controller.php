@@ -12,7 +12,7 @@ use \Firebase\JWT\JWT;
 
 class BD_Controller extends REST_Controller
 {
-    private $user_credential;
+    public $user_credential;
     public function auth()
     {
         // Configure limits on our controller methods
@@ -34,6 +34,7 @@ class BD_Controller extends REST_Controller
         try {
             $decoded = JWT::decode($token, $kunci, array('HS256'));
             $this->user_data = $decoded;
+            $this->user_credential = $decoded;
         } catch (Exception $e) {
             $invalid = [
                 'status' => $e->getMessage(),
