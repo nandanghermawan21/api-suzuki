@@ -97,11 +97,11 @@ class Customer extends BD_Controller
                         $this->response("upload gagal", 500);
                         exit;
                     } else {
-                        $file = $this->file->upload($path, random_string('alnum', 100) , $media);
-                        $customer = $this->customer->fromId($id);
-                        $customer->imageId = $file->id;
+                        // $file = $this->file->upload($path, random_string('alnum', 100) , $media);
+                        // $customer = $this->customer->fromId($id);
+                        // $customer->imageId = $file->id;
                         // $customer->update();
-                        $this->response($file , 200);
+                        $this->response(random_string('alnum', 100) , 200);
                     }
                 }
             } catch (\Exception $e) {
