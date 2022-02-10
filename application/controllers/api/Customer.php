@@ -85,7 +85,7 @@ class Customer extends BD_Controller
      */
     public function updateImage_post()
     {
-        if ($this->user_data->type == "customer") {
+        if ($this->user_data['type'] == "customer") {
             try {
                 $id = $this->user_data->id;
                 $path = $this->input->get("path", true);
