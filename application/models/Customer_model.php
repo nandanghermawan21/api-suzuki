@@ -200,14 +200,41 @@ class Customer_model extends CI_Model
 		$data->username = $row->username;
 		$data->password = $row->password;
 		$data->level =  $row->level;
-		
-		return $data ;
+
+		return $data;
 	}
 
 
-	public function  get_customer($q)
+	public function  login(\User_model $user)
 	{
-		return $this->db->get_where($this->tableName, $q);
+		try {
+			$query = $this->db->get_where($this->tableName, array(
+				$this->usernameField() => $user->username
+			));
+
+			if ($query->num_rows() == 0) {
+				throw new Exception("username not found");
+			}
+
+			$customer = $this->fromRow($query->row());
+			if (sha1($user->password) == $customer->password) {  //Condition if password matched
+				$token['id'] = $customer->id;  //From here
+				$token['username'] = $customer->username;
+				$token['type'] = "customer";
+				$date = new DateTime();
+				$token['iat'] = $date->getTimestamp();
+				$token['exp'] = $date->getTimestamp() + 60 * 60 * 5; //To here is to generate token
+				$output['token'] = JWT::encode($token,  $this->config->item('thekey')); //This is the output token
+
+				//result the user
+				$customer->token = $output['token'];
+
+				return $customer;
+			}
+
+		} catch (\Exception $e) {
+			throw $e;
+		}
 	}
 
 	public function  fromId($id)

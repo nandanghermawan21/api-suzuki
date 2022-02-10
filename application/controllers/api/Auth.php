@@ -19,28 +19,18 @@ class Auth extends BD_Controller
         $this->methods['users_get']['limit'] = 500; // 500 requests per hour per user/key
         $this->methods['users_post']['limit'] = 100; // 100 requests per hour per user/key
         $this->methods['users_delete']['limit'] = 50; // 50 requests per hour per user/key
+        $this->load->model('User_model', 'user');
         $this->load->model('Customer_model', 'customer');
     }
 
     /**
      * @OA\Post(path="/api/auth/customerLogin",tags={"Auth"},
-     * @OA\RequestBody(
-     *      @OA\MediaType(
-     *          mediaType="multipart/form-data",
-     *          @OA\Schema(
-     *              @OA\Property(
-     *                  property="username",
-     *                  type="string",
-     *                  description="username"
-     *              ),
-     *              @OA\Property(
-     *                  property="password",
-     *                  type="string",
-     *                  description="password"
-     *              )
-     *          )
-     *      )
-     *  ),
+     *   @OA\RequestBody(
+     *     @OA\MediaType(
+     *         mediaType="application/json",
+     *         @OA\Schema(ref="#/components/schemas/UserModel")
+     *     )
+     *   ),
      *   @OA\Response(response=200,
      *     description="basic customer info",
      *     @OA\JsonContent(
@@ -51,32 +41,18 @@ class Auth extends BD_Controller
      */
     public function customerLogin_post()
     {
-        $u = $this->post('username'); //Username Posted
-        $p = sha1($this->post('password')); //Pasword Posted
-        $q = array('username' => $u); //For where query condition
-        $kunci = $this->config->item('thekey');
-        $val = $this->customer->get_customer($q)->row(); //Model to get single data row from database base on username
-        if ($this->customer->get_customer($q)->num_rows() == 0) {
-            $this->response("user ".$u." not found", 403);
-        }
-        $match = $val->password;   //Get password for user from database
-        if ($p == $match) {  //Condition if password matched
-            $token['id'] = $val->id;  //From here
-            $token['username'] = $u;
-            $token['type'] = "customer";
-            $date = new DateTime();
-            $token['iat'] = $date->getTimestamp();
-            $token['exp'] = $date->getTimestamp() + 60 * 60 * 5; //To here is to generate token
-            $output['token'] = JWT::encode($token, $kunci); //This is the output token
-
-            //result the user
-            $user = $this->customer->fromRow($val);
-            $user->token = $output['token'];
-
-            $this->set_response($user, 200); //This is the respon if success
-
-        } else {
-            $this->set_response($p, 403); //This is the respon if failed
+        try {
+            $jsonBody  = json_decode(file_get_contents('php://input'), true);
+            $user = $this->user->fromJson($jsonBody);
+            $customer = $this->customer->login(
+                $user
+            );
+            $this->response($customer, 200);
+        } catch (\Exception $e) {
+            $error = new errormodel();
+            $error->status = 500;
+            $error->message = $e->getMessage();
+            $this->response($error, 500);
         }
     }
 }
