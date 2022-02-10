@@ -168,7 +168,7 @@ class Customer_model extends CI_Model
 	{
 		return "level";
 	}
-	
+
 	/**
 	 * @OA\Property()
 	 * @var string
@@ -229,7 +229,7 @@ class Customer_model extends CI_Model
 			));
 
 			if ($query->num_rows() == 0) {
-				throw new Exception("username ".$user->username." not found");
+				throw new Exception("username " . $user->username . " not found");
 			}
 
 			$customer = $this->fromRow($query->row());
@@ -243,14 +243,13 @@ class Customer_model extends CI_Model
 				$output['token'] = JWT::encode($token,  $this->config->item('thekey')); //This is the output token
 
 				//result the user
-				$customer->token = $output['token'];
 				$customer->deviceId = $user->deviceId;
-
-				return $customer->update();
-			}else{
+				$customer = $customer->update();
+				$customer->token = $output['token'];
+				return $customer;
+			} else {
 				throw new Exception("password is invalid");
 			}
-
 		} catch (\Exception $e) {
 			throw $e;
 		}
