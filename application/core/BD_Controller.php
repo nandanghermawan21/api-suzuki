@@ -43,4 +43,27 @@ class BD_Controller extends REST_Controller
             $this->response($invalid, 401); //401
         }
     }
+
+    public function getData(){
+        $headers = $this->input->get_request_header('Authorization');
+        $kunci = $this->config->item('thekey'); //secret key for encode and decode
+        $token = "token";
+        if (!empty($headers)) {
+            if (preg_match('/Bearer\s(\S+)/', $headers, $matches)) {
+                $token = $matches[1];
+            } else if (preg_match('/bearer\s(\S+)/', $headers, $matches)) {
+                $token = $matches[1];
+            }
+        }
+        try {
+            $decoded = JWT::decode($token, $kunci, array('HS256'));
+            return $decoded;
+        } catch (Exception $e) {
+            $invalid = [
+                'status' => $e->getMessage(),
+                'Authorization' => $headers
+            ]; //Respon if credential invalid
+            return null;
+        }
+    }
 }

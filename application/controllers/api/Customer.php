@@ -120,8 +120,8 @@ class Customer extends BD_Controller
                     "token" => $token,
                     "kunci" => $kunci,
                     "jwt" => JWT::decode($token, $kunci, array('HS256')),
-                    "data" => $this->user_credential,
-                    "customer" => $this->user_credential['type']
+                    "data" => $this->getData(),
+                    "customer" => $this->getData()['type']
                 ),200);
             } catch (\Exception $e) {
                 $error = new Error_model();
