@@ -62,11 +62,13 @@ class City_model extends CI_Model
 
     public function fromRow($row): City_model
     {
-        $this->id = $row->id;
-        $this->provinceId = $row->province_id;
-        $this->name = $row->name;
 
-        return $this;
+        $data = new City_model();
+        $data->id = $row->id;
+        $data->provinceId = $row->province_id;
+        $data->name = $row->name;
+
+        return $data;
     }
 
     public function toArray(): array

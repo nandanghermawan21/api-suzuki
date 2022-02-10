@@ -47,10 +47,11 @@ class Gender_model extends CI_Model
 
     public function fromRow($row): Gender_model
     {
-        $this->id = $row->id;
-        $this->name = $row->name;
+        $data = new Gender_model();
+        $data->id = $row->id;
+        $data->name = $row->name;
 
-        return $this;
+        return $data;
     }
 
     public function toArray(): array

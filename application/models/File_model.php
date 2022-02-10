@@ -100,14 +100,15 @@ class File_model extends CI_Model
 
     public function fromRow($row): File_model
     {
-        $this->id = $row->id;
-        $this->filename = $row->filename;
-        $this->size = $row->size;
-        $this->extention = $row->extention;
-        $this->path = $row->path;
-        $this->url =  $this->createUrl();
+        $data = new File_model();
+        $data->id = $row->id;
+        $data->filename = $row->filename;
+        $data->size = $row->size;
+        $data->extention = $row->extention;
+        $data->path = $row->path;
+        $data->url =  $data->createUrl();
 
-        return $this;
+        return $data;
     }
 
     public function toArray(): array
@@ -129,11 +130,11 @@ class File_model extends CI_Model
             //generate key
             $this->id = random_string('numeric', 12);
 
-            // $this->db->insert($this->tableName, $this->toArray());
+            $this->db->insert($this->tableName, $this->toArray());
 
-            // $data = $this->db->get_where($this->tableName, array($this->idField() => $this->id));
+            $data = $this->db->get_where($this->tableName, array($this->idField() => $this->id));
 
-			// return $this->fromRow($data->result()[0]);
+			return $this->fromRow($data->result()[0]);
             
             return $this;
         } catch (Exception $e) {
@@ -169,12 +170,13 @@ class File_model extends CI_Model
 
             $success = true;
             if ($success) {
-                $this->filename = $name;
-                $this->path = $path;
-                $this->extention = $ext;
-                $this->size = $size;
-                $this->url = $this->createUrl();
-                return $this->add();
+                $data = new File_model();
+                $data->filename = $name;
+                $data->path = $path;
+                $data->extention = $ext;
+                $data->size = $size;
+                $data->url = $data->createUrl();
+                return $data->add();
             }
         }
     }

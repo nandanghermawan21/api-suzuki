@@ -185,22 +185,23 @@ class Customer_model extends CI_Model
 
 	public function  fromRow($row)
 	{
-		$this->id = $row->id;
-		$this->nik = $row->nik;
-		$this->imageId = $row->photo_image_id;
-		$this->imageUrl = $this->file->fromId($row->photo_image_id)->createUrl();
-		$this->fullName = $row->full_name;
-		$this->genderId = $row->gender_id;
-		$this->genderName = $this->gender->fromId($row->gender_id)->name;
-		$this->cityId = $row->city_id;
-		$this->cityName = $this->city->fromId($row->city_id)->name;
-		$this->phoneNumber = $row->phone_number;
-		$this->phoneNumber = $row->phone_number;
-		$this->username = $row->username;
-		$this->password = $row->password;
-		$this->level =  $row->level;
+		$data = new Customer_model();
+		$data->id = $row->id;
+		$data->nik = $row->nik;
+		$data->imageId = $row->photo_image_id;
+		$data->imageUrl = $this->file->fromId($row->photo_image_id)->createUrl();
+		$data->fullName = $row->full_name;
+		$data->genderId = $row->gender_id;
+		$data->genderName = $this->gender->fromId($row->gender_id)->name;
+		$data->cityId = $row->city_id;
+		$data->cityName = $this->city->fromId($row->city_id)->name;
+		$data->phoneNumber = $row->phone_number;
+		$data->phoneNumber = $row->phone_number;
+		$data->username = $row->username;
+		$data->password = $row->password;
+		$data->level =  $row->level;
 		
-		return $this ;
+		return $data ;
 	}
 
 
@@ -223,39 +224,40 @@ class Customer_model extends CI_Model
 
 	public function  fromJson($json): Customer_model
 	{
+		$data = new Customer_model();
 		if (isset($json[$this->idjsonKey()])) {
-			$this->id = $json[$this->idjsonKey()];
+			$data->id = $json[$this->idjsonKey()];
 		}
 		if (isset($json[$this->nikJsonKey()])) {
-			$this->nik = $json[$this->nikField()];
+			$data->nik = $json[$this->nikField()];
 		}
 		if (isset($json[$this->imageIdJsonKey()])) {
-			$this->imageId = $json[$this->imageIdJsonKey()];
+			$data->imageId = $json[$this->imageIdJsonKey()];
 		}
 		if (isset($json[$this->fullNamseJsonKey()])) {
-			$this->fullName = $json[$this->fullNamseJsonKey()];
+			$data->fullName = $json[$this->fullNamseJsonKey()];
 		}
 		if (isset($json[$this->genderIdJsonKey()])) {
-			$this->genderId = $json[$this->genderIdJsonKey()];
+			$data->genderId = $json[$this->genderIdJsonKey()];
 		}
 		if (isset($json[$this->cityIdJsonKey()])) {
-			$this->cityId = $json[$this->cityIdJsonKey()];
+			$data->cityId = $json[$this->cityIdJsonKey()];
 		}
 		if (isset($json[$this->phoneNumberJsonKey()])) {
-			$this->phoneNumber = $json[$this->phoneNumberJsonKey()];
+			$data->phoneNumber = $json[$this->phoneNumberJsonKey()];
 		}
 		if (isset($json[$this->usernameJsonKey()])) {
-			$this->username = $json[$this->usernameJsonKey()];
+			$data->username = $json[$this->usernameJsonKey()];
 		}
 		if (isset($json[$this->passwordJsonKey()])) {
-			$this->password = $json[$this->passwordJsonKey()];
+			$data->password = $json[$this->passwordJsonKey()];
 		}
 		if (isset($json[$this->levelJsonKey()])) {
-			$this->level = $json[$this->levelJsonKey()];
+			$data->level = $json[$this->levelJsonKey()];
 		}
 
 
-		return $this;
+		return $data;
 	}
 
 	public function  add(): Customer_model
