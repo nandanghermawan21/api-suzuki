@@ -282,9 +282,13 @@ class Customer_model extends CI_Model
 	{
 		try {
 			if ($this->id != null) {
-				$this->db->update($this->tableName, $this->toArray());
+				$data = $this->toArray();
+				unset($data[$this->idField()]);
+				$this->db->update($this->tableName, $data, array(
+					$this->idField() => $this->add()
+				));
 				return  $this->fromId($this->id);
-			}else{
+			} else {
 				return $this;
 			}
 		} catch (Exception $e) {
