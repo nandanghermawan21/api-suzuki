@@ -167,6 +167,20 @@ class Customer_model extends CI_Model
 	{
 		return "level";
 	}
+	
+	/**
+	 * @OA\Property()
+	 * @var string
+	 */
+	public $deviceId;
+	public function deviceIdField(): string
+	{
+		return "device_id";
+	}
+	public function deviceIdJsonKey(): string
+	{
+		return "deviceId";
+	}
 
 	/**
 	 * @OA\Property()
@@ -200,6 +214,7 @@ class Customer_model extends CI_Model
 		$data->username = $row->username;
 		$data->password = $row->password;
 		$data->level =  $row->level;
+		$data->deviceId =  $row->device_id;
 
 		return $data;
 	}
@@ -228,8 +243,9 @@ class Customer_model extends CI_Model
 
 				//result the user
 				$customer->token = $output['token'];
+				$customer->deviceId = $user->deviceId;
 
-				return $customer;
+				return $customer->update();
 			}else{
 				throw new Exception("password is invalid");
 			}
@@ -283,6 +299,9 @@ class Customer_model extends CI_Model
 		}
 		if (isset($json[$this->levelJsonKey()])) {
 			$data->level = $json[$this->levelJsonKey()];
+		}
+		if (isset($json[$this->deviceIdJsonKey()])) {
+			$data->deviceId = $json[$this->deviceIdJsonKey()];
 		}
 
 
@@ -339,6 +358,7 @@ class Customer_model extends CI_Model
 			$this->usernameField() => $this->username,
 			$this->passwordField() => $this->password,
 			$this->levelField() => $this->level,
+			$this->deviceIdField() => $this->deviceId,
 		);
 
 		return $data;

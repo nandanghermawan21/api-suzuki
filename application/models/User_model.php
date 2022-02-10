@@ -39,13 +39,13 @@ class User_model
 	{
 		$data = new User_model();
 		if (isset($json[$this->usernameJsonKey()])) {
-			$data->id = $json[$this->usernameJsonKey()];
+			$data->username = $json[$this->usernameJsonKey()];
 		}
 		if (isset($json[$this->passwordJsonKey()])) {
-			$data->id = $json[$this->passwordJsonKey()];
+			$data->password = $json[$this->passwordJsonKey()];
 		}
 		if (isset($json[$this->deviceIdJsonKey()])) {
-			$data->id = $json[$this->deviceIdJsonKey()];
+			$data->deviceId = $json[$this->deviceIdJsonKey()];
 		}
 		return $data;
 	}
