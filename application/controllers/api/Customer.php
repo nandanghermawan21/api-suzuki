@@ -53,7 +53,7 @@ class Customer extends BD_Controller
                 $customer->add();
                 //login
                 $result =  $this->customer->login($user);
-                $this->response($user, 200);
+                $this->response($result, 200);
             }
         } catch (\Exception $e) {
             $error = new Error_model();
