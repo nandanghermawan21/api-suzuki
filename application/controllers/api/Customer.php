@@ -62,7 +62,7 @@ class Customer extends BD_Controller
                 // $customer->add();
 
                 //send Otp
-                $$this->sms->send_sms();
+                $this->sms->send_sms();
 
                 //login
                 $result =  $this->customer->login($user);
