@@ -237,7 +237,7 @@ class Customer_model extends CI_Model
 		$data->deviceId =  $row->device_id;
 		$data->otp = $row->otp;
 		$data->isVerifiedPhone = $row->is_verified_phone;
-		$data->otpValidDate = strtotime($row->otp_valid_date);
+		$data->otpValidDate = DateTime::createFromFormat('Y-m-d h:i:s.', date_format($this->otpValidDate, 'Y-m-d H:i:s'));
 
 		return $data;
 	}
