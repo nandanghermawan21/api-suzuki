@@ -388,7 +388,7 @@ class Customer_model extends CI_Model
 		return $count > 0 ? true : false;
 	}
 
-	public function readRegisterJson() : CustomerRegister
+	public function readRegisterJson($json) : CustomerRegister
 	{
 		$data = new CustomerRegister();
 		if (isset($json["avatar"])) {
