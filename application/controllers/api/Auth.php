@@ -49,6 +49,7 @@ class Auth extends BD_Controller
             $user = $this->user->fromJson($jsonBody);
             $this->customer->login(
                 $user,
+                false,
                 $customer 
             );
             if ($customer->isVerifiedPhone == false) {
