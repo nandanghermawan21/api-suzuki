@@ -115,7 +115,7 @@ class Customer extends BD_Controller
      *   security={{"token": {}}},
      * )
      */
-    public function confirm_post()
+    public function updateImage_post()
     {
         if ($this->getData()->type == "customer") {
             try {
@@ -170,7 +170,7 @@ class Customer extends BD_Controller
      *   security={{"token": {}}},
      * )
      */
-    public function upload_post()
+    public function confirm_post()
     {
         $id = $this->input->get("id", true);
         $otp = $this->input->get("otp", true);
