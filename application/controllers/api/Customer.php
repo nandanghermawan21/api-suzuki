@@ -49,11 +49,11 @@ class Customer extends BD_Controller
 
             if ($customer->checkUsernameExist() == true) {
                 $this->response("Username Is Exist", 400);
-            } 
+            }
             // else if ($customer->checkPhoneExist() == true) {
             //     $this->response("Phone Is Exist", 400);
             // }
-             else if ($customerRegister->avatar == null) {
+            else if ($customerRegister->avatar == null) {
                 $this->response("Please insert image avarar", 400);
             } else {
 
@@ -73,14 +73,14 @@ class Customer extends BD_Controller
                 $customer->otpValidDate = $expiredDate;
 
                 //send Otp
-                $this->sms->send_sms(str_replace("0", "+62", $customerRegister->phoneNumber, 1), "Berikut kode OTP untuk registrasi anda " . $otp);
+                $this->sms->send_sms($customerRegister->phoneNumber, "Berikut kode OTP untuk registrasi anda " . $otp);
 
                 $customer->add();
 
                 //login
                 $result = new Otp_model();
-                $result->resendUrl = "api/customer/resendotp/?id".$customer->id;
-                $result->confirmUrl = "api/customer/confirm/?id".$customer->id;
+                $result->resendUrl = "api/customer/resendotp/?id" . $customer->id;
+                $result->confirmUrl = "api/customer/confirm/?id" . $customer->id;
                 $result->expired = $customer->otpValidDate;
 
                 $this->response($result, 200);
