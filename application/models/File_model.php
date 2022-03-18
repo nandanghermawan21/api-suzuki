@@ -184,30 +184,19 @@ class File_model extends CI_Model
     public function save($path, $name, $base64)
     {
         try{
-            if ($base64 != null) {
-
-                echo("raad base64");
+            if ($this->check_base64_image($base64) == true) {
 
                 if (!is_dir($this->config->item("upload_dir") . "/" . $path)) {
                     mkdir($this->config->item("upload_dir") . "/" . $path, 0777, TRUE);
                 }
 
-                echo("success create  dir");
-    
                 $file = $this->config->item("upload_dir") . "/" . $path . $name . '.' . $this->getExtention($base64);
               
-                echo("success create  FILE ".$file);
-
                 $listStr = explode(',', $base64);
                 $img = $listStr[1];
                 $img = base64_decode($img);
 
-                echo("success read base64f");
-                echo($img);
-                
                 $success = file_put_contents($file, $img);
-                
-                echo("sukses save image".$success);
                 
                 if ($success) {
                     $data = new File_model();
@@ -218,6 +207,8 @@ class File_model extends CI_Model
                     $data->url = $data->createUrl();
                     return $data->add();
                 }
+            }else{
+                throw new Exception("avatar image not valid"); 
             }
         }catch(Exception $e){
             throw $e;
@@ -262,5 +253,23 @@ class File_model extends CI_Model
             default:
                 return "jpg";
         }
+    }
+
+    function check_base64_image($base64) {
+        $img = imagecreatefromstring(base64_decode($base64));
+        if (!$img) {
+            return false;
+        }
+    
+        imagepng($img, 'tmp.png');
+        $info = getimagesize('tmp.png');
+    
+        unlink('tmp.png');
+    
+        if ($info[0] > 0 && $info[1] > 0 && $info['mime']) {
+            return true;
+        }
+    
+        return false;
     }
 }

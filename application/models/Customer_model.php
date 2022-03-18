@@ -398,7 +398,7 @@ class Customer_model extends CI_Model
 			$data->nik = $json["nik"];
 		}
 		if (isset($json["fullName"])) {
-			$data->fullName = $json[$json["fullName"]];
+			$data->fullName = [$json["fullName"]];
 		}
 		if (isset($json["genderId"])) {
 			$data->genderId = $json["genderId"];

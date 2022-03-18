@@ -49,16 +49,16 @@ class Customer extends BD_Controller
                 $this->response("Username Is Exist", 400);
             } else if ($customer->checkPhoneExist() == true) {
                 $this->response("Phone Is Exist", 400);
+            } else if($customerRegister->avatar == null){
+                $this->response("Please insert image avarar", 400);
             } else {
-                echo("avatar base");
-                print_r($customerRegister);
 
                 //upload image first
                 $file = $this->file->save("useravatar", $customer->username, $customerRegister->avatar);
-                // $customer->imageId = $file->id;
+                $customer->imageId = $file->id;
 
                 //add
-                // $customer->add();
+                $customer->add();
                 //login
                 $result =  $this->customer->login($user);
                 $this->response($result, 200);
