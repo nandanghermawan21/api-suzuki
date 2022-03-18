@@ -24,23 +24,11 @@ class Customer extends BD_Controller
      * @OA\Post(path="/api/customer/register",tags={"customer"},
      *   operationId="register customer",
      *   @OA\RequestBody(
-     *       required=true,
-     *       @OA\MediaType(
-     *           mediaType="multipart/form-data",
-     *           @OA\Schema(
-     *               @OA\Property(
-     *                   property="media",
-     *                   description="media",
-     *                   type="file",
-     *                   @OA\Items(type="string", format="binary")
-     *                ),
-     *            ),
-     *        ),
-     *       @OA\MediaType(
-     *           mediaType="application/json",
-     *           @OA\Schema(ref="#/components/schemas/CustomerRegister")
-     *        ) 
-     *    ),
+     *     @OA\MediaType(
+     *         mediaType="application/json",
+     *         @OA\Schema(ref="#/components/schemas/CustomerRegister")
+     *     ),
+     *   ),
      *   @OA\Response(response=200,
      *     description="register customer",
      *     @OA\JsonContent(
