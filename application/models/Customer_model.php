@@ -280,9 +280,9 @@ class Customer_model extends CI_Model
 
 				//result the user
 				$customer->deviceId = $user->deviceId;
-				$customer = $customer->update();
-				$customer->token = $output['token'];
-				return $customer->toPublic();
+				$customer = $customer->update()->toPublic();
+				$customer["token"] = $output['token'];
+				return $customer;
 			} else {
 				throw new Exception("password is invalid");
 			}
