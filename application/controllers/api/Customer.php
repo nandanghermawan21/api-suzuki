@@ -58,7 +58,7 @@ class Customer extends BD_Controller
                 $customer->imageId = $file->id;
 
                 //add
-                // $customer->add();
+                $customer->add();
                 //login
                 $result =  $this->customer->login($user);
                 $this->response($result, 200);
