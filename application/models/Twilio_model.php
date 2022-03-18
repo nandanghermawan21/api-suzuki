@@ -5,7 +5,7 @@ require FCPATH . 'vendor/twilio/src/Twilio/autoload.php';
 
 use Twilio\Rest\Client;
 
-class TwilioModel extends CI_Model
+class Twilio_model extends CI_Model
 {
     public function send_sms()
     {
