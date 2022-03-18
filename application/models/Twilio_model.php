@@ -10,7 +10,7 @@ class Twilio_model extends CI_Model
     public function send_sms($phoneNumber, $message)
     {
         $account_sid = 'AC70669979e16403da4b37922a2326b0e1';
-        $auth_token = '43577b3627ba9e40cfa64ba434e2a5d6';
+        $auth_token = '09a971d63ad41cf7885997c3a870936c';
         // In production, these should be environment variables. E.g.:
         // $auth_token = $_ENV["TWILIO_ACCOUNT_SID"]
         // A Twilio number you own with SMS capabilities
