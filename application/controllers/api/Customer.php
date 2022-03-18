@@ -51,10 +51,9 @@ class Customer extends BD_Controller
                 $this->response("Phone Is Exist", 400);
             } else {
                 //upload image first
-                if (!empty($customerRegister->avatar)) {
-                    $file = $this->file->save("useravatar", $customer->username, $customerRegister->avatar);
-                    $customer->imageId = $file->id;
-                }
+                $file = $this->file->save("useravatar", $customer->username, $customerRegister->avatar);
+                $customer->imageId = $file->id;
+
                 //add
                 $customer->add();
                 //login
