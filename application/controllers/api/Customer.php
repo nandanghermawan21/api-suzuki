@@ -24,10 +24,7 @@ class Customer extends BD_Controller
      * @OA\Post(path="/api/customer/register",tags={"customer"},
      *   operationId="register customer",
      *   @OA\RequestBody(
-     *     @OA\MediaType(
-     *         mediaType="application/json",
-     *         @OA\Schema(ref="#/components/schemas/CustomerRegister")
-     *     ),
+     *       required=true,
      *       @OA\MediaType(
      *           mediaType="multipart/form-data",
      *           @OA\Schema(
@@ -39,8 +36,7 @@ class Customer extends BD_Controller
      *                ),
      *            ),
      *        ),
-     *     ),
-     *   ),
+     *    ),
      *   @OA\Response(response=200,
      *     description="register customer",
      *     @OA\JsonContent(
