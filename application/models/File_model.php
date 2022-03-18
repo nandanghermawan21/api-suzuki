@@ -195,7 +195,7 @@ class File_model extends CI_Model
                 $img = $listStr[1];
                 $img = base64_decode($img);
 
-                $success = file_put_contents($path, $img);
+                $success = file_put_contents($file, $img);
                 
                 if ($success) {
                     $data = new File_model();
