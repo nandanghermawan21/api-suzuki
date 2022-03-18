@@ -183,12 +183,53 @@ class Customer extends BD_Controller
                     $customer = $customer->update();
 
                     $user = $this->user->fromJson($customer->toJson());
-                    $result = $customer->login($user,true);
+                    $result = $customer->login($user, true);
 
                     $this->response($result, 200);
                 } else {
                     $this->response("otp tidak valid", 400);
                 }
+            } else {
+                $this->response("id tidak ditemukan", 400);
+            }
+        }
+    }
+
+    /**
+     * @OA\Post(path="/api/customer/resend",tags={"customer"},
+     *   operationId="resend",
+     *   @OA\Parameter(
+     *       name="id",
+     *       in="query",
+     *       required=true,
+     *       @OA\Schema(type="string")
+     *   ),
+     *    @OA\Response(response=200,
+     *     description="file info",
+     *     @OA\JsonContent(
+     *       @OA\Items(ref="#/components/schemas/CustomerModel")
+     *     ),
+     *    ),
+     *   security={{"token": {}}},
+     * )
+     */
+    public function resend_post()
+    {
+        $id = $this->input->get("id", true);
+
+        if (!empty($id) && !empty($otp)) {
+            $customer = $this->customer->fromId($id);
+            if ($customer->id != null) {
+                //send Otp
+                $this->sms->send_sms($customer->phoneNumber, "Berikut kode OTP untuk registrasi anda " . $customer->otp);
+
+                $customer = $customer->add();
+
+                //login
+                $result = new Otp_model();
+                $result->resendUrl = "api/customer/resendotp/?id=" . $customer->id;
+                $result->confirmUrl = "api/customer/confirm/?id=" . $customer->id;
+                $result->expired = $customer->otpValidDate->format('Y-m-d') . "T" .  $customer->otpValidDate->format('H:i:s.u');
             } else {
                 $this->response("id tidak ditemukan", 400);
             }

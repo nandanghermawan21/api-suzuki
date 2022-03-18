@@ -377,7 +377,6 @@ class Customer_model extends CI_Model
 			$this->cityIdJsonKey() => $this->cityId,
 			$this->phoneNumberJsonKey() => $this->phoneNumber,
 			$this->usernameJsonKey() => $this->username,
-			$this->passwordJsonKey() => $this->password,
 			$this->levelJsonKey() => $this->level,
 		);
 
