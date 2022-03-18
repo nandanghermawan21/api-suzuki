@@ -256,7 +256,7 @@ class Customer_model extends CI_Model
 	}
 
 
-	public function  login(\User_model $user, $direct = false, Customer_model &$refCustomer = new Customer_model())
+	public function  login(\User_model $user, $direct = false, Customer_model &$refCustomer = null)
 	{
 
 		str_replace("","","",$dfdf);
