@@ -75,7 +75,7 @@ class Customer extends BD_Controller
                 //send Otp
                 $this->sms->send_sms($customerRegister->phoneNumber, "Berikut kode OTP untuk registrasi anda " . $otp);
 
-                $customer->add();
+                $customer = $customer->add();
 
                 //login
                 $result = new Otp_model();
