@@ -343,8 +343,9 @@ class Customer_model extends CI_Model
 			$this->db->insert($this->tableName, $this->toArray());
 
 			$data = $this->db->get_where($this->tableName, array($this->usernameField() => $this->username));
-
-			return $this->fromRow($data->result()[0]);
+			$result = $data->result();
+			
+			return $this->fromRow($result[0]);
 		} catch (Exception $e) {
 			throw $e;
 		}
