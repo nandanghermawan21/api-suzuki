@@ -79,9 +79,9 @@ class Customer extends BD_Controller
 
                 //login
                 $result = new Otp_model();
-                $result->resendUrl = "api/customer/resendotp/?id" . $customer->id;
-                $result->confirmUrl = "api/customer/confirm/?id" . $customer->id;
-                $result->expired = $customer->otpValidDate->format('Y-m-d')."T".$customer->otpValidDate->format('H:i:s.u');
+                $result->resendUrl = "api/customer/resendotp/?id=" . $customer->id;
+                $result->confirmUrl = "api/customer/confirm/?id=" . $customer->id;
+                $result->expired = $customer->otpValidDate->format('Y-m-d') . "T" . $customer->otpValidDate->format('H:i:s.u');
 
                 $this->response($result, 200);
             }
@@ -144,6 +144,55 @@ class Customer extends BD_Controller
             }
         } else {
             $this->response("forbidden access", 500);
+        }
+    }
+
+    /**
+     * @OA\Post(path="/api/customer/confirm",tags={"customer"},
+     *   operationId="confirm",
+     *   @OA\Parameter(
+     *       name="id",
+     *       in="query",
+     *       required=true,
+     *       @OA\Schema(type="string")
+     *   ),
+     *   @OA\Parameter(
+     *       name="otp",
+     *       in="query",
+     *       required=true,
+     *       @OA\Schema(type="string")
+     *   ),
+     *    @OA\Response(response=200,
+     *     description="file info",
+     *     @OA\JsonContent(
+     *       @OA\Items(ref="#/components/schemas/CustomerModel")
+     *     ),
+     *    ),
+     *   security={{"token": {}}},
+     * )
+     */
+    public function upload_post()
+    {
+        $id = $this->input->get("id", true);
+        $otp = $this->input->get("otp", true);
+
+        if (!empty($id) && !empty($otp)) {
+            $customer = $this->customer->fromId($id);
+            if ($customer->id != null) {
+                if ($customer->otp == $otp) {
+                    $customer->isVerifiedPhone = true;
+                    $customer = $customer->update();
+
+                    $user = $this->user-> fromJson($customer->toJson());
+                    $result = $customer->login($user,true);
+
+                    $this->response($result, 200);
+                } else {
+                    $this->response("otp tidak valid", 400);
+                }
+            } else {
+                $this->response("id tidak ditemukan", 400);
+            }
         }
     }
 }
