@@ -378,6 +378,7 @@ class Customer_model extends CI_Model
 			$this->phoneNumberJsonKey() => $this->phoneNumber,
 			$this->usernameJsonKey() => $this->username,
 			$this->levelJsonKey() => $this->level,
+			$this->isVerifiedPhoneJsonKey() => $this->isVerifiedPhone,
 		);
 
 		return $data;
