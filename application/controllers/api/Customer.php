@@ -27,7 +27,19 @@ class Customer extends BD_Controller
      *     @OA\MediaType(
      *         mediaType="application/json",
      *         @OA\Schema(ref="#/components/schemas/CustomerRegister")
-     *     )
+     *     ),
+     *       @OA\MediaType(
+     *           mediaType="multipart/form-data",
+     *           @OA\Schema(
+     *               @OA\Property(
+     *                   property="media",
+     *                   description="media",
+     *                   type="file",
+     *                   @OA\Items(type="string", format="binary")
+     *                ),
+     *            ),
+     *        ),
+     *     ),
      *   ),
      *   @OA\Response(response=200,
      *     description="register customer",
@@ -39,6 +51,7 @@ class Customer extends BD_Controller
      */
     public function register_post()
     {
+
         try {
             $jsonBody  = json_decode(file_get_contents('php://input'), true);
             $customer = $this->customer->fromJson($jsonBody);
@@ -49,6 +62,18 @@ class Customer extends BD_Controller
             } else if ($customer->checkPhoneExist() == true) {
                 $this->response("Phone Is Exist", 400);
             } else {
+                //upload image first
+                if (!empty($_FILES["media"])) {
+                    $media    = $_FILES["media"];
+        
+                    if ($media["error"] !== UPLOAD_ERR_OK) {
+                        $this->response("upload gagal", 500);
+                        exit;
+                    } else {
+                        $file = $this->file->upload("useravatar", $customer->username, $media);
+                        $customer->imageId = $file->id;
+                    }
+                }
                 //add
                 $customer->add();
                 //login
