@@ -36,6 +36,10 @@ class Customer extends BD_Controller
      *                ),
      *            ),
      *        ),
+     *       @OA\MediaType(
+     *           mediaType="application/json",
+     *           @OA\Schema(ref="#/components/schemas/CustomerRegister")
+     *        ) 
      *    ),
      *   @OA\Response(response=200,
      *     description="register customer",
