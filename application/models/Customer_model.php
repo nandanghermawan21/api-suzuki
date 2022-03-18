@@ -237,7 +237,7 @@ class Customer_model extends CI_Model
 		$data->deviceId =  $row->device_id;
 		$data->otp = $row->otp;
 		$data->isVerifiedPhone = $row->is_verified_phone;
-		$data->otpValidDate = $row->otp_valid_date;
+		$data->otpValidDate = strtotime($row->otp_valid_date);
 
 		return $data;
 	}
@@ -344,7 +344,7 @@ class Customer_model extends CI_Model
 
 			$data = $this->db->get_where($this->tableName, array($this->usernameField() => $this->username));
 			$result = $data->result();
-			
+
 			return $this->fromRow($result[0]);
 		} catch (Exception $e) {
 			throw $e;
@@ -385,7 +385,7 @@ class Customer_model extends CI_Model
 			$this->deviceIdField() => $this->deviceId,
 			$this->otpField() => $this->otp,
 			$this->isVerifiedPhoneField() => $this->isVerifiedPhone,
-			$this->otpValidDateField() => date_format($this->otpValidDate, 'Y-m-d H:i:s') ,
+			$this->otpValidDateField() => date_format($this->otpValidDate, 'Y-m-d H:i:s'),
 		);
 
 		return $data;
@@ -416,7 +416,7 @@ class Customer_model extends CI_Model
 		return $count > 0 ? true : false;
 	}
 
-	public function readRegisterJson($json) : CustomerRegister
+	public function readRegisterJson($json): CustomerRegister
 	{
 		$data = new CustomerRegister();
 		if (isset($json["avatar"])) {
