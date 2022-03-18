@@ -220,7 +220,8 @@ class Customer_model extends CI_Model
 	public function  fromRow($row)
 	{
 
-		
+
+		print_r($row);
 
 		$data = new Customer_model();
 		$data->id = $row->id;
