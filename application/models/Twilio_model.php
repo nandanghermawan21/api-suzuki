@@ -7,7 +7,7 @@ use Twilio\Rest\Client;
 
 class Twilio_model extends CI_Model
 {
-    public function send_sms()
+    public function send_sms($phoneNumber, $message)
     {
         $account_sid = 'AC7dba9fbe5b88d0210afda563396c29a4';
         $auth_token = 'baf6e48abebe8c1dad95b7266eea8e32';
@@ -18,10 +18,10 @@ class Twilio_model extends CI_Model
         $client = new Client($account_sid, $auth_token);
         $client->messages->create(
             // Where to send a text message (your cell phone?)
-            '+6287724538083',
+            $phoneNumber,
             array(
                 'from' => $twilio_number,
-                'body' => 'I sent this message in under 10 minutes!'
+                'body' => $message,
             )
         );
     }

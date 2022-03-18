@@ -183,6 +183,25 @@ class Customer_model extends CI_Model
 		return "deviceId";
 	}
 
+	public $otp;
+	public function otpField(): string
+	{
+		return "otp";
+	}
+
+	public $isVerifiedPhone;
+	public function isVerifiedPhoneField(): string
+	{
+		return "is_verified_phone";
+	}
+
+	public $otpValidDate;
+	public function otpValidDateField(): string
+	{
+		return "otp_valid_date";
+	}
+
+
 	/**
 	 * @OA\Property()
 	 * @var string
@@ -216,6 +235,9 @@ class Customer_model extends CI_Model
 		$data->password = $row->password;
 		$data->level =  $row->level;
 		$data->deviceId =  $row->device_id;
+		$data->otp = $row->otp;
+		$data->isVerifiedPhone = $row->is_verified_phone;
+		$data->otpValidDateField = $row->otp_valid_date;
 
 		return $data;
 	}
@@ -359,6 +381,9 @@ class Customer_model extends CI_Model
 			$this->passwordField() => $this->password,
 			$this->levelField() => $this->level,
 			$this->deviceIdField() => $this->deviceId,
+			$this->otpField() => $this->otp,
+			$this->isVerifiedPhoneField() => $this->isVerifiedPhone,
+			$this->otpValidDateField() => date_format($this->otpValidDate, 'Y-m-d H:i:s') ,
 		);
 
 		return $data;
@@ -382,6 +407,7 @@ class Customer_model extends CI_Model
 		$this->db->from($this->tableName);
 
 		$this->db->where($this->phoneNumberField(), $this->phoneNumber);
+
 
 		$count = $this->db->count_all_results();
 
