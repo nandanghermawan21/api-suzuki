@@ -215,25 +215,32 @@ class Customer extends BD_Controller
      */
     public function resend_post()
     {
-        $id = $this->input->get("id", true);
 
-        if (!empty($id)) {
-            $customer = $this->customer->fromId($id);
-            if ($customer->id != null) {
-                //send Otp
-                $this->sms->send_sms($customer->phoneNumber, "Berikut kode OTP untuk registrasi anda " . $customer->otp);
+        try {
+            $id = $this->input->get("id", true);
+            if (!empty($id)) {
+                $customer = $this->customer->fromId($id);
+                if ($customer->id != null) {
+                    //send Otp
+                    $this->sms->send_sms($customer->phoneNumber, "Berikut kode OTP untuk registrasi anda " . $customer->otp);
 
-                $customer = $customer->add();
+                    $customer = $customer->add();
 
-                //login
-                $result = new Otp_model();
-                $result->resendUrl = "api/customer/resendotp/?id=" . $customer->id;
-                $result->confirmUrl = "api/customer/confirm/?id=" . $customer->id;
-                $result->expired = $customer->otpValidDate->format('Y-m-d') . "T" .  $customer->otpValidDate->format('H:i:s.u');
-                $this->response($result,200);
-            } else {
-                $this->response("id tidak ditemukan", 400);
+                    //login
+                    $result = new Otp_model();
+                    $result->resendUrl = "api/customer/resendotp/?id=" . $customer->id;
+                    $result->confirmUrl = "api/customer/confirm/?id=" . $customer->id;
+                    $result->expired = $customer->otpValidDate->format('Y-m-d') . "T" .  $customer->otpValidDate->format('H:i:s.u');
+                    $this->response($result, 200);
+                } else {
+                    $this->response("id tidak ditemukan", 400);
+                }
             }
+        } catch (\Exception $e) {
+            $error = new Error_model();
+            $error->status = 500;
+            $error->message = $e->getMessage();
+            $this->response($error, 500);
         }
     }
 }
