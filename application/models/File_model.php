@@ -183,29 +183,44 @@ class File_model extends CI_Model
 
     public function save($path, $name, $base64)
     {
-        if ($base64 != null) {
+        try{
+            if ($base64 != null) {
 
-            if (!is_dir($this->config->item("upload_dir") . "/" . $path)) {
-                mkdir($this->config->item("upload_dir") . "/" . $path, 0777, TRUE);
+                echo("raad base64");
+
+                if (!is_dir($this->config->item("upload_dir") . "/" . $path)) {
+                    mkdir($this->config->item("upload_dir") . "/" . $path, 0777, TRUE);
+                }
+
+                echo("success create  dir");
+    
+                $file = $this->config->item("upload_dir") . "/" . $path . $name . '.' . $this->getExtention($base64);
+              
+                echo("success create  FILE ".$file);
+
+                $listStr = explode(',', $base64);
+                $img = $listStr[1];
+                $img = base64_decode($img);
+
+                echo("success read base64f");
+                echo($img);
+                
+                $success = file_put_contents($file, $img);
+                
+                echo("sukses save image".$success);
+                
+                if ($success) {
+                    $data = new File_model();
+                    $data->filename = $name;
+                    $data->path = $path;
+                    $data->extention = $this->getExtention($base64);
+                    $data->size = $file["size"];
+                    $data->url = $data->createUrl();
+                    return $data->add();
+                }
             }
-
-            $file = $this->config->item("upload_dir") . "/" . $path . $name . '.' . $this->getExtention($base64);
-            $listStr = explode(',', $base64);
-            $img = $listStr[1];
-            $data = base64_decode($img);
-            $success = file_put_contents($file, $data);
-
-            echo("safe to file ".$success);
-       
-            if ($success) {
-                $data = new File_model();
-                $data->filename = $name;
-                $data->path = $path;
-                $data->extention = $this->getExtention($base64);
-                $data->size = $file["size"];
-                $data->url = $data->createUrl();
-                return $data->add();
-            }
+        }catch(Exception $e){
+            throw $e;
         }
     }
 
