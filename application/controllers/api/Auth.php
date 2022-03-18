@@ -22,6 +22,8 @@ class Auth extends BD_Controller
         $this->load->model('Customer_model', 'customer');
         $this->load->model('User_model', 'user');
         $this->load->model('Twilio_model', 'sms');
+        $this->load->model('Otp_model', 'otp');
+
     }
 
     /**
