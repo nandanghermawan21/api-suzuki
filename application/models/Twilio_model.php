@@ -1,7 +1,7 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script allowed');
 
-require APPPATH . 'vendor/twilio/src/Twilio/autoload.php';
+require FCPATH . 'vendor/twilio/src/Twilio/autoload.php';
 
 use Twilio\Rest\Client;
 
