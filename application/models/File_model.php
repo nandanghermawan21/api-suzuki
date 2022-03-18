@@ -189,7 +189,7 @@ class File_model extends CI_Model
                     mkdir($this->config->item("upload_dir") . "/" . $path, 0777, TRUE);
                 }
 
-                $path = $this->config->item("upload_dir") . "/" . $path . $name . '.' . $this->getExtention($base64);
+                $file = $this->config->item("upload_dir") . "/" . $path. "/" . $name . '.' . $this->getExtention($base64);
               
                 $listStr = explode(',', $base64);
                 $img = $listStr[1];
@@ -202,7 +202,7 @@ class File_model extends CI_Model
                     $data->filename = $name;
                     $data->path = $path;
                     $data->extention = $this->getExtention($base64);
-                    $data->size = filesize($path);
+                    $data->size = filesize($file);
                     $data->url = $data->createUrl();
                     return $data->add();
                 }
