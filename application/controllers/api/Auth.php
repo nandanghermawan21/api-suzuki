@@ -47,7 +47,7 @@ class Auth extends BD_Controller
             $customer = $this->customer->login(
                 $user
             );
-            if ($customer->isVerifiedPhone == false) {
+            if ($customer["isVerifiedPhone"] == false) {
                 $this->sms->send_sms($customer->phoneNumber, "Berikut kode OTP untuk registrasi anda " . $customer->otp);
 
                 $result = new Otp_model();
