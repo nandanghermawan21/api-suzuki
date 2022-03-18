@@ -47,7 +47,7 @@ class Auth extends BD_Controller
             $customer = new Customer_model();
             $jsonBody  = json_decode(file_get_contents('php://input'), true);
             $user = $this->user->fromJson($jsonBody);
-            $this->customer->login(
+            $customerPublic = $this->customer->login(
                 $user,
                 false,
                 $customer 
@@ -61,7 +61,7 @@ class Auth extends BD_Controller
                 $result->expired = $customer->otpValidDate->format('Y-m-d') . "T" .  $customer->otpValidDate->format('H:i:s.u');
                 $this->response($result, 403);
             }
-            $this->response($customer, 200);
+            $this->response($customerPublic, 200);
         } catch (\Exception $e) {
             $error = new Error_model();
             $error->status = 500;
