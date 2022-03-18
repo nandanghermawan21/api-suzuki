@@ -39,9 +39,9 @@ class Customer extends BD_Controller
      */
     public function register_post()
     {
-
         try {
             $jsonBody  = json_decode(file_get_contents('php://input'), true);
+            $customerRegister =  $this->customer->readRegisterJson($jsonBody);
             $customer = $this->customer->fromJson($jsonBody);
             $user = $this->user->fromJson($jsonBody);
 
@@ -51,16 +51,9 @@ class Customer extends BD_Controller
                 $this->response("Phone Is Exist", 400);
             } else {
                 //upload image first
-                if (!empty($_FILES["media"])) {
-                    $media    = $_FILES["media"];
-        
-                    if ($media["error"] !== UPLOAD_ERR_OK) {
-                        $this->response("upload gagal", 500);
-                        exit;
-                    } else {
-                        $file = $this->file->upload("useravatar", $customer->username, $media);
-                        $customer->imageId = $file->id;
-                    }
+                if (!empty($customerRegister->avatar)) {
+                    $file = $this->file->save("useravatar", $customer->username, $customerRegister->avatar);
+                    $customer->imageId = $file->id;
                 }
                 //add
                 $customer->add();
@@ -115,7 +108,7 @@ class Customer extends BD_Controller
                         $this->response("upload gagal", 500);
                         exit;
                     } else {
-                        $file = $this->file->upload($path, random_string('alnum', 50) , $media);
+                        $file = $this->file->upload($path, random_string('alnum', 50), $media);
                         $customer = $this->customer->fromId($id);
                         $customer->imageId = $file->id;
                         $customer = $customer->update();

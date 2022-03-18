@@ -387,6 +387,39 @@ class Customer_model extends CI_Model
 
 		return $count > 0 ? true : false;
 	}
+
+	public function readRegisterJson() : CustomerRegister
+	{
+		$data = new CustomerRegister();
+		if (isset($json["avatar"])) {
+			$data->avatar = $json["avatar"];
+		}
+		if (isset($json["nik"])) {
+			$data->nik = $json["nik"];
+		}
+		if (isset($json["fullName"])) {
+			$data->fullName = $json[$json["fullName"]];
+		}
+		if (isset($json["genderId"])) {
+			$data->genderId = $json["genderId"];
+		}
+		if (isset($json["cityId"])) {
+			$data->cityId = $json["cityId"];
+		}
+		if (isset($json["phoneNumber"])) {
+			$data->phoneNumber = $json["phoneNumber"];
+		}
+		if (isset($json["username"])) {
+			$data->username = $json["username"];
+		}
+		if (isset($json["password"])) {
+			$data->password = $json["password"];
+		}
+		if (isset($json["deviceId"])) {
+			$data->deviceId = $json["deviceId"];
+		}
+		return $data;
+	}
 }
 
 /**
@@ -395,14 +428,10 @@ class Customer_model extends CI_Model
 class CustomerRegister
 {
 	/**
-	 * @OA\Property(
-	 *    property="media",
-	 *    description="media",
-	 *    type="file",
-	 *    @OA\Items(type="string", format="binary")
-	 * ),
+	 * @OA\Property()
+	 * @var String
 	 */
-	public $media;
+	public $avatar;
 
 	/**
 	 * @OA\Property()

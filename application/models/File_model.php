@@ -166,7 +166,7 @@ class File_model extends CI_Model
                 mkdir($this->config->item("upload_dir") . "/" . $path, 0777, TRUE);
             }
 
-            $success = move_uploaded_file($media["tmp_name"], $this->config->item("upload_dir") . $path . "/" .  $name.'.'.$ext);
+            $success = move_uploaded_file($media["tmp_name"], $this->config->item("upload_dir") . $path . "/" .  $name . '.' . $ext);
 
             $success = true;
             if ($success) {
@@ -178,6 +178,73 @@ class File_model extends CI_Model
                 $data->url = $data->createUrl();
                 return $data->add();
             }
+        }
+    }
+
+    public function save($path, $name, $base64)
+    {
+        if ($base64 != null) {
+
+            if (!is_dir($this->config->item("upload_dir") . "/" . $path)) {
+                mkdir($this->config->item("upload_dir") . "/" . $path, 0777, TRUE);
+            }
+
+            $file = $this->config->item("upload_dir") . "/" . $path . $name . '.' . $this->getExtention($base64);
+            $img = str_replace('data:image/png;base64,', '', $base64);
+            $img = str_replace(' ', '+', $img);
+            $data = base64_decode($img);
+            $success = file_put_contents($file, $data);
+       
+            $success = true;
+            if ($success) {
+                $data = new File_model();
+                $data->filename = $name;
+                $data->path = $path;
+                $data->extention = $this->getExtention($base64);
+                $data->size = $file["size"];
+                $data->url = $data->createUrl();
+                return $data->add();
+            }
+        }
+    }
+
+    function base64_to_image($base64_string, $output_file)
+    {
+        // open the output file for writing
+        $ifp = fopen($output_file, 'wb');
+
+        // split the string on commas
+        // $data[ 0 ] == "data:image/png;base64"
+        // $data[ 1 ] == <actual base64 string>
+        $data = explode(',', $base64_string);
+
+        // we could add validation here with ensuring count( $data ) > 1
+        fwrite($ifp, base64_decode($data[1]));
+
+        // clean up the file resource
+        fclose($ifp);
+
+        return $output_file;
+    }
+
+    function getExtention($base64)
+    {
+        $data = explode(',', $base64);
+        switch ($data[0]) {
+            case "data:image/png;base64":
+                return "png";
+                break;
+            case "data:image/jpeg;base64":
+                return "jeeg";
+                break;
+            case "data:image/jpg;base64":
+                return "jpg";
+                break;
+            case "data:image/gif;base64":
+                return "gif";
+                break;
+            default:
+                return "jpg";
         }
     }
 }
