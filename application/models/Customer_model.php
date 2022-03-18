@@ -395,6 +395,16 @@ class Customer_model extends CI_Model
 class CustomerRegister
 {
 	/**
+	 * @OA\Property(
+	 *    property="media",
+	 *    description="media",
+	 *    type="file",
+	 *    @OA\Items(type="string", format="binary")
+	 * ),
+	 */
+	public $media;
+
+	/**
 	 * @OA\Property()
 	 * @var String
 	 */
