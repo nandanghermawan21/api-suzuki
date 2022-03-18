@@ -372,6 +372,8 @@ class Customer_model extends CI_Model
 
 	public function  toArray(): array
 	{
+		print_r($this);
+
 		$data = array(
 			$this->idField() => $this->id,
 			$this->nikField() => $this->nik,
