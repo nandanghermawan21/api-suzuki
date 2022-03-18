@@ -61,7 +61,7 @@ class Auth extends BD_Controller
             $error = new Error_model();
             $error->status = 500;
             $error->message = $e->getMessage();
-            $this->response($error, 500);
+            $this->response($error->message, 500);
         }
     }
 }
