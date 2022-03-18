@@ -18,6 +18,7 @@ class Customer extends BD_Controller
         $this->load->model('Customer_model', 'customer');
         $this->load->model('File_model', 'file');
         $this->load->model('User_model', 'user');
+        $this->load->model('Twilio_model', 'sms');
     }
 
     /**
@@ -58,7 +59,11 @@ class Customer extends BD_Controller
                 $customer->imageId = $file->id;
 
                 //add
-                $customer->add();
+                // $customer->add();
+
+                //send Otp
+                $$this->sms->send_sms();
+
                 //login
                 $result =  $this->customer->login($user);
                 $this->response($result, 200);
