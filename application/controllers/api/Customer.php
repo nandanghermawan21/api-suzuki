@@ -54,7 +54,7 @@ class Customer extends BD_Controller
             } else {
 
                 //upload image first
-                $file = $this->file->save("useravatar", $customer->username, $customerRegister->nik);
+                $file = $this->file->save("useravatar", $customer->username, $customerRegister->userName);
                 $customer->imageId = $file->id;
 
                 //add
