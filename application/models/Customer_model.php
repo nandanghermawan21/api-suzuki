@@ -256,8 +256,11 @@ class Customer_model extends CI_Model
 	}
 
 
-	public function  login(\User_model $user, $direct = false, &$refCustomer)
+	public function  login(\User_model $user, $direct = false, int &$refCustomer = new Customer_model())
 	{
+
+		str_replace("","","",$dfdf);
+
 		try {
 			$query = $this->db->get_where($this->tableName, array(
 				$this->usernameField() => $user->username
