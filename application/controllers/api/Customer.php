@@ -230,6 +230,7 @@ class Customer extends BD_Controller
                 $result->resendUrl = "api/customer/resendotp/?id=" . $customer->id;
                 $result->confirmUrl = "api/customer/confirm/?id=" . $customer->id;
                 $result->expired = $customer->otpValidDate->format('Y-m-d') . "T" .  $customer->otpValidDate->format('H:i:s.u');
+                $this->response($result,200);
             } else {
                 $this->response("id tidak ditemukan", 400);
             }
