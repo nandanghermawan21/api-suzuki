@@ -217,7 +217,7 @@ class Customer extends BD_Controller
     {
         $id = $this->input->get("id", true);
 
-        if (!empty($id) && !empty($otp)) {
+        if (!empty($id)) {
             $customer = $this->customer->fromId($id);
             if ($customer->id != null) {
                 //send Otp
