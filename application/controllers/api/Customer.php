@@ -115,7 +115,7 @@ class Customer extends BD_Controller
      *   security={{"token": {}}},
      * )
      */
-    public function updateImage_post()
+    public function confirm_post()
     {
         if ($this->getData()->type == "customer") {
             try {
