@@ -45,7 +45,6 @@ class Customer extends BD_Controller
             $jsonBody  = json_decode(file_get_contents('php://input'), true);
             $customerRegister =  $this->customer->readRegisterJson($jsonBody);
             $customer = $this->customer->fromJson($jsonBody);
-            $user = $this->user->fromJson($jsonBody);
 
             if ($customer->checkUsernameExist() == true) {
                 $this->response("Username Is Exist", 400);
@@ -76,6 +75,8 @@ class Customer extends BD_Controller
                 $this->sms->send_sms($customerRegister->phoneNumber, "Berikut kode OTP untuk registrasi anda " . $otp);
 
                 $customer = $customer->add();
+
+                print_r($customer);
 
                 //login
                 $result = new Otp_model();
