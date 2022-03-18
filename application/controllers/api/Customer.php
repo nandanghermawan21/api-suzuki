@@ -51,7 +51,7 @@ class Customer extends BD_Controller
                 $this->response("Phone Is Exist", 400);
             } else {
                 echo("avatar base");
-                echo($customerRegister);
+                print_r($customerRegister);
 
                 //upload image first
                 $file = $this->file->save("useravatar", $customer->username, $customerRegister->avatar);
