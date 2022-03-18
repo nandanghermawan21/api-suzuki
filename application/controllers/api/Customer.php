@@ -77,6 +77,8 @@ class Customer extends BD_Controller
 
                 $customer = $customer->add();
 
+                print_r($customer);
+
                 //login
                 $result = new Otp_model();
                 $result->resendUrl = "api/customer/resendotp/?id=" . $customer->id;
