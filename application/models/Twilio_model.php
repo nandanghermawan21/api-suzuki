@@ -18,7 +18,7 @@ class Twilio_model extends CI_Model
         $client = new Client($account_sid, $auth_token);
         $client->messages->create(
             // Where to send a text message (your cell phone?)
-            '+627724538083',
+            '+6287724538083',
             array(
                 'from' => $twilio_number,
                 'body' => 'I sent this message in under 10 minutes!'
