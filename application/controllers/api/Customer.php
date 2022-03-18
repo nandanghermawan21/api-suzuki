@@ -182,7 +182,7 @@ class Customer extends BD_Controller
                     $customer->isVerifiedPhone = true;
                     $customer = $customer->update();
 
-                    $user = $this->user-> fromJson($customer->toJson());
+                    $user = $this->user->fromJson($customer->toJson());
                     $result = $customer->login($user,true);
 
                     $this->response($result, 200);

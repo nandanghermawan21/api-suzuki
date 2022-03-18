@@ -184,18 +184,30 @@ class Customer_model extends CI_Model
 	}
 
 	public $otp;
+	public function otpJsonKey(): string
+	{
+		return "otp";
+	}
 	public function otpField(): string
 	{
 		return "otp";
 	}
 
 	public $isVerifiedPhone;
+	public function isVerifiedPhoneJsonKey(): string
+	{
+		return "isVerifiedPhone";
+	}
 	public function isVerifiedPhoneField(): string
 	{
 		return "is_verified_phone";
 	}
 
 	public $otpValidDate;
+	public function otpValidDateJsonKey(): string
+	{
+		return "otpValidDate";
+	}
 	public function otpValidDateField(): string
 	{
 		return "otp_valid_date";
@@ -219,7 +231,6 @@ class Customer_model extends CI_Model
 
 	public function  fromRow($row)
 	{
-		print_r($row);
 
 		$data = new Customer_model();
 		$data->id = $row->id;
@@ -333,6 +344,28 @@ class Customer_model extends CI_Model
 		return $data;
 	}
 
+	public function toJson(): array
+	{
+		$data = array(
+			$this->idJsonKey() => $this->id,
+			$this->nikJsonKey() => $this->nik,
+			$this->imageIdJsonKey() => $this->imageId,
+			$this->fullNamseJsonKey() => $this->fullName,
+			$this->genderIdJsonKey() => $this->genderId,
+			$this->cityIdJsonKey() => $this->cityId,
+			$this->phoneNumberJsonKey() => $this->phoneNumber,
+			$this->usernameJsonKey() => $this->username,
+			$this->passwordJsonKey() => $this->password,
+			$this->levelJsonKey() => $this->level,
+			$this->deviceIdJsonKey() => $this->deviceId,
+			$this->otpJsonKey() => $this->otp,
+			$this->isVerifiedPhoneJsonKey() => $this->isVerifiedPhone,
+			$this->otpValidDateJsonKey() => date_format($this->otpValidDate, 'Y-m-d H:i:s.u'),
+		);
+
+		return $data;
+	}
+
 	public function  add(): Customer_model
 	{
 		try {
@@ -372,7 +405,6 @@ class Customer_model extends CI_Model
 
 	public function  toArray(): array
 	{
-		print_r($this);
 
 		$data = array(
 			$this->idField() => $this->id,
