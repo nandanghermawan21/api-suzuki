@@ -207,7 +207,7 @@ class Customer extends BD_Controller
      *    @OA\Response(response=200,
      *     description="file info",
      *     @OA\JsonContent(
-     *       @OA\Items(ref="#/components/schemas/CustomerModel")
+     *       @OA\Items(ref="#/components/schemas/OtpModel")
      *     ),
      *    ),
      *   security={{"token": {}}},
