@@ -76,13 +76,11 @@ class Customer extends BD_Controller
 
                 $customer = $customer->add();
 
-                print_r($customer);
-
                 //login
                 $result = new Otp_model();
                 $result->resendUrl = "api/customer/resendotp/?id=" . $customer->id;
                 $result->confirmUrl = "api/customer/confirm/?id=" . $customer->id;
-                $result->expired = $customer->otpValidDate->format('Y-m-d') . "T" . $customer->otpValidDate->format('H:i:s.u');
+                $result->expired = $expiredDate->format('Y-m-d') . "T" . $customer->otpValidDate->format('H:i:s.u');
 
                 $this->response($result, 200);
             }
