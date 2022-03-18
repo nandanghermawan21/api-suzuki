@@ -23,7 +23,6 @@ class Auth extends BD_Controller
         $this->load->model('User_model', 'user');
         $this->load->model('Twilio_model', 'sms');
         $this->load->model('Otp_model', 'otp');
-
     }
 
     /**
@@ -45,11 +44,13 @@ class Auth extends BD_Controller
     public function customerLogin_post()
     {
         try {
+            $customer = new Customer_model();
             $jsonBody  = json_decode(file_get_contents('php://input'), true);
             $user = $this->user->fromJson($jsonBody);
-            $customer = $this->customer->fromJson($this->customer->login(
-                $user
-            ));
+            $this->customer->login(
+                $user,
+                $customer 
+            );
             if ($customer->isVerifiedPhone == false) {
                 $this->sms->send_sms($customer->phoneNumber, "Berikut kode OTP untuk registrasi anda " . $customer->otp);
 

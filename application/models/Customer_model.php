@@ -256,7 +256,7 @@ class Customer_model extends CI_Model
 	}
 
 
-	public function  login(\User_model $user, $direct = false)
+	public function  login(\User_model $user, $direct = false, &$refCustomer)
 	{
 		try {
 			$query = $this->db->get_where($this->tableName, array(
@@ -268,6 +268,7 @@ class Customer_model extends CI_Model
 			}
 
 			$customer = $this->fromRow($query->row());
+			$refCustomer = $customer;
 			$password = $direct == false ? sha1($user->password) : $user->password;
 			if ($password == $customer->password) {  //Condition if password matched
 				$token['id'] = $customer->id;  //From here
