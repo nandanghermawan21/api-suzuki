@@ -282,7 +282,7 @@ class Customer_model extends CI_Model
 				$customer->deviceId = $user->deviceId;
 				$customer = $customer->update();
 				$customer->token = $output['token'];
-				return $customer;
+				return $customer->toPublic();
 			} else {
 				throw new Exception("password is invalid");
 			}
@@ -361,6 +361,24 @@ class Customer_model extends CI_Model
 			$this->otpJsonKey() => $this->otp,
 			$this->isVerifiedPhoneJsonKey() => $this->isVerifiedPhone,
 			$this->otpValidDateJsonKey() => date_format($this->otpValidDate, 'Y-m-d H:i:s.u'),
+		);
+
+		return $data;
+	}
+
+	public function toPublic(): array
+	{
+		$data = array(
+			$this->idJsonKey() => $this->id,
+			$this->nikJsonKey() => $this->nik,
+			$this->imageIdJsonKey() => $this->imageId,
+			$this->fullNamseJsonKey() => $this->fullName,
+			$this->genderIdJsonKey() => $this->genderId,
+			$this->cityIdJsonKey() => $this->cityId,
+			$this->phoneNumberJsonKey() => $this->phoneNumber,
+			$this->usernameJsonKey() => $this->username,
+			$this->passwordJsonKey() => $this->password,
+			$this->levelJsonKey() => $this->level,
 		);
 
 		return $data;
