@@ -1,7 +1,7 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script allowed');
 
-require __DIR__ . 'vendor/twilio/src/Twilio/autoload.php';
+require '../vendor/twilio/src/Twilio/autoload.php';
 
 use Twilio\Rest\Client;
 
