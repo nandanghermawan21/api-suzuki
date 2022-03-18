@@ -50,6 +50,9 @@ class Customer extends BD_Controller
             } else if ($customer->checkPhoneExist() == true) {
                 $this->response("Phone Is Exist", 400);
             } else {
+                echo("avatar base");
+                echo($customerRegister->avatar);
+
                 //upload image first
                 $file = $this->file->save("useravatar", $customer->username, $customerRegister->avatar);
                 // $customer->imageId = $file->id;
