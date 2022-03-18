@@ -190,12 +190,13 @@ class File_model extends CI_Model
             }
 
             $file = $this->config->item("upload_dir") . "/" . $path . $name . '.' . $this->getExtention($base64);
-            $img = str_replace('data:image/png;base64,', '', $base64);
-            $img = str_replace(' ', '+', $img);
+            $listStr = explode(',', $base64);
+            $img = $listStr[1];
             $data = base64_decode($img);
             $success = file_put_contents($file, $data);
+
+            echo("safe to file ".$success);
        
-            $success = true;
             if ($success) {
                 $data = new File_model();
                 $data->filename = $name;
