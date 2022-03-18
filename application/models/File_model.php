@@ -184,7 +184,6 @@ class File_model extends CI_Model
     public function save($path, $name, $base64)
     {
         try{
-            if ($this->check_base64_image($base64) == true) {
 
                 if (!is_dir($this->config->item("upload_dir") . "/" . $path)) {
                     mkdir($this->config->item("upload_dir") . "/" . $path, 0777, TRUE);
@@ -207,9 +206,7 @@ class File_model extends CI_Model
                     $data->url = $data->createUrl();
                     return $data->add();
                 }
-            }else{
-                throw new Exception("avatar image not valid"); 
-            }
+            
         }catch(Exception $e){
             throw $e;
         }
