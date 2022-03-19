@@ -34,7 +34,7 @@ class Customer extends BD_Controller
      *   @OA\Response(response=200,
      *     description="register customer",
      *     @OA\JsonContent(
-     *       @OA\Items(ref="#/components/schemas/OtpModel")
+     *       @OA\Schema(ref="#/components/schemas/OtpModel")
      *     ),
      *   ),
      * )

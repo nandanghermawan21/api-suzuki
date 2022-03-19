@@ -307,6 +307,18 @@ class Customer_model extends CI_Model
 		}
 	}
 
+	public function  fromUsername($username)
+	{
+		$data = $this->db->get_where($this->tableName, array($this->usernameField() => $username));
+		$result = $data->result();
+
+		if (count($result) > 0) {
+			return $this->fromRow($result[0]);
+		} else {
+			return new Customer_model();
+		}
+	}
+
 	public function  fromJson($json): Customer_model
 	{
 		$data = new Customer_model();
