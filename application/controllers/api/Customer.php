@@ -46,6 +46,12 @@ class Customer extends BD_Controller
             $customerRegister =  $this->customer->readRegisterJson($jsonBody);
             $customer = $this->customer->fromJson($jsonBody);
 
+            print("jsonBody");
+            print_r($jsonBody);
+
+            print("customerRegister");
+            print_r($customerRegister);
+
             if ($customer->checkUsernameExist() == true) {
                 $this->response("Username Is Exist", 400);
             }
