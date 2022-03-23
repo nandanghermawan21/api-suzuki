@@ -81,7 +81,7 @@ class Fileservice extends BD_Controller
     }
 
     /**
-     * @OA\Post("https://konteks-api.konvergen.ai/sfi/ktp",tags={"fileService"},
+     * @OA\Post(url="https://konteks-api.konvergen.ai/sfi/ktp",tags={"fileService"},
      * @OA\RequestBody(
      *      @OA\MediaType(
      *          mediaType="multipart/form-data",
@@ -107,4 +107,18 @@ class Fileservice extends BD_Controller
      *   ),
      * )
      */
+    public function readktp_post()
+    {
+        if (!empty($_FILES["file"])) {
+            $media    = $_FILES["file"];
+
+            if ($media["error"] !== UPLOAD_ERR_OK) {
+                $this->response("upload gagal", 500);
+                exit;
+            } else {
+                $file = $this->file->upload("random", rand(1000000000, 9999999999), $media);
+                $this->response($file, 200);
+            }
+        }
+    }
 }
