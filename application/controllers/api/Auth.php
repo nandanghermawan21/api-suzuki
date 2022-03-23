@@ -39,6 +39,12 @@ class Auth extends BD_Controller
      *       @OA\Items(ref="#/components/schemas/CustomerModel")
      *     ),
      *   ),
+     *   @OA\Response(response=403,
+     *     description="validate phone number",
+     *     @OA\JsonContent(
+     *       @OA\Items(ref="#/components/schemas/OtpModel")
+     *     ),
+     *   ),
      * )
      */
     public function customerLogin_post()

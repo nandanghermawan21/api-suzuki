@@ -115,7 +115,7 @@ class Customer extends BD_Controller
      *   @OA\Response(response=200,
      *     description="register customer",
      *     @OA\JsonContent(
-     *       @OA\Items(ref="#/components/schemas/CustomerModel")
+     *       ref="#/components/schemas/CustomerModel"
      *     ),
      *   ),
      *   security={{"token": {}}},
@@ -170,7 +170,7 @@ class Customer extends BD_Controller
      *    @OA\Response(response=200,
      *     description="file info",
      *     @OA\JsonContent(
-     *       @OA\Items(ref="#/components/schemas/CustomerModel")
+     *       ref="#/components/schemas/CustomerModel"
      *     ),
      *    ),
      *   security={{"token": {}}},
@@ -213,7 +213,7 @@ class Customer extends BD_Controller
      *    @OA\Response(response=200,
      *     description="file info",
      *     @OA\JsonContent(
-     *       @OA\Items(ref="#/components/schemas/OtpModel")
+     *      ref="#/components/schemas/OtpModel"
      *     ),
      *    ),
      *   security={{"token": {}}},
