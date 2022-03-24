@@ -66,7 +66,7 @@ class City_model extends CI_Model
         $data = new City_model();
         $data->id = $row->id;
         $data->provinceId = $row->province_id;
-        // $data->name = str_replace("Kota","",$row->name);
+        $data->name = $row->name; // str_replace("Kota","",$row->name);
 
         return $data;
     }
