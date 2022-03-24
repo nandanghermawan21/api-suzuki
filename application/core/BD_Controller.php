@@ -12,6 +12,7 @@ use \Firebase\JWT\JWT;
 
 /**
  * @OA\Info(title="Training Suzuki API", version="0.1")
+ * @OA\servers
  */
 class BD_Controller extends REST_Controller
 {
