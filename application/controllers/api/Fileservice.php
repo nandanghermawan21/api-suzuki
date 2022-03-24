@@ -70,36 +70,4 @@ class Fileservice extends BD_Controller
             }
         }
     }
-
-    /**
-     * @OA\Post("https://konteks-api.konvergen.ai/sfi/ktp",tags={"fileService"},
-     * @OA\RequestBody(
-     *      @OA\MediaType(
-     *          mediaType="multipart/form-data",
-     *          @OA\Schema(
-     *              @OA\Property(
-     *                  property="key",
-     *                  type="string",
-     *                  description="username"
-     *              ),
-     *              @OA\Property(
-     *                  property="file",
-     *                  type="file",
-     *                  description="password"
-     *              )
-     *          )
-     *      )
-     *  ),
-     *   @OA\Response(response=200,
-     *     description="basic user info",
-     *     @OA\JsonContent(
-     *       ref="#/components/schemas/FileModel"
-     *     ),
-     *   ),
-     * )
-     */
-    public function readktp_post()
-    {
-        
-    }
 }
