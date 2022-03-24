@@ -4,9 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 use \Firebase\JWT\JWT;
 
-/**
- * @OA\Info(title="Game Center API", version="0.1")
- */
+
 class City extends BD_Controller
 {
 
