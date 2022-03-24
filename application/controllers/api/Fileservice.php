@@ -2,15 +2,6 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-/**
- * @OA\Info(title="Game Center API", version="0.1")
- * @OA\SecurityScheme(
- *   securityScheme="token",
- *   type="apiKey",
- *   name="Authorization",
- *   in="header"
- * )
- */
 class Fileservice extends BD_Controller
 {
 
@@ -102,7 +93,7 @@ class Fileservice extends BD_Controller
      *   @OA\Response(response=200,
      *     description="basic user info",
      *     @OA\JsonContent(
-     *       @OA\Items(ref="#/components/schemas/user")
+     *       ref="#/components/schemas/FileModel"
      *     ),
      *   ),
      * )
@@ -118,6 +109,8 @@ class Fileservice extends BD_Controller
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
         
+        
+
         // execute!
         $response = curl_exec($ch);
         

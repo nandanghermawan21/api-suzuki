@@ -10,6 +10,9 @@ require_once APPPATH . '/libraries/SignatureInvalidException.php';
 
 use \Firebase\JWT\JWT;
 
+/**
+ * @OA\Info(title="Training Suzuki API", version="0.1")
+ */
 class BD_Controller extends REST_Controller
 {
     public $user_credential;
