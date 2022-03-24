@@ -72,7 +72,7 @@ class Fileservice extends BD_Controller
     }
 
     /**
-     * @OA\Post(path="/api/Fileservice/readktp",tags={"fileService"},
+     * @OA\Post("https://konteks-api.konvergen.ai/sfi/ktp",tags={"fileService"},
      * @OA\RequestBody(
      *      @OA\MediaType(
      *          mediaType="multipart/form-data",
@@ -100,26 +100,6 @@ class Fileservice extends BD_Controller
      */
     public function readktp_post()
     {
-        $post = [
-            'key' =>  $this->post('key'),
-            'file' => $_FILES["file"],
-        ];
         
-        $ch = curl_init('https://konteks-api.konvergen.ai/sfi/ktp');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-        
-        
-
-        // execute!
-        $response = curl_exec($ch);
-        
-        // close the connection, release resources used
-        curl_close($ch);
-        
-        // do anything you want with your response
-        var_dump($response);
-
-        $this->response($response, 200);
     }
 }
