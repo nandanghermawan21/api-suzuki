@@ -44,6 +44,10 @@ class Customer_model extends CI_Model
 	 * @var string
 	 */
 	public $imageUrl;
+	public function imageUrlJsonKey(): string
+	{
+		return "imageUrl";
+	}
 
 	/**
 	 * @OA\Property()
@@ -92,6 +96,11 @@ class Customer_model extends CI_Model
 	 * @var string
 	 */
 	public $genderName;
+	public function genderNameJsonKey(): string
+	{
+		return "genderName";
+	}
+
 
 	/**
 	 * @OA\Property()
@@ -112,6 +121,11 @@ class Customer_model extends CI_Model
 	 * @var string
 	 */
 	public $cityName;
+	public function cityNameJsonKey(): string
+	{
+		return "cityName";
+	}
+
 
 	/**
 	 * @OA\Property()
@@ -259,7 +273,7 @@ class Customer_model extends CI_Model
 	public function  login(\User_model $user, $direct = false, Customer_model &$refCustomer = null)
 	{
 
-		str_replace("","","",$dfdf);
+		str_replace("", "", "", $dfdf);
 
 		try {
 			$query = $this->db->get_where($this->tableName, array(
@@ -388,9 +402,12 @@ class Customer_model extends CI_Model
 			$this->idJsonKey() => (int) $this->id,
 			$this->nikJsonKey() => $this->nik,
 			$this->imageIdJsonKey() => $this->imageId,
+			$this->imageUrlJsonKey() =>  $this->file->fromId($this->imageId)->createUrl(),
 			$this->fullNamseJsonKey() => $this->fullName,
 			$this->genderIdJsonKey() => $this->genderId,
+			$this->genderNameJsonKey() => $this->gender->fromId($this->genderId)->name,
 			$this->cityIdJsonKey() => $this->cityId,
+			$this->cityNameJsonKey() => $this->city->fromId($this->cityId)->name,
 			$this->phoneNumberJsonKey() => $this->phoneNumber,
 			$this->usernameJsonKey() => $this->username,
 			$this->levelJsonKey() => (int) $this->level,
