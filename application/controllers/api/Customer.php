@@ -67,7 +67,7 @@ class Customer extends BD_Controller
                 //createOtp
                 $otp = rand(100000, 999999);
                 $currentDate = new DateTime("now", new DateTimeZone("UTC"));
-                $expiredDate = $currentDate->add(new DateInterval('PT' . 5 . 'm'));
+                $expiredDate = $currentDate->add(new DateInterval('+' . 5 . 'minute'));
 
 
                 //add
