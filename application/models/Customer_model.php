@@ -385,7 +385,7 @@ class Customer_model extends CI_Model
 	public function toPublic(): array
 	{
 		$data = array(
-			$this->idJsonKey() => $this->id,
+			$this->idJsonKey() => (int) $this->id,
 			$this->nikJsonKey() => $this->nik,
 			$this->imageIdJsonKey() => $this->imageId,
 			$this->fullNamseJsonKey() => $this->fullName,
@@ -393,7 +393,7 @@ class Customer_model extends CI_Model
 			$this->cityIdJsonKey() => $this->cityId,
 			$this->phoneNumberJsonKey() => $this->phoneNumber,
 			$this->usernameJsonKey() => $this->username,
-			$this->levelJsonKey() => $this->level,
+			$this->levelJsonKey() => (int) $this->level,
 			$this->isVerifiedPhoneJsonKey() => $this->isVerifiedPhone,
 		);
 
