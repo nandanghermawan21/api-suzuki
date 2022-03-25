@@ -67,7 +67,7 @@ class Customer extends BD_Controller
                 //createOtp
                 $otp = rand(100000, 999999);
                 $currentDate = new DateTime("now", new DateTimeZone("UTC"));
-                $expiredDate = $currentDate->add(new DateInterval('PT' . 5 . 'M'));
+                $expiredDate = $currentDate->add(new DateInterval('PT' . 5 . 'm'));
 
 
                 //add
@@ -82,8 +82,8 @@ class Customer extends BD_Controller
 
                 //login
                 $result = new Otp_model();
-                $result->resendUrl = "customer/resendotp/?id=" . $customer->id;
-                $result->confirmUrl = "customer/confirm/?id=" . $customer->id;
+                $result->resendUrl = "customer/resendotp?id=" . $customer->id;
+                $result->confirmUrl = "customer/confirm?id=" . $customer->id;
                 $result->expired = $expiredDate->format('Y-m-d') . "T" .  $expiredDate->format('H:i:s.u');
 
                 $this->response($result, 200);
@@ -232,8 +232,8 @@ class Customer extends BD_Controller
 
                     //login
                     $result = new Otp_model();
-                    $result->resendUrl = "customer/resendotp/?id=" . $customer->id;
-                    $result->confirmUrl = "customer/confirm/?id=" . $customer->id;
+                    $result->resendUrl = "customer/resend?id=" . $customer->id;
+                    $result->confirmUrl = "customer/confirm?id=" . $customer->id;
                     $result->expired = $customer->otpValidDate->format('Y-m-d') . "T" .  $customer->otpValidDate->format('H:i:s.u');
                     $this->response($result, 200);
                 } else {

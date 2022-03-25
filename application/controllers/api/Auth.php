@@ -60,8 +60,8 @@ class Auth extends BD_Controller
                 $this->sms->send_sms($customer->phoneNumber, "Berikut kode OTP untuk registrasi anda " . $customer->otp);
 
                 $result = new Otp_model();
-                $result->resendUrl = "customer/resendotp/?id=" . $customer->id;
-                $result->confirmUrl = "customer/confirm/?id=" . $customer->id;
+                $result->resendUrl = "customer/resend?id=" . $customer->id;
+                $result->confirmUrl = "customer/confirm?id=" . $customer->id;
                 $result->expired = $customer->otpValidDate->format('Y-m-d') . "T" .  $customer->otpValidDate->format('H:i:s.u');
                 $this->response($result, 403);
             }
