@@ -226,7 +226,7 @@ class Customer extends BD_Controller
                 $customer = $this->customer->fromId($id);
                 if ($customer->id != null) {
                     //send Otp
-                    $this->sms->send_sms($customer->phoneNumber, "Berikut kode OTP untuk registrasi anda " . $customer->otp);
+                    // $this->sms->send_sms($customer->phoneNumber, "Berikut kode OTP untuk registrasi anda " . $customer->otp);
 
                     $customer = $customer->add();
 
