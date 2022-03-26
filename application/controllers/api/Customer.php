@@ -76,7 +76,7 @@ class Customer extends BD_Controller
                 $customer->otpValidDate = $expiredDate;
 
                 //send Otp
-                $this->sms->send_sms($customerRegister->phoneNumber, "Berikut kode OTP untuk registrasi anda " . $otp);
+                // $this->sms->send_sms($customerRegister->phoneNumber, "Berikut kode OTP untuk registrasi anda " . $otp);
 
                 $customer = $customer->add();
 
