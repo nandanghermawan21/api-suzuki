@@ -102,6 +102,6 @@ class Fileservice extends BD_Controller
      */
     public function sample404_get()
     {
-        $this->response("internal server error", 500);
+        $this->response("Page Not Found", 404);
     }
 }
