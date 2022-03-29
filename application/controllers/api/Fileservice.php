@@ -70,4 +70,21 @@ class Fileservice extends BD_Controller
             }
         }
     }
+
+    /**
+     * @OA\Post(path="/api/Fileservice/sample500",tags={"fileService"},
+     *   operationId="upload file",
+     *    @OA\Response(response=200,
+     *     description="file info",
+     *     @OA\JsonContent(
+     *       @OA\Items(ref="#/components/schemas/FileModel")
+     *     ),
+     *    ),
+     *   security={{"token": {}}},
+     * )
+     */
+    public function sample500_get()
+    {
+        $this->response("internal server error", 500);
+    }
 }
