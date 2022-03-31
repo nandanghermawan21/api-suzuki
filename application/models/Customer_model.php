@@ -575,7 +575,7 @@ class Customer_model extends CI_Model
 		return $data;
 	}
 
-	public function updateLocation(\string $id, \float $lat, \float $lon ){
+	public function updateLocation(string $id, float $lat, float $lon ){
 		try {
 			if ($id != null && $lat != null && $lon != null) {
 				$data = Array(
