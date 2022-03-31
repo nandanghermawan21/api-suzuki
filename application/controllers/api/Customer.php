@@ -18,6 +18,7 @@ class Customer extends BD_Controller
         $this->load->model('File_model', 'file');
         $this->load->model('User_model', 'user');
         $this->load->model('Twilio_model', 'sms');
+        $this->load->model('Location_model', 'location');
     }
 
     /**
@@ -97,19 +98,11 @@ class Customer extends BD_Controller
      * @OA\Post(path="/api/customer/updateImage",tags={"customer"},
      *   operationId="updateImageId customer",
      *   @OA\RequestBody(
-     *       required=true,
-     *       @OA\MediaType(
-     *           mediaType="multipart/form-data",
-     *           @OA\Schema(
-     *               @OA\Property(
-     *                   property="media",
-     *                   description="media",
-     *                   type="file",
-     *                   @OA\Items(type="string", format="binary")
-     *                ),
-     *            ),
-     *        ),
-     *    ),
+     *     @OA\MediaType(
+     *         mediaType="application/json",
+     *         @OA\Schema(ref="#/components/schemas/LocationModel")
+     *     ),
+     *   ),
      *   @OA\Response(response=200,
      *     description="register customer",
      *     @OA\JsonContent(
@@ -148,6 +141,54 @@ class Customer extends BD_Controller
         } else {
             $this->response("forbidden access", 500);
         }
+    }
+
+    /**
+     * @OA\Post(path="/api/customer/updatePosition",tags={"customer"},
+     *   operationId="updatePosition customer",
+     *   @OA\RequestBody(
+     *       required=true,
+     *       @OA\MediaType(
+     *           mediaType="multipart/form-data",
+     *           @OA\Schema(
+     *               @OA\Property(
+     *                   property="media",
+     *                   description="media",
+     *                   type="file",
+     *                   @OA\Items(type="string", format="binary")
+     *                ),
+     *            ),
+     *        ),
+     *    ),
+     *   @OA\Response(response=200,
+     *     description="register customer",
+     *     @OA\JsonContent(
+     *       ref="#/components/schemas/CustomerModel"
+     *     ),
+     *   ),
+     *   security={{"token": {}}},
+     * )
+     */
+    public function updatePosition_post()
+    {
+        if ($this->getData()->type == "customer") {
+            try {
+                $jsonBody  = json_decode(file_get_contents('php://input'), true);
+                $id = $this->getData()->id;
+                $location = $this->location->fromJson($jsonBody);
+                $customer = $this->customer->updateLocation($id, $location->lat, $location->lon);
+
+                $this->response($customer, 200);                
+            } catch (\Exception $e) {
+                $error = new Error_model();
+                $error->status = 500;
+                $error->message = $e->getMessage();
+                $this->response($error, 500);
+            }
+        } else {
+            $this->response("forbidden access", 500);
+        }
+        
     }
 
     /**
@@ -198,6 +239,8 @@ class Customer extends BD_Controller
             }
         }
     }
+
+    
 
     /**
      * @OA\Post(path="/api/customer/resend",tags={"customer"},

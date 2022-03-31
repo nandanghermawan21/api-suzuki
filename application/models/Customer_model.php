@@ -227,6 +227,34 @@ class Customer_model extends CI_Model
 		return "otp_valid_date";
 	}
 
+	
+	/**
+	 * @OA\lat()
+	 * @var double
+	 */
+	public $lat;
+	public function latField(): string
+	{
+		return "lat";
+	}
+	public function latJsonKey(): string
+	{
+		return "lat";
+	}
+
+	/**
+	 * @OA\lat()
+	 * @var double
+	 */
+	public $lon;
+	public function lonField(): string
+	{
+		return "lon";
+	}
+	public function lonJsonKey(): string
+	{
+		return "lon";
+	}
 
 	/**
 	 * @OA\Property()
@@ -265,6 +293,8 @@ class Customer_model extends CI_Model
 		$data->otp = $row->otp;
 		$data->isVerifiedPhone = $row->is_verified_phone;
 		$data->otpValidDate = DateTime::createFromFormat('Y-m-d H:i:s', "" .  $row->otp_valid_date);
+		$data->lat = $row->lat;
+		$data->lon = $row->lon;
 
 		return $data;
 	}
@@ -369,6 +399,12 @@ class Customer_model extends CI_Model
 		if (isset($json[$this->deviceIdJsonKey()])) {
 			$data->deviceId = $json[$this->deviceIdJsonKey()];
 		}
+		if (isset($json[$this->latJsonKey()])) {
+			$data->lat = $json[$this->latJsonKey()];
+		}
+		if (isset($json[$this->lonJsonKey()])) {
+			$data->lon = $json[$this->lonJsonKey()];
+		}
 
 
 		return $data;
@@ -391,6 +427,8 @@ class Customer_model extends CI_Model
 			$this->otpJsonKey() => $this->otp,
 			$this->isVerifiedPhoneJsonKey() => $this->isVerifiedPhone,
 			$this->otpValidDateJsonKey() => date_format($this->otpValidDate, 'Y-m-d H:i:s.u'),
+			$this->latJsonKey() => $this->lat,
+			$this->lonJsonKey() => $this->lon,
 		);
 
 		return $data;
@@ -412,6 +450,8 @@ class Customer_model extends CI_Model
 			$this->usernameJsonKey() => $this->username,
 			$this->levelJsonKey() => (int) $this->level,
 			$this->isVerifiedPhoneJsonKey() => $this->isVerifiedPhone,
+			$this->latJsonKey() => $this->lat,
+			$this->lonJsonKey() => $this->lon,
 		);
 
 		return $data;
@@ -533,6 +573,25 @@ class Customer_model extends CI_Model
 			$data->deviceId = $json["deviceId"];
 		}
 		return $data;
+	}
+
+	public function updateLocation(\string $id, \float $lat, \float $lon ){
+		try {
+			if ($id != null && $lat != null && $lon != null) {
+				$data = Array(
+					$this->latField() => $lat,
+					$this->lonField() => $lon,
+				);
+				$this->db->update($this->tableName, $data, array(
+					$this->idField() => $id
+				));
+				return  $this->fromId($id);
+			} else {
+				return $this;
+			}
+		} catch (Exception $e) {
+			throw $e;
+		}
 	}
 }
 
