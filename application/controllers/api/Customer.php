@@ -122,7 +122,9 @@ class Customer extends BD_Controller
      */
     public function updateImage_post()
     {
-        if ($this->getData()->type == "customer") {
+        if ($this->getData() == null) {
+            $this->response("unautorized", 401);
+        } else if ($this->getData()->type == "customer") {
             try {
                 $id = $this->getData()->id;
                 $path = "customer_photo";
@@ -171,14 +173,16 @@ class Customer extends BD_Controller
      */
     public function updatePosition_post()
     {
-        if ($this->getData()->type == "customer") {
+        if ($this->getData() == null) {
+            $this->response("unautorized", 401);
+        } else if ($this->getData()->type == "customer") {
             try {
                 $jsonBody  = json_decode(file_get_contents('php://input'), true);
                 $id = $this->getData()->id;
                 $location = $this->location->fromJson($jsonBody);
                 $customer = $this->customer->updateLocation($id, $location->lat, $location->lon);
 
-                $this->response($customer, 200);                
+                $this->response($customer, 200);
             } catch (\Exception $e) {
                 $error = new Error_model();
                 $error->status = 500;
@@ -188,7 +192,6 @@ class Customer extends BD_Controller
         } else {
             $this->response("forbidden access", 500);
         }
-        
     }
 
     /**
@@ -240,7 +243,7 @@ class Customer extends BD_Controller
         }
     }
 
-    
+
 
     /**
      * @OA\Post(path="/api/customer/resend",tags={"customer"},
