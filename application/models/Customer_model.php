@@ -229,7 +229,7 @@ class Customer_model extends CI_Model
 
 	
 	/**
-	 * @OA\lat()
+	 * @OA\Property()
 	 * @var double
 	 */
 	public $lat;
@@ -243,7 +243,7 @@ class Customer_model extends CI_Model
 	}
 
 	/**
-	 * @OA\lat()
+	 * @OA\Property()
 	 * @var double
 	 */
 	public $lon;

@@ -7,7 +7,7 @@
 class Location_model extends CI_Model
 {
     /**
-	 * @OA\lat()
+	 * @OA\Property()
 	 * @var double
 	 */
 	public $lat;
@@ -21,7 +21,7 @@ class Location_model extends CI_Model
 	}
 
 	/**
-	 * @OA\lat()
+	 * @OA\Property()
 	 * @var double
 	 */
 	public $lon;
