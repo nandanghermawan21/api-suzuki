@@ -97,6 +97,7 @@ class Customer extends BD_Controller
     /**
      * @OA\Post(path="/api/customer/updateImage",tags={"customer"},
      *   operationId="updateImageId customer",
+     *
      *   @OA\RequestBody(
      *       required=true,
      *       @OA\MediaType(
@@ -117,10 +118,7 @@ class Customer extends BD_Controller
      *       ref="#/components/schemas/CustomerModel"
      *     ),
      *   ),
-     *   @OA\SecurityScheme(
-     *      securityDefinition="basicAuth",
-     *      type="basic"
-     *   )
+     *   security={{"token": {}}},
      * )
      */
     public function updateImage_post()
@@ -159,6 +157,12 @@ class Customer extends BD_Controller
     /**
      * @OA\Post(path="/api/customer/updatePosition",tags={"customer"},
      *   operationId="updatePosition customer",
+     *   @OA\Parameter(
+     *       name="authorization",
+     *       in="header",
+     *       required=true,
+     *       @OA\Schema(type="string")
+     *   ),
      *   @OA\RequestBody(
      *     @OA\MediaType(
      *         mediaType="application/json",
