@@ -117,7 +117,10 @@ class Customer extends BD_Controller
      *       ref="#/components/schemas/CustomerModel"
      *     ),
      *   ),
-     *   security={{"token": {}}},
+     *   @OA\SecurityScheme(
+     *      securityDefinition="basicAuth",
+     *      type="basic"
+     *   )
      * )
      */
     public function updateImage_post()
@@ -168,21 +171,15 @@ class Customer extends BD_Controller
      *       ref="#/components/schemas/CustomerModel"
      *     ),
      *   ),
-     *   @OA\SecurityScheme(
-     *     securityScheme="bearerAuth",
-     *     in="header",
-     *         name="Authorization",
-     *         type="http",
-     *         scheme="bearer",
-     *         bearerFormat="JWT",
-     *   ),
+     *   security={{"token": {}}},
      * )
      */
     public function updatePosition_post()
     {
         if ($this->getData() == null) {
             $this->response("unautorized", 401);
-        } else if ($this->getData()->type == "customer") {
+        } else 
+        if ($this->getData()->type == "customer") {
             try {
                 $jsonBody  = json_decode(file_get_contents('php://input'), true);
                 $id = $this->getData()->id;
@@ -222,14 +219,7 @@ class Customer extends BD_Controller
      *       ref="#/components/schemas/CustomerModel"
      *     ),
      *    ),
-     *   @OA\SecurityScheme(
-     *     securityScheme="bearerAuth",
-     *     in="header",
-     *         name="Authorization",
-     *         type="http",
-     *         scheme="bearer",
-     *         bearerFormat="JWT",
-     *   ),
+     *   security={{"token": {}}},
      * )
      */
     public function confirm_post()
