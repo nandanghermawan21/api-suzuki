@@ -168,7 +168,14 @@ class Customer extends BD_Controller
      *       ref="#/components/schemas/CustomerModel"
      *     ),
      *   ),
-     *   security={{"token": {}}},
+     *   @OA\SecurityScheme(
+     *     securityScheme="bearerAuth",
+     *     in="header",
+     *         name="Authorization",
+     *         type="http",
+     *         scheme="Bearer",
+     *         bearerFormat="JWT",
+     *   ),
      * )
      */
     public function updatePosition_post()
@@ -215,7 +222,14 @@ class Customer extends BD_Controller
      *       ref="#/components/schemas/CustomerModel"
      *     ),
      *    ),
-     *   security={{"token": {}}},
+     *   @OA\SecurityScheme(
+     *     securityScheme="bearerAuth",
+     *     in="header",
+     *         name="Authorization",
+     *         type="http",
+     *         scheme="Bearer",
+     *         bearerFormat="JWT",
+     *   ),
      * )
      */
     public function confirm_post()
