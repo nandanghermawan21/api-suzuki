@@ -173,7 +173,7 @@ class Customer extends BD_Controller
      *     in="header",
      *         name="Authorization",
      *         type="http",
-     *         scheme="Bearer",
+     *         scheme="bearer",
      *         bearerFormat="JWT",
      *   ),
      * )
@@ -227,7 +227,7 @@ class Customer extends BD_Controller
      *     in="header",
      *         name="Authorization",
      *         type="http",
-     *         scheme="Bearer",
+     *         scheme="bearer",
      *         bearerFormat="JWT",
      *   ),
      * )
