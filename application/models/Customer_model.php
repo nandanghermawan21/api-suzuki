@@ -54,7 +54,7 @@ class Customer_model extends CI_Model
 	 * @var string
 	 */
 	public $imageId;
-	public function imageIdJField(): string
+	public function imageIdField(): string
 	{
 		return "photo_image_id";
 	}
@@ -275,26 +275,25 @@ class Customer_model extends CI_Model
 	{
 
 		$data = new Customer_model();
-		$data->id = $row->id;
-		$data->nik = $row->nik;
-		$data->imageId = $row->photo_image_id;
-		$data->imageUrl = $this->file->fromId($row->photo_image_id)->createUrl();
-		$data->fullName = $row->full_name;
-		$data->genderId = $row->gender_id;
-		$data->genderName = $this->gender->fromId($row->gender_id)->name;
-		$data->cityId = $row->city_id;
-		$data->cityName = $this->city->fromId($row->city_id)->name;
-		$data->phoneNumber = $row->phone_number;
-		$data->phoneNumber = $row->phone_number;
-		$data->username = $row->username;
-		$data->password = $row->password;
-		$data->level =  $row->level;
-		$data->deviceId =  $row->device_id;
-		$data->otp = $row->otp;
-		$data->isVerifiedPhone = $row->is_verified_phone;
-		$data->otpValidDate = DateTime::createFromFormat('Y-m-d H:i:s', "" .  $row->otp_valid_date);
-		$data->lat = $row->lat;
-		$data->lon = $row->lon;
+		$data->id = $row->${$this->idField()};
+		$data->nik = $row->${$this->nikField()};
+		$data->imageId = $row->${$this->imageIdField()};
+		$data->imageUrl = $this->file->fromId($row->${$this->imageIdField()})->createUrl();
+		$data->fullName = $row->{$this->fullNameField()};
+		$data->genderId = $row->{$this->genderIdField()};
+		$data->genderName = $this->gender->fromId($row->{$this->genderIdField()})->name;
+		$data->cityId = $row->{$this->cityIdField()};
+		$data->cityName = $this->city->fromId($row->{$this->cityIdField()})->name;
+		$data->phoneNumber = $row->{$this->phoneNumberField()};
+		$data->username = $row->{$this->usernameField()};
+		$data->password = $row->{$this->passwordField()};
+		$data->level =  $row->{$this->levelField()};
+		$data->deviceId =  $row->{$this->deviceIdField()};
+		$data->otp = $row->{$this->otpField()};
+		$data->isVerifiedPhone = $row->{$this->isVerifiedPhoneField()};
+		$data->otpValidDate = DateTime::createFromFormat('Y-m-d H:i:s', "" .  $row->{$this->otpValidDateField()});
+		$data->lat = $row->{$this->latField()};
+		$data->lon = $row->{$this->lonField()};
 
 		return $data;
 	}
@@ -500,7 +499,7 @@ class Customer_model extends CI_Model
 		$data = array(
 			$this->idField() => $this->id,
 			$this->nikField() => $this->nik,
-			$this->imageIdJField() => $this->imageId,
+			$this->imageIdField() => $this->imageId,
 			$this->fullNameField() => $this->fullName,
 			$this->genderIdField() => $this->genderId,
 			$this->cityIdField() => $this->cityId,
@@ -587,7 +586,7 @@ class Customer_model extends CI_Model
 				));
 				return  $this->fromId($id);
 			} else {
-				return $this;
+				return new Customer_model();
 			}
 		} catch (Exception $e) {
 			throw $e;

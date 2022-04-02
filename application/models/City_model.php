@@ -64,9 +64,9 @@ class City_model extends CI_Model
     {
 
         $data = new City_model();
-        $data->id = $row->id;
-        $data->provinceId = $row->province_id;
-        $data->name = $row->name; // str_replace("Kota","",$row->name);
+        $data->id = $row->{$this->idField()};
+        $data->provinceId = $row->{$this->provinceIdField()};
+        $data->name = $row->{$this->nameField()}; // str_replace("Kota","",$row->name);
 
         return $data;
     }

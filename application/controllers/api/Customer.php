@@ -185,12 +185,14 @@ class Customer extends BD_Controller
         } else 
         if ($this->getData()->type == "customer") {
             try {
+
+                //update current location
                 $jsonBody  = json_decode(file_get_contents('php://input'), true);
                 $id = $this->getData()->id;
                 $location = $this->location->fromJson($jsonBody);
                 $customer = $this->customer->updateLocation($id, $location->lat, $location->lon);
 
-                $this->response($customer, 200);
+                $this->response($customer->toPublic(), 200);
             } catch (\Exception $e) {
                 $error = new Error_model();
                 $error->status = 500;

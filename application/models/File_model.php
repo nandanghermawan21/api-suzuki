@@ -101,11 +101,11 @@ class File_model extends CI_Model
     public function fromRow($row): File_model
     {
         $data = new File_model();
-        $data->id = $row->id;
-        $data->filename = $row->filename;
-        $data->size = $row->size;
-        $data->extention = $row->extention;
-        $data->path = $row->path;
+        $data->id = $row->{$this->idField()};
+        $data->filename = $row->{$this->fileNameField()};
+        $data->size = $row->{$this->sizeField()};
+        $data->extention = $row->{$this->extentionField()};
+        $data->path = $row->{$this->pathField()};
         $data->url =  $data->createUrl();
 
         return $data;

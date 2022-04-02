@@ -12,14 +12,14 @@ class Fileservice extends BD_Controller
         //mendefinisikan folder upload
         define("UPLOAD_DIR", $this->config->item("upload_dir"));
         $this->load->model('Error_model', 'error');
-        $this->load->model('File_model', 'file');
+        $this->load->model('Location_model', 'location');
     }
 
 
     /**
      * @OA\get(path="/api/Service/sample500",tags={"service"},
      *   operationId="Sample 500",
-     *    @OA\Response(response=200,
+     *    @OA\Response(response=500,
      *     description="sample response 500",
      *    ),
      *   security={{"token": {}}},
@@ -33,7 +33,7 @@ class Fileservice extends BD_Controller
     /**
      * @OA\get(path="/api/Service/sample404",tags={"service"},
      *   operationId="Sample 404",
-     *    @OA\Response(response=200,
+     *    @OA\Response(response=404,
      *     description="sample return 404",
      *    ),
      *   security={{"token": {}}},
@@ -42,5 +42,33 @@ class Fileservice extends BD_Controller
     public function sample404_get()
     {
         $this->response("Page Not Found", 404);
+    }
+
+    /**
+     * @OA\get(path="/api/Service/savelocation",tags={"service"},
+     *   operationId="Save Location Sample",
+     *   @OA\RequestBody(
+     *     @OA\MediaType(
+     *         mediaType="application/json",
+     *         @OA\Schema(ref="#/components/schemas/LocationModel")
+     *     ),
+     *   ),
+     *   security={{"token": {}}},
+     * )
+     */
+    public function savelocation_post()
+    {
+        $jsonBody  = json_decode(file_get_contents('php://input'), true);
+        $location = $this->location->fromJson($jsonBody);
+
+        try{
+            $location = $location->add();
+            $this->response($location->toJson, 200);
+        }catch(\Exception $e){
+            $error = new Error_model();
+            $error->status = 500;
+            $error->message = $e->getMessage();
+            $this->response($error->message, 500);
+        }
     }
 }

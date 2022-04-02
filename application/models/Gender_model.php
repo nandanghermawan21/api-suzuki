@@ -48,8 +48,8 @@ class Gender_model extends CI_Model
     public function fromRow($row): Gender_model
     {
         $data = new Gender_model();
-        $data->id = $row->id;
-        $data->name = $row->name;
+        $data->id = $row->{$this->idField()};
+        $data->name = $row->{$this->nameField()};
 
         return $data;
     }
