@@ -70,38 +70,4 @@ class Fileservice extends BD_Controller
             }
         }
     }
-
-    /**
-     * @OA\get(path="/api/Fileservice/sample500",tags={"fileService"},
-     *   operationId="upload file",
-     *    @OA\Response(response=200,
-     *     description="file info",
-     *     @OA\JsonContent(
-     *       @OA\Items(ref="#/components/schemas/FileModel")
-     *     ),
-     *    ),
-     *   security={{"token": {}}},
-     * )
-     */
-    public function sample500_get()
-    {
-        $this->response("internal server error", 500);
-    }
-
-    /**
-     * @OA\get(path="/api/Fileservice/sample404",tags={"fileService"},
-     *   operationId="upload file",
-     *    @OA\Response(response=200,
-     *     description="file info",
-     *     @OA\JsonContent(
-     *       @OA\Items(ref="#/components/schemas/FileModel")
-     *     ),
-     *    ),
-     *   security={{"token": {}}},
-     * )
-     */
-    public function sample404_get()
-    {
-        $this->response("Page Not Found", 404);
-    }
 }
