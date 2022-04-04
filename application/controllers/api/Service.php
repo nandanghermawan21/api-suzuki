@@ -69,7 +69,7 @@ class Service extends BD_Controller
 
         try{
             $location = $location->add();
-            $this->response($location->toJson, 200);
+            $this->response($location, 200);
         }catch(\Exception $e){
             $error = new Error_model();
             $error->status = 500;
