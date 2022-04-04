@@ -425,7 +425,7 @@ class Customer_model extends CI_Model
 			$this->deviceIdJsonKey() => $this->deviceId,
 			$this->otpJsonKey() => $this->otp,
 			$this->isVerifiedPhoneJsonKey() => $this->isVerifiedPhone,
-			$this->otpValidDateJsonKey() => date_format($this->otpValidDate, DateTime::ATOM),
+			$this->otpValidDateJsonKey() => $this->otpValidDate->format(DateTime::ATOM), 
 			$this->latJsonKey() => $this->lat,
 			$this->lonJsonKey() => $this->lon,
 		);
@@ -510,7 +510,7 @@ class Customer_model extends CI_Model
 			$this->deviceIdField() => $this->deviceId,
 			$this->otpField() => $this->otp,
 			$this->isVerifiedPhoneField() => $this->isVerifiedPhone,
-			$this->otpValidDateField() => date_format($this->otpValidDate, DateTime::ATOM),
+			$this->otpValidDateField() => $this->otpValidDate->format(DateTime::ATOM),
 		);
 
 		return $data;
