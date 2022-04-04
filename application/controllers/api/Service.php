@@ -45,7 +45,7 @@ class Fileservice extends BD_Controller
     }
 
     /**
-     * @OA\get(path="/api/Service/savelocation",tags={"service"},
+     * @OA\post(path="/api/Service/savelocation",tags={"service"},
      *   operationId="Save Location Sample",
      *   @OA\RequestBody(
      *     @OA\MediaType(
