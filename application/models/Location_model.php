@@ -103,7 +103,7 @@ class Location_model extends CI_Model
 			$data->ref = $json[$this->refJsonKey()];
 		}
 		if (isset($json[$this->createDateJsonKey()])) { //DateTime::ATOM
-			$data->createDate =  strtotime(strtotime($json[$this->createDateJsonKey()]));  //  DateTime::createFromFormat(DateTime::ISO8601, $json[$this->createDateJsonKey()]);
+			$data->createDate =  strtotime($json[$this->createDateJsonKey()]);  //  DateTime::createFromFormat(DateTime::ISO8601, $json[$this->createDateJsonKey()]);
 		}
 		if (isset($json[$this->latJsonKey()])) {
 			$data->lat = $json[$this->latJsonKey()];
@@ -118,7 +118,6 @@ class Location_model extends CI_Model
 		print_r($data);
 
 		return $data;
-
 	}
 
 	public function fromRow($row): Location_model
@@ -146,7 +145,7 @@ class Location_model extends CI_Model
 			$this->directionField() => $this->direction,
 		);
 
-		echo("========================");
+		echo ("========================");
 
 		print_r($data);
 
