@@ -53,6 +53,12 @@ class Fileservice extends BD_Controller
      *         @OA\Schema(ref="#/components/schemas/LocationModel")
      *     ),
      *   ),
+     *   @OA\Response(response=200,
+     *     description="get all city",
+     *     @OA\JsonContent(
+     *       @OA\Items(ref="#/components/schemas/LocationModel")
+     *     ),
+     *   ),
      *   security={{"token": {}}},
      * )
      */
