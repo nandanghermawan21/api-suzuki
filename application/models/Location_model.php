@@ -102,8 +102,8 @@ class Location_model extends CI_Model
 		if (isset($json[$this->refJsonKey()])) {
 			$data->ref = $json[$this->refJsonKey()];
 		}
-		if (isset($json[$this->createDateJsonKey()])) {
-			$data->createDate = DateTime::createFromFormat('Y-m-d H:i:s', "" . $json[$this->createDateJsonKey()]);
+		if (isset($json[$this->createDateJsonKey()])) { //DateTime::ATOM
+			$data->createDate = DateTime::createFromFormat(DateTime::ATOM, $json[$this->createDateJsonKey()]);
 		}
 		if (isset($json[$this->latJsonKey()])) {
 			$data->lat = $json[$this->latJsonKey()];
@@ -123,7 +123,7 @@ class Location_model extends CI_Model
 		$data = new Location_model();
 		$data->id = $row->{$this->idField()};
 		$data->ref = $row->{$this->refField()};
-		$data->createDate = DateTime::createFromFormat('Y-m-d H:i:s', "" . $row[$this->createDateField()]);
+		$data->createDate = DateTime::createFromFormat(DateTime::ATOM,$row[$this->createDateField()]);
 		$data->lat = $row->{$this->latField()};
 		$data->lon = $row->{$this->lonField()};
 		$data->direction = $row->{$this->directionField()};
@@ -137,7 +137,7 @@ class Location_model extends CI_Model
 		$data = array(
 			$this->idField() => $this->id,
 			$this->refField() => $this->ref,
-			$this->createDateField() => date_format($this->createDate, 'Y-m-d H:i:s'),
+			$this->createDateField() => date_format($this->createDate, DateTime::ATOM),
 			$this->latField() => $this->lat,
 			$this->lonField() => $this->lon,
 			$this->directionField() => $this->direction,
@@ -151,7 +151,7 @@ class Location_model extends CI_Model
 		$data = array(
 			$this->idJsonKey() => $this->id,
 			$this->refJsonKey() => $this->ref,
-			$this->createDateJsonKey() => date_format($this->createDate, 'Y-m-d H:i:s'),
+			$this->createDateJsonKey() => date_format($this->createDate, DateTime::ATOM),
 			$this->latJsonKey() => $this->lat,
 			$this->lonJsonKey() => $this->lon,
 			$this->directionJsonKey() => $this->direction,
@@ -165,7 +165,7 @@ class Location_model extends CI_Model
 		try {
 			//generate key
 			$this->id = null;
-			
+
 			$this->db->insert($this->tableName, $this->toArray());
 
 			$data = $this->db->get_where($this->tableName, array(

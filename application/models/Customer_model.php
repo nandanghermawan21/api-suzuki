@@ -227,7 +227,7 @@ class Customer_model extends CI_Model
 		return "otp_valid_date";
 	}
 
-	
+
 	/**
 	 * @OA\Property()
 	 * @var double
@@ -291,7 +291,7 @@ class Customer_model extends CI_Model
 		$data->deviceId =  $row->{$this->deviceIdField()};
 		$data->otp = $row->{$this->otpField()};
 		$data->isVerifiedPhone = $row->{$this->isVerifiedPhoneField()};
-		$data->otpValidDate = DateTime::createFromFormat('Y-m-d H:i:s', "" .  $row->{$this->otpValidDateField()});
+		$data->otpValidDate = DateTime::createFromFormat(DateTime::ATOM,  $row->{$this->otpValidDateField()});
 		$data->lat = $row->{$this->latField()};
 		$data->lon = $row->{$this->lonField()};
 
@@ -425,7 +425,7 @@ class Customer_model extends CI_Model
 			$this->deviceIdJsonKey() => $this->deviceId,
 			$this->otpJsonKey() => $this->otp,
 			$this->isVerifiedPhoneJsonKey() => $this->isVerifiedPhone,
-			$this->otpValidDateJsonKey() => date_format($this->otpValidDate, 'Y-m-d H:i:s.u'),
+			$this->otpValidDateJsonKey() => date_format($this->otpValidDate, DateTime::ATOM),
 			$this->latJsonKey() => $this->lat,
 			$this->lonJsonKey() => $this->lon,
 		);
@@ -510,7 +510,7 @@ class Customer_model extends CI_Model
 			$this->deviceIdField() => $this->deviceId,
 			$this->otpField() => $this->otp,
 			$this->isVerifiedPhoneField() => $this->isVerifiedPhone,
-			$this->otpValidDateField() => date_format($this->otpValidDate, 'Y-m-d H:i:s'),
+			$this->otpValidDateField() => date_format($this->otpValidDate, DateTime::ATOM),
 		);
 
 		return $data;
@@ -574,10 +574,11 @@ class Customer_model extends CI_Model
 		return $data;
 	}
 
-	public function updateLocation(string $id, float $lat, float $lon ){
+	public function updateLocation(string $id, float $lat, float $lon)
+	{
 		try {
 			if ($id != null && $lat != null && $lon != null) {
-				$data = Array(
+				$data = array(
 					$this->latField() => $lat,
 					$this->lonField() => $lon,
 				);

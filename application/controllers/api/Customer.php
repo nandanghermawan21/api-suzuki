@@ -290,7 +290,7 @@ class Customer extends BD_Controller
                     $result = new Otp_model();
                     $result->resendUrl = "customer/resend?id=" . $customer->id;
                     $result->confirmUrl = "customer/confirm?id=" . $customer->id;
-                    $result->expired = $customer->otpValidDate->format('Y-m-d') . "T" .  $customer->otpValidDate->format('H:i:s.u');
+                    $result->expired = $customer->otpValidDate->format(DateTime::ATOM);
                     $this->response($result, 200);
                 } else {
                     $this->response("id tidak ditemukan", 400);
