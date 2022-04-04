@@ -115,7 +115,7 @@ class Location_model extends CI_Model
 			$data->direction = $json[$this->directionJsonKey()];
 		}
 
-		echo($data);
+		print_r($data);
 
 		return $data;
 	}
