@@ -137,7 +137,7 @@ class Location_model extends CI_Model
 		$data = array(
 			$this->idField() => $this->id,
 			$this->refField() => $this->ref,
-			$this->createDateField() => date_format($this->createDate, DateTime::ATOM),
+			$this->createDateField() => $this->createDate->format(DateTime::ATOM),  // date_format($this->createDate, DateTime::ATOM),
 			$this->latField() => $this->lat,
 			$this->lonField() => $this->lon,
 			$this->directionField() => $this->direction,
@@ -151,7 +151,7 @@ class Location_model extends CI_Model
 		$data = array(
 			$this->idJsonKey() => $this->id,
 			$this->refJsonKey() => $this->ref,
-			$this->createDateJsonKey() => date_format($this->createDate, DateTime::ATOM),
+			$this->createDateJsonKey() => $this->createDate->format(DateTime::ATOM),
 			$this->latJsonKey() => $this->lat,
 			$this->lonJsonKey() => $this->lon,
 			$this->directionJsonKey() => $this->direction,
