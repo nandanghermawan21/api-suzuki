@@ -103,7 +103,7 @@ class Location_model extends CI_Model
 			$data->ref = $json[$this->refJsonKey()];
 		}
 		if (isset($json[$this->createDateJsonKey()])) { //DateTime::ATOM
-			$data->createDate =  $json[$this->createDateJsonKey()]; // DateTime::createFromFormat(DateTime::ATOM, $json[$this->createDateJsonKey()]);
+			$data->createDate =   DateTime::createFromFormat(DateTime::ISO8601, $json[$this->createDateJsonKey()]);
 		}
 		if (isset($json[$this->latJsonKey()])) {
 			$data->lat = $json[$this->latJsonKey()];
