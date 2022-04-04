@@ -128,7 +128,7 @@ class Location_model extends CI_Model
 
 			$this->db->insert($this->tableName, $this->toArray());
 
-			$data = $this->db->get_where($this->tableName, array($this->idField() => $this->db->insertID()
+			$data = $this->db->get_where($this->tableName, array($this->idField() => $insert_id = $this->db->insert_id()
 
 		));
 			$result = $data->result();
