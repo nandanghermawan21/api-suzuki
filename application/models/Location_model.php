@@ -115,8 +115,6 @@ class Location_model extends CI_Model
 			$data->direction = $json[$this->directionJsonKey()];
 		}
 
-		print_r($data);
-
 		return $data;
 	}
 
@@ -145,10 +143,6 @@ class Location_model extends CI_Model
 			$this->directionField() => $this->direction,
 		);
 
-		echo ("========================");
-
-		print_r($data);
-
 		return $data;
 	}
 
@@ -175,7 +169,7 @@ class Location_model extends CI_Model
 			$this->db->insert($this->tableName, $this->toArray());
 
 			$data = $this->db->get_where($this->tableName, array(
-				$this->idField() => $insert_id = $this->db->insert_id()
+				$this->idField() => $this->db->insert_id()
 
 			));
 			$result = $data->result();
