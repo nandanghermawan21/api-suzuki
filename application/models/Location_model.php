@@ -115,9 +115,8 @@ class Location_model extends CI_Model
 			$data->direction = $json[$this->directionJsonKey()];
 		}
 
-		print_r($data);
-
 		return $data;
+
 	}
 
 	public function fromRow($row): Location_model
@@ -125,7 +124,7 @@ class Location_model extends CI_Model
 		$data = new Location_model();
 		$data->id = $row->{$this->idField()};
 		$data->ref = $row->{$this->refField()};
-		$data->createDate = DateTime::createFromFormat(DateTime::ATOM,$row[$this->createDateField()]);
+		$data->createDate = date(DATE_ISO8601, strtotime($row->{$this->createDateField()}));
 		$data->lat = $row->{$this->latField()};
 		$data->lon = $row->{$this->lonField()};
 		$data->direction = $row->{$this->directionField()};
@@ -139,11 +138,13 @@ class Location_model extends CI_Model
 		$data = array(
 			$this->idField() => $this->id,
 			$this->refField() => $this->ref,
-			$this->createDateField() => $this->createDate->format(DateTime::ATOM),  // date_format($this->createDate, DateTime::ATOM),
+			$this->createDateField() => $this->createDate->format(DateTime::ISO8601),  // date_format($this->createDate, DateTime::ATOM),
 			$this->latField() => $this->lat,
 			$this->lonField() => $this->lon,
 			$this->directionField() => $this->direction,
 		);
+
+		print_r($data);
 
 		return $data;
 	}

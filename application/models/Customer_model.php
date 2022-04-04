@@ -291,7 +291,7 @@ class Customer_model extends CI_Model
 		$data->deviceId =  $row->{$this->deviceIdField()};
 		$data->otp = $row->{$this->otpField()};
 		$data->isVerifiedPhone = $row->{$this->isVerifiedPhoneField()};
-		$data->otpValidDate = DateTime::createFromFormat(DateTime::ATOM,  $row->{$this->otpValidDateField()});
+		$data->otpValidDate = date(DATE_ISO8601, strtotime($row->{$this->otpValidDateField()}));
 		$data->lat = $row->{$this->latField()};
 		$data->lon = $row->{$this->lonField()};
 
