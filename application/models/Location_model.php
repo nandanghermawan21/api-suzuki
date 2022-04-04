@@ -123,7 +123,7 @@ class Location_model extends CI_Model
 		$data = new Location_model();
 		$data->id = $row->{$this->idField()};
 		$data->ref = $row->{$this->refField()};
-		$data->createDate = date(DATE_ATOM, strtotime($row->{$this->createDateField()}));
+		$data->createDate = date_create(date(DATE_ATOM, strtotime($row->{$this->createDateField()})));
 		$data->lat = $row->{$this->latField()};
 		$data->lon = $row->{$this->lonField()};
 		$data->direction = $row->{$this->directionField()};
