@@ -37,6 +37,20 @@ class Location_model extends CI_Model
 
 	/**
 	 * @OA\Property()
+	 * @var DateTime
+	 */
+	public $createDate;
+	public function createDateField(): string
+	{
+		return "create_date";
+	}
+	public function createDateJsonKey(): string
+	{
+		return "createDate";
+	}
+
+	/**
+	 * @OA\Property()
 	 * @var double
 	 */
 	public $lat;
@@ -63,6 +77,20 @@ class Location_model extends CI_Model
 		return "lon";
 	}
 
+	/**
+	 * @OA\Property()
+	 * @var double
+	 */
+	public $direction;
+	public function directionField(): string
+	{
+		return "direction";
+	}
+	public function directionJsonKey(): string
+	{
+		return "direction";
+	}
+
 
 	public function  fromJson($json): Location_model
 	{
@@ -74,11 +102,17 @@ class Location_model extends CI_Model
 		if (isset($json[$this->refJsonKey()])) {
 			$data->ref = $json[$this->refJsonKey()];
 		}
+		if (isset($json[$this->createDateJsonKey()])) {
+			$data->createDate = DateTime::createFromFormat('Y-m-d H:i:s', "" . $json[$this->createDateJsonKey()]);
+		}
 		if (isset($json[$this->latJsonKey()])) {
 			$data->lat = $json[$this->latJsonKey()];
 		}
 		if (isset($json[$this->lonJsonKey()])) {
 			$data->lon = $json[$this->lonJsonKey()];
+		}
+		if (isset($json[$this->directionJsonKey()])) {
+			$data->direction = $json[$this->directionJsonKey()];
 		}
 
 		return $data;
@@ -89,8 +123,10 @@ class Location_model extends CI_Model
 		$data = new Location_model();
 		$data->id = $row->{$this->idField()};
 		$data->ref = $row->{$this->refField()};
+		$data->createDate = DateTime::createFromFormat('Y-m-d H:i:s', "" . $row[$this->createDateField()]);
 		$data->lat = $row->{$this->latField()};
 		$data->lon = $row->{$this->lonField()};
+		$data->direction = $row->{$this->directionField()};
 
 		return $data;
 	}
@@ -101,8 +137,10 @@ class Location_model extends CI_Model
 		$data = array(
 			$this->idField() => $this->id,
 			$this->refField() => $this->ref,
+			$this->createDateField() => date_format($this->createDate, 'Y-m-d H:i:s'),
 			$this->latField() => $this->lat,
 			$this->lonField() => $this->lon,
+			$this->directionField() => $this->direction,
 		);
 
 		return $data;
@@ -113,8 +151,10 @@ class Location_model extends CI_Model
 		$data = array(
 			$this->idJsonKey() => $this->id,
 			$this->refJsonKey() => $this->ref,
+			$this->createDateJsonKey() => date_format($this->createDate, 'Y-m-d H:i:s'),
 			$this->latJsonKey() => $this->lat,
 			$this->lonJsonKey() => $this->lon,
+			$this->directionJsonKey() => $this->direction,
 		);
 
 		return $data;
@@ -128,9 +168,10 @@ class Location_model extends CI_Model
 
 			$this->db->insert($this->tableName, $this->toArray());
 
-			$data = $this->db->get_where($this->tableName, array($this->idField() => $insert_id = $this->db->insert_id()
+			$data = $this->db->get_where($this->tableName, array(
+				$this->idField() => $insert_id = $this->db->insert_id()
 
-		));
+			));
 			$result = $data->result();
 			return $this->fromRow($result[0]);
 		} catch (Exception $e) {
