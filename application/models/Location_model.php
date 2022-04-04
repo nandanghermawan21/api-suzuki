@@ -165,7 +165,7 @@ class Location_model extends CI_Model
 		try {
 			//generate key
 			$this->id = null;
-
+			
 			$this->db->insert($this->tableName, $this->toArray());
 
 			$data = $this->db->get_where($this->tableName, array(
