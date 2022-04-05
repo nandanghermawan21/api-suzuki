@@ -152,9 +152,9 @@ class Location_model extends CI_Model
 			$this->idJsonKey() => (int) $this->id,
 			$this->refJsonKey() => $this->ref,
 			$this->createDateJsonKey() => $this->createDate->format(DateTime::ATOM),
-			$this->latJsonKey() => $this->lat,
-			$this->lonJsonKey() => $this->lon,
-			$this->directionJsonKey() => $this->direction,
+			$this->latJsonKey() => (double) $this->lat,
+			$this->lonJsonKey() =>  (double) $this->lon,
+			$this->directionJsonKey() =>  (double) $this->direction,
 		);
 
 		return $data;
