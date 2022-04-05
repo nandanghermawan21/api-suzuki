@@ -412,7 +412,7 @@ class Customer_model extends CI_Model
 	public function toJson(): array
 	{
 		$data = array(
-			$this->idJsonKey() => $this->id,
+			$this->idJsonKey() => (int) $this->id,
 			$this->nikJsonKey() => $this->nik,
 			$this->imageIdJsonKey() => $this->imageId,
 			$this->fullNamseJsonKey() => $this->fullName,
