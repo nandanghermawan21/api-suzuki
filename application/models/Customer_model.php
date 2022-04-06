@@ -275,10 +275,10 @@ class Customer_model extends CI_Model
 	{
 		print_r($row);
 		$data = new Customer_model();
-		$data->id = $row->${$this->idField()};
-		$data->nik = $row->${$this->nikField()};
-		$data->imageId = $row->${$this->imageIdField()};
-		$data->imageUrl = $this->file->fromId($row->${$this->imageIdField()})->createUrl();
+		$data->id = $row->{$this->idField()};
+		$data->nik = $row->{$this->nikField()};
+		$data->imageId = $row->{$this->imageIdField()};
+		$data->imageUrl = $this->file->fromId($row->{$this->imageIdField()})->createUrl();
 		$data->fullName = $row->{$this->fullNameField()};
 		$data->genderId = $row->{$this->genderIdField()};
 		$data->genderName = $this->gender->fromId($row->{$this->genderIdField()})->name;
