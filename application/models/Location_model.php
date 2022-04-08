@@ -194,11 +194,12 @@ class Location_model extends CI_Model
 		$query = $this->db->query($sql, array($filter));
 		$result = $query->result();
 
-		$data = array();
+		$data = [];
         for ($i = 0; $i < count($result); $i++) {
 			$location = new Location_model();
 			$location = $location->fromRow($result[$i]);
-            $data[$i] = $location;
+			$location = $location->toJson();
+            $data[] = $location;
         }
 
 		return $result;
