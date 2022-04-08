@@ -187,7 +187,7 @@ class Location_model extends CI_Model
 		      (SELECT b.lat FROM location_history b WHERE b.ref = a.ref ORDER BY create_date DESC LIMIT 1 ) as lon,
 		      (SELECT b.lat FROM location_history b WHERE b.ref = a.ref ORDER BY create_date DESC LIMIT 1 ) as direction
 		      from location_history a
-		      WHERE a.ref like '?'
+		      WHERE a.ref like ?
 		      ORDER BY a.create_date DESC";
 		$query = $this->db->query($sql, array($filter));
 		$result = $query->result();
