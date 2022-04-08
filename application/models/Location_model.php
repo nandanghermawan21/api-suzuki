@@ -195,8 +195,8 @@ class Location_model extends CI_Model
 
 		$result = [];
         foreach ($result = $query->result() as $row) {
-            $location = $this->fromRow($row);
-            $result[] =  $location->toJson();
+            // $location = $this->fromRow($row);
+            $result[] = $this->fromRow($row);
         }
 
 		return $result;
