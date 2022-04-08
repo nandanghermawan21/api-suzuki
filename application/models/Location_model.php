@@ -149,7 +149,7 @@ class Location_model extends CI_Model
 	public function toJson(): array
 	{
 		$data = array(
-			$this->idJsonKey() => (int) $this->id ."test",
+			$this->idJsonKey() => (int) $this->id,
 			$this->refJsonKey() => $this->ref,
 			$this->createDateJsonKey() => $this->createDate->format(DateTime::ATOM),
 			$this->latJsonKey() => (float) $this->lat,
@@ -197,7 +197,7 @@ class Location_model extends CI_Model
 		$data = array();
         for ($i = 0; $i < count($result); $i++) {
 			$location = new Location_model();
-			$location = $location->fromRow($result[$i])->toJson();
+			$location = $location->fromRow($result[$i]);
             $data[$i] = $location;
         }
 

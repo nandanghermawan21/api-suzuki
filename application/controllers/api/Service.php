@@ -102,8 +102,13 @@ class Service extends BD_Controller
 
         try{
             $locations = $this->location->filterRef($filter);
+
+            $result = [];
+            foreach($locations as $location){
+                $result[] = $location->toJson();
+            }
             
-            $this->response($locations, 200);
+            $this->response($result, 200);
         }catch(\Exception $e){
             $error = new Error_model();
             $error->status = 500;
