@@ -192,11 +192,11 @@ class Location_model extends CI_Model
 		      WHERE a.ref like ?
 		      ORDER BY a.create_date DESC";
 		$query = $this->db->query($sql, array($filter));
+		$result = $query->result();
 
-
-		$result = [];
-        foreach ($result = $query->result() as $row) {
-            $result[] = $this->fromRow($row)->toJson();
+		$data = array();
+        for ($i = 0; $i < count($result); $i++) {
+            $data[$i] = $this->fromRow($result[$i])->toJson();
         }
 
 		return $result;
