@@ -190,6 +190,9 @@ class Location_model extends CI_Model
 		      WHERE a.ref like ?
 		      ORDER BY a.create_date DESC";
 		$query = $this->db->query($sql, array($filter));
+
+		print_r($query);
+
 		$result = $query->result();
 
 		$data = array();
