@@ -181,7 +181,8 @@ class Location_model extends CI_Model
 
 	function filterRef(String $filter = "%%"): array
 	{
-		$sql = "a.ref,
+		$sql = "SELECT DISTINCT 
+		      a.ref,
 			  (SELECT b.id FROM location_history b WHERE b.ref = a.ref ORDER BY create_date DESC LIMIT 1 ) as id,
 		      (SELECT b.lat FROM location_history b WHERE b.ref = a.ref ORDER BY create_date DESC LIMIT 1 ) as lat,
 		      (SELECT b.lat FROM location_history b WHERE b.ref = a.ref ORDER BY create_date DESC LIMIT 1 ) as lon,
