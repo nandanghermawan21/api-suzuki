@@ -193,6 +193,8 @@ class Location_model extends CI_Model
 		      ORDER BY a.create_date DESC";
 		$query = $this->db->query($sql, array($filter));
 
+		print_r($this->db->last_query());
+
 		$result = [];
         foreach ($result = $query->result() as $row) {
             // $location = $this->fromRow($row);
