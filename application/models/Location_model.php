@@ -164,7 +164,7 @@ class Location_model extends CI_Model
 	{
 		$data = array(
 			$this->idJsonKey() => (int) $row->{$this->idField()},
-			$this->refJsonKey() => $row->{$this->refField()}. "test",
+			$this->refJsonKey() => $row->{$this->refField()},
 			$this->createDateJsonKey() => date_create(date(DATE_ATOM, strtotime($row->{$this->createDateField()})))->format(DateTime::ATOM),
 			$this->latJsonKey() => (float) $row->{$this->latField()},
 			$this->lonJsonKey() =>  (float) $this->lon,
@@ -211,7 +211,7 @@ class Location_model extends CI_Model
 		$data = array();
         for ($i = 0; $i < count($result); $i++) {
 			$location = new Location_model();
-			$location = $location->toJsonFromRow($result[$i]);
+			$location = $location->fromRow($result[$i]);
             $data[$i] = $location;
         }
 
