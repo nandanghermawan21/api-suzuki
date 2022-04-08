@@ -123,7 +123,7 @@ class Location_model extends CI_Model
 		$data = new Location_model();
 		$data->id = $row->{$this->idField()};
 		$data->ref = $row->{$this->refField()};
-		$data->createDate = $row->{$this->createDateField()};
+		$data->createDate = date_create(date(DATE_ATOM, strtotime($row->{$this->createDateField()})));
 		$data->lat = $row->{$this->latField()};
 		$data->lon = $row->{$this->lonField()};
 		$data->direction = $row->{$this->directionField()};
@@ -153,20 +153,6 @@ class Location_model extends CI_Model
 			$this->refJsonKey() => $this->ref,
 			$this->createDateJsonKey() => $this->createDate->format(DateTime::ATOM),
 			$this->latJsonKey() => (float) $this->lat,
-			$this->lonJsonKey() =>  (float) $this->lon,
-			$this->directionJsonKey() =>  (float) $this->direction,
-		);
-
-		return $data;
-	}
-
-	public function toJsonFromRow($row): array
-	{
-		$data = array(
-			$this->idJsonKey() => (int) $row->{$this->idField()},
-			$this->refJsonKey() => $row->{$this->refField()},
-			$this->createDateJsonKey() => date_create(date(DATE_ATOM, strtotime($row->{$this->createDateField()})))->format(DateTime::ATOM),
-			$this->latJsonKey() => (float) $row->{$this->latField()},
 			$this->lonJsonKey() =>  (float) $this->lon,
 			$this->directionJsonKey() =>  (float) $this->direction,
 		);
@@ -206,15 +192,16 @@ class Location_model extends CI_Model
 		      WHERE a.ref like ?
 		      ORDER BY a.create_date DESC";
 		$query = $this->db->query($sql, array($filter));
+
 		$result = $query->result();
 
 		$data = array();
+
 		for ($i = 0; $i < count($result); $i++) {
-			$location = new Location_model();
-			$location = $location->fromRow($result[$i]);
-			$data[$i] = $location;
+			$location = $this->fromRow($result[$i]);
+			array_push($$data, $location->toJson());
 		}
 
-		return $result;
+		return $data;
 	}
 }
