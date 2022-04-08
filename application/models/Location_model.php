@@ -123,7 +123,7 @@ class Location_model extends CI_Model
 		$data = new Location_model();
 		$data->id = $row->{$this->idField()};
 		$data->ref = $row->{$this->refField()};
-		$data->createDate = date_create(date(DATE_ATOM, strtotime($row->{$this->createDateField()})));
+		$data->createDate = $row->{$this->createDateField()};
 		$data->lat = $row->{$this->latField()};
 		$data->lon = $row->{$this->lonField()};
 		$data->direction = $row->{$this->directionField()};
@@ -209,11 +209,11 @@ class Location_model extends CI_Model
 		$result = $query->result();
 
 		$data = array();
-        for ($i = 0; $i < count($result); $i++) {
+		for ($i = 0; $i < count($result); $i++) {
 			$location = new Location_model();
 			$location = $location->fromRow($result[$i]);
-            $data[$i] = $location;
-        }
+			$data[$i] = $location;
+		}
 
 		return $result;
 	}
