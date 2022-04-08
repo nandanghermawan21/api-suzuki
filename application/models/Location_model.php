@@ -184,6 +184,7 @@ class Location_model extends CI_Model
 		$sql = "SELECT DISTINCT 
 		      a.ref,
 			  (SELECT b.id FROM location_history b WHERE b.ref = a.ref ORDER BY create_date DESC LIMIT 1 ) as id,
+			  (SELECT b.create_date FROM location_history b WHERE b.ref = a.ref ORDER BY create_date DESC LIMIT 1 ) as create_date,
 		      (SELECT b.lat FROM location_history b WHERE b.ref = a.ref ORDER BY create_date DESC LIMIT 1 ) as lat,
 		      (SELECT b.lat FROM location_history b WHERE b.ref = a.ref ORDER BY create_date DESC LIMIT 1 ) as lon,
 		      (SELECT b.lat FROM location_history b WHERE b.ref = a.ref ORDER BY create_date DESC LIMIT 1 ) as direction
