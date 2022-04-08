@@ -152,9 +152,9 @@ class Location_model extends CI_Model
 			$this->idJsonKey() => (int) $this->id,
 			$this->refJsonKey() => $this->ref,
 			$this->createDateJsonKey() => $this->createDate->format(DateTime::ATOM),
-			$this->latJsonKey() => (double) $this->lat,
-			$this->lonJsonKey() =>  (double) $this->lon,
-			$this->directionJsonKey() =>  (double) $this->direction,
+			$this->latJsonKey() => (float) $this->lat,
+			$this->lonJsonKey() =>  (float) $this->lon,
+			$this->directionJsonKey() =>  (float) $this->direction,
 		);
 
 		return $data;
@@ -177,5 +177,27 @@ class Location_model extends CI_Model
 		} catch (Exception $e) {
 			throw $e;
 		}
+	}
+
+	function filterRef(String $filter = "%%"): array
+	{
+		$sql = "(SELECT b.id FROM location_history b WHERE b.ref = a.ref ORDER BY create_date DESC LIMIT 1 ) as id,
+		      a.ref,
+		      (SELECT b.lat FROM location_history b WHERE b.ref = a.ref ORDER BY create_date DESC LIMIT 1 ) as lat,
+		      (SELECT b.lat FROM location_history b WHERE b.ref = a.ref ORDER BY create_date DESC LIMIT 1 ) as lon,
+		      (SELECT b.lat FROM location_history b WHERE b.ref = a.ref ORDER BY create_date DESC LIMIT 1 ) as direction
+		      from location_history a
+		      WHERE a.ref like '?'
+		      ORDER BY a.create_date DESC";
+		$query = $this->db->query($sql, array($filter));
+		$result = $query->result();
+
+		$data = array();
+
+		for ($i = 0; $i < count($result); $i++) {
+			array_push($$data, $this->toJson($this->fromRow($result[$i])));
+		}
+
+		return $data;
 	}
 }

@@ -54,7 +54,7 @@ class Service extends BD_Controller
      *     ),
      *   ),
      *   @OA\Response(response=200,
-     *     description="get all city",
+     *     description="save location",
      *     @OA\JsonContent(
      *       @OA\Items(ref="#/components/schemas/LocationModel")
      *     ),
@@ -70,6 +70,39 @@ class Service extends BD_Controller
         try{
             $location = $location->add();
             $this->response($location->toJson(), 200);
+        }catch(\Exception $e){
+            $error = new Error_model();
+            $error->status = 500;
+            $error->message = $e->getMessage();
+            $this->response($error->message, 500);
+        }
+    }
+
+     /**
+     * @OA\get(path="/api/Service/loadlocation",tags={"service"},
+     *   operationId="Load Location Sample",
+     *   @OA\Parameter(
+     *       name="filter",
+     *       in="query",
+     *       required=true,
+     *       @OA\Schema(type="string")
+     *   ),
+     *   @OA\Response(response=200,
+     *     description="get all location",
+     *     @OA\JsonContent(
+     *       @OA\Items(ref="#/components/schemas/LocationModel")
+     *     ),
+     *   ),
+     *   security={{"token": {}}},
+     * )
+     */
+    public function loadlocation_get()
+    {
+        $filter = $this->input->get("filter", true);
+
+        try{
+            $locations = $this->location->filterRef($filter);
+            $this->response($locations, 200);
         }catch(\Exception $e){
             $error = new Error_model();
             $error->status = 500;
