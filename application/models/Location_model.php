@@ -149,7 +149,7 @@ class Location_model extends CI_Model
 	public function toJson(): array
 	{
 		$data = array(
-			$this->idJsonKey() => (int) $this->id,
+			$this->idJsonKey() => (int) $this->id ."test",
 			$this->refJsonKey() => $this->ref,
 			$this->createDateJsonKey() => $this->createDate->format(DateTime::ATOM),
 			$this->latJsonKey() => (float) $this->lat,
