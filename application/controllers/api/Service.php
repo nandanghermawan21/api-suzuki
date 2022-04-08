@@ -90,7 +90,7 @@ class Service extends BD_Controller
      *   @OA\Response(response=200,
      *     description="get all location",
      *     @OA\JsonContent(
-     *       @OA\Items(ref="#/components/schemas/LocationModel")
+     *       ref="#/components/schemas/LocationModel"
      *     ),
      *   ),
      *   security={{"token": {}}},

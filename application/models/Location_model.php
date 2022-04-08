@@ -192,15 +192,13 @@ class Location_model extends CI_Model
 		      ORDER BY a.create_date DESC";
 		$query = $this->db->query($sql, array($filter));
 
-		echo("query nya adalah");
-		print_r($query);
-
 		$result = $query->result();
 
 		$data = array();
 
 		for ($i = 0; $i < count($result); $i++) {
-			array_push($$data, $this->toJson($this->fromRow($result[$i])));
+			$location = $this->fromRow($result[$i]);
+			array_push($$data, $location->toJson());
 		}
 
 		return $data;
