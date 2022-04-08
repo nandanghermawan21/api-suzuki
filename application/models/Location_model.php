@@ -191,6 +191,7 @@ class Location_model extends CI_Model
 		      ORDER BY a.create_date DESC";
 		$query = $this->db->query($sql, array($filter));
 
+		echo("query nya adalah");
 		print_r($query);
 
 		$result = $query->result();
