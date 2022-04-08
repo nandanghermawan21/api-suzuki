@@ -160,6 +160,20 @@ class Location_model extends CI_Model
 		return $data;
 	}
 
+	public function toJsonFromRow($row): array
+	{
+		$data = array(
+			$this->idJsonKey() => (int) $row->{$this->idField()},
+			$this->refJsonKey() => $row->{$this->refField()},
+			$this->createDateJsonKey() => date_create(date(DATE_ATOM, strtotime($row->{$this->createDateField()})))->format(DateTime::ATOM),
+			$this->latJsonKey() => (float) $row->{$this->latField()},
+			$this->lonJsonKey() =>  (float) $this->lon,
+			$this->directionJsonKey() =>  (float) $this->direction,
+		);
+
+		return $data;
+	}
+
 	public function  add(): Location_model
 	{
 		try {
@@ -194,12 +208,11 @@ class Location_model extends CI_Model
 		$query = $this->db->query($sql, array($filter));
 		$result = $query->result();
 
-		$data = [];
+		$data = array();
         for ($i = 0; $i < count($result); $i++) {
 			$location = new Location_model();
-			$location = $location->fromRow($result[$i]);
-			$location = $location->toJson();
-            $data[] = $location;
+			$location = $location->toJsonFromRow($result[$i]);
+            $data[$i] = $location;
         }
 
 		return $result;
