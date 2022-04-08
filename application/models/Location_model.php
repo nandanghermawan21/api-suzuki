@@ -198,7 +198,7 @@ class Location_model extends CI_Model
         for ($i = 0; $i < count($result); $i++) {
 			$location = new Location_model();
 			$location = $location->fromRow($result[$i]);
-            $data[$i] = $location->toJson();
+            $data[$i] = $data[$i]->toJson();
         }
 
 		return $result;
