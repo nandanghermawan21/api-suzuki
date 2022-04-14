@@ -13,7 +13,7 @@ class Chat extends BD_Controller
 
 
     /**
-     * @OA\post(path="/api/Service/chatToCustomer",tags={"chat"},
+     * @OA\post(path="/api/chat/toCustomer",tags={"chat"},
      *   operationId="Send Message TO Customer",
      *   @OA\RequestBody(
      *     @OA\MediaType(
@@ -30,7 +30,7 @@ class Chat extends BD_Controller
      *   security={{"token": {}}},
      * )
      */
-    public function chatToCustomer_post()
+    public function toCustomer_post()
     {
         $jsonBody  = json_decode(file_get_contents('php://input'), true);
         $chat = $this->chat->fromJson($jsonBody);
