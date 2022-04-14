@@ -15,6 +15,12 @@ class Chat extends BD_Controller
     /**
      * @OA\post(path="/api/chat/toCustomer",tags={"chat"},
      *   operationId="Send Message TO Customer",
+     *   @OA\Parameter(
+     *       name="authorization",
+     *       in="header",
+     *       required=true,
+     *       @OA\Schema(type="string")
+     *   ),
      *   @OA\RequestBody(
      *     @OA\MediaType(
      *         mediaType="application/json",
