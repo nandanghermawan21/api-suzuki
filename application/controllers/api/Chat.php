@@ -19,6 +19,8 @@ class Chat extends BD_Controller
         parent::__construct();
         $this->auth();
         $this->load->model('Chat_model', 'chat');
+        $this->load->model('Notification_model', 'notif');
+        $this->load->model('Customer_model', 'customer');
     }
 
 
@@ -46,6 +48,18 @@ class Chat extends BD_Controller
         $chat = $this->chat->fromJson($jsonBody);
 
         try {
+            //get info customer
+            $sender = $this->customer->fromId($this->user_data->id);
+            $receiver = $this->customer->fromId($chat->receiver);
+
+            if ($sender->id == null) {
+                $this->response("sender not found", 500);
+            }
+
+            if ($receiver->id == null) {
+                $this->response("receiver not found", 500);
+            }
+
             $chat->messageType = $this->user_data->type . "-To-" . "customer";
             $chat->createDate =  new DateTime("now", new DateTimeZone("UTC"));
             $chat->sender = "customer-" . $this->user_data->id;
@@ -53,6 +67,25 @@ class Chat extends BD_Controller
 
             //save message
             $chat = $chat->add();
+
+            //send notification
+            $appId = "5950883a-0066-4be7-ac84-3d240982ffaf";
+            $title = array(
+                "en" =>  $sender->fullName,
+                "id" =>  $sender->fullName
+            );
+            $message = array(
+                "en" => $chat->message,
+                "id" =>  $chat->message,
+            );
+            $appUrl = "sufismart://customer";
+
+            $notif = $this->notif->send_basic_notification($appId,$title,$message,$appUrl);
+
+            //assign result to message
+            $result = $chat->toJson();
+            $result["notif"] = $notif;
+
             $this->response($chat->toJson(), 200);
         } catch (\Exception $e) {
             $error = new Error_model();
