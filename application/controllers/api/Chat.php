@@ -15,12 +15,12 @@ class Chat extends BD_Controller
     /**
      * @OA\post(path="/api/chat/toCustomer",tags={"chat"},
      *   operationId="Send Message TO Customer",
-     *   @OA\Parameter(
-     *       name="Authorization",
-     *       in="header",
-     *       required=true,
-     *       @OA\Schema(type="string")
-     *   ),
+     *   @OA\SecurityScheme(
+     *     securityScheme="token",
+     *     type="apiKey",
+     *     name="Authorization",
+     *     in="header"
+     *   )
      *   @OA\RequestBody(
      *     @OA\MediaType(
      *         mediaType="application/json",
@@ -41,24 +41,19 @@ class Chat extends BD_Controller
         $jsonBody  = json_decode(file_get_contents('php://input'), true);
         $chat = $this->chat->fromJson($jsonBody);
 
-        $this->auth();
-        if ($this->getData() == null) {
-            $this->response("unautorized", 401);
-        } else {
-            try {
-                $chat->messageType = $this->getData()->type . "-To-" . "customer";
-                $chat->sender = "customer-" . $this->getData()->id;
-                $chat->receiver = "customer-" . $chat->receiver;
+        try {
+            $chat->messageType = $this->user_data->type . "-To-" . "customer";
+            $chat->sender = "customer-" . $this->user_data->id;
+            $chat->receiver = "customer-" . $chat->receiver;
 
-                //save message
-                $chat = $chat->add();
-                $this->response($chat->toJson(), 200);
-            } catch (\Exception $e) {
-                $error = new Error_model();
-                $error->status = 500;
-                $error->message = $e->getMessage();
-                $this->response($error->message, 500);
-            }
+            //save message
+            $chat = $chat->add();
+            $this->response($chat->toJson(), 200);
+        } catch (\Exception $e) {
+            $error = new Error_model();
+            $error->status = 500;
+            $error->message = $e->getMessage();
+            $this->response($error->message, 500);
         }
     }
 }
