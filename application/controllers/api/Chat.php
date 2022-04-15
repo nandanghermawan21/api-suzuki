@@ -69,7 +69,6 @@ class Chat extends BD_Controller
             $chat = $chat->add();
 
             //send notification
-            $appId = "5950883a-0066-4be7-ac84-3d240982ffaf";
             $title = array(
                 "en" =>  $sender->fullName,
                 "id" =>  $sender->fullName
@@ -81,15 +80,15 @@ class Chat extends BD_Controller
             $deviceId = array(
                 $receiver->deviceId,
             );
-            $appUrl = "sufismart://customer";
+            $appUrl = "sufismart://customer/chat?receiver=".$receiver->id;
 
-            $notif = $this->notif->send_basic_notification($appId,$title,$message,$deviceId,$appUrl);
+            $notif = $this->notif->send_basic_notification($title,$message,$deviceId,$appUrl);
 
             //assign result to message
             $result = $chat->toJson();
             $result["notif"] = $notif;
 
-            $this->response($chat->toJson(), 200);
+            $this->response($result, 200);
         } catch (\Exception $e) {
             $error = new Error_model();
             $error->status = 500;
