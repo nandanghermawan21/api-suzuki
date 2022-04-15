@@ -16,7 +16,7 @@ class Chat extends BD_Controller
      * @OA\post(path="/api/chat/toCustomer",tags={"chat"},
      *   operationId="Send Message TO Customer",
      *   @OA\Parameter(
-     *       name="authorization",
+     *       name="Authorization",
      *       in="header",
      *       required=true,
      *       @OA\Schema(type="string")
