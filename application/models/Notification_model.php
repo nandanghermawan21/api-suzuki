@@ -20,10 +20,10 @@ class Notification_model extends CI_Model
             "android_channel_id" => "6d52b765-dc9f-4735-a38b-77b784dbe90b"
         ));
 
-        curl_setopt($curl_handle, CURLOPT_HTTPHEADER, array(
-            "Accept: application/json",
-            "Authorization: Basic NGVhYmMxNmEtODM3Zi00MDM3LWI5ZjYtNDQ3ZTNiMDExMWVi",
-        ));
+        // curl_setopt($curl_handle, CURLOPT_HTTPHEADER, array(
+        //     "Accept: application/json",
+        //     "Authorization: Basic NGVhYmMxNmEtODM3Zi00MDM3LWI5ZjYtNDQ3ZTNiMDExMWVi",
+        // ));
 
         $buffer = curl_exec($curl_handle);
         curl_close($curl_handle);
