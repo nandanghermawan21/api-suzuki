@@ -28,7 +28,7 @@ class Notification_model extends CI_Model
 
         curl_setopt($curl_handle, CURLOPT_HTTPHEADER, array(
             "Accept: application/json",
-            "Authorization: Basic ".$this->apiKey,
+            "authorization: Basic ".$this->apiKey,
         ));
 
         $buffer = curl_exec($curl_handle);
