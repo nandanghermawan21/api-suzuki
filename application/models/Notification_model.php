@@ -13,17 +13,17 @@ class Notification_model extends CI_Model
         curl_setopt($curl_handle, CURLOPT_POSTFIELDS, array(
             "app_id" => $appId,
             "include_player_ids" => $receiver,
-            "contents" => $message,
-            "headings" => $title,
+            // "contents" => $message,
+            // "headings" => $title,
             "app_url" => $appUrl,
             "ios_sound" => "my_notification_sound.wav",
             "android_channel_id" => "6d52b765-dc9f-4735-a38b-77b784dbe90b"
         ));
 
-        // curl_setopt($curl_handle, CURLOPT_HTTPHEADER, array(
-        //     "Accept: application/json",
-        //     "Authorization: Basic NGVhYmMxNmEtODM3Zi00MDM3LWI5ZjYtNDQ3ZTNiMDExMWVi",
-        // ));
+        curl_setopt($curl_handle, CURLOPT_HTTPHEADER, array(
+            "Accept: application/json",
+            "Authorization: Basic NGVhYmMxNmEtODM3Zi00MDM3LWI5ZjYtNDQ3ZTNiMDExMWVi",
+        ));
 
         $buffer = curl_exec($curl_handle);
         curl_close($curl_handle);
