@@ -162,6 +162,8 @@ class Chat_model extends CI_Model
     public function  add(): Chat_model
 	{
 		try {
+            print_r($this->toArray());
+
 			//generate key
 			$this->id = null;
 
