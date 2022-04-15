@@ -28,6 +28,7 @@ class BD_Controller extends REST_Controller
         $headers = $this->input->get_request_header('Authorization');
         $kunci = $this->config->item('thekey'); //secret key for encode and decode
         $token = "token";
+        print_r("masuk sini");
         print_r($headers);
         if (!empty($headers)) {
             if (preg_match('/Bearer\s(\S+)/', $headers, $matches)) {
