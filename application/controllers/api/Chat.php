@@ -41,6 +41,7 @@ class Chat extends BD_Controller
         $jsonBody  = json_decode(file_get_contents('php://input'), true);
         $chat = $this->chat->fromJson($jsonBody);
 
+        $this->auth();
         if ($this->getData() == null) {
             $this->response("unautorized", 401);
         } else {
