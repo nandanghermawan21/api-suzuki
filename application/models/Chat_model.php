@@ -84,7 +84,7 @@ class Chat_model extends CI_Model
     public $message;
     private function messageField(): string
     {
-        return "message_type";
+        return "message";
     }
     public function messageJsonKey(): string
     {
@@ -162,6 +162,8 @@ class Chat_model extends CI_Model
     public function  add(): Chat_model
 	{
 		try {
+            print_r($this->toArray());
+
 			//generate key
 			$this->id = null;
 
