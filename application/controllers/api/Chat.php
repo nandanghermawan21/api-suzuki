@@ -47,6 +47,7 @@ class Chat extends BD_Controller
 
         try {
             $chat->messageType = $this->user_data->type . "-To-" . "customer";
+            $chat->createDate =  new DateTime("now", new DateTimeZone("UTC"));
             $chat->sender = "customer-" . $this->user_data->id;
             $chat->receiver = "customer-" . $chat->receiver;
 
