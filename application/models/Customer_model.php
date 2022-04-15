@@ -446,6 +446,7 @@ class Customer_model extends CI_Model
 			$this->cityNameJsonKey() => $this->city->fromId($this->cityId)->name,
 			$this->phoneNumberJsonKey() => $this->phoneNumber,
 			$this->usernameJsonKey() => $this->username,
+			$this->deviceIdJsonKey() => $this->deviceId,
 			$this->levelJsonKey() => (int) $this->level,
 			$this->isVerifiedPhoneJsonKey() => $this->isVerifiedPhone,
 			$this->latJsonKey() => $this->lat,

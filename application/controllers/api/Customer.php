@@ -191,4 +191,28 @@ class Customer extends BD_Controller
             $this->response($error->message, 500);
         }
     }
+
+     /**
+     * @OA\Get(path="/api/customer/register",tags={"customer"},
+     *   operationId="register customer",
+     *   @OA\Parameter(
+     *       name="id",
+     *       in="query",
+     *       required=true,
+     *       @OA\Schema(type="string")
+     *   ),
+     *   @OA\Response(response=200,
+     *     description="register customer",
+     *     @OA\JsonContent(
+     *       ref="#/components/schemas/CustomerModel"
+     *     ),
+     *   ),
+     * )
+     */
+    public function info_get(){
+        $id = $this->input->get("id", true);
+        $customer = $this->customer->fromId($id);
+
+        $this->response($customer->toPublic(), 200);
+    }
 }
