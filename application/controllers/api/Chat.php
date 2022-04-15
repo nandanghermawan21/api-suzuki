@@ -41,19 +41,23 @@ class Chat extends BD_Controller
         $jsonBody  = json_decode(file_get_contents('php://input'), true);
         $chat = $this->chat->fromJson($jsonBody);
 
-        try {
-            $chat->messageType = $this->user_data->type . "-To-" . "customer";
-            $chat->sender = "customer-" . $this->user_data->id;
-            $chat->receiver = "customer-" . $chat->receiver;
+        if ($this->getData() == null) {
+            $this->response("unautorized", 401);
+        } else {
+            try {
+                $chat->messageType = $this->getData()->type . "-To-" . "customer";
+                $chat->sender = "customer-" . $this->getData()->id;
+                $chat->receiver = "customer-" . $chat->receiver;
 
-            //save message
-            $chat = $chat->add();
-            $this->response($chat->toJson(), 200);
-        } catch (\Exception $e) {
-            $error = new Error_model();
-            $error->status = 500;
-            $error->message = $e->getMessage();
-            $this->response($error->message, 500);
+                //save message
+                $chat = $chat->add();
+                $this->response($chat->toJson(), 200);
+            } catch (\Exception $e) {
+                $error = new Error_model();
+                $error->status = 500;
+                $error->message = $e->getMessage();
+                $this->response($error->message, 500);
+            }
         }
     }
 }
