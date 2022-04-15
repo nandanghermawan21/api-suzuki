@@ -78,9 +78,12 @@ class Chat extends BD_Controller
                 "en" => $chat->message,
                 "id" =>  $chat->message,
             );
+            $deviceId = array(
+                $receiver->deviceId,
+            );
             $appUrl = "sufismart://customer";
 
-            $notif = $this->notif->send_basic_notification($appId,$title,$message,$appUrl);
+            $notif = $this->notif->send_basic_notification($appId,$title,$message,$deviceId,$appUrl);
 
             //assign result to message
             $result = $chat->toJson();
