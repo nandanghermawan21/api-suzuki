@@ -182,7 +182,7 @@ class Chat_model extends CI_Model
 /**
  * @OA\Schema(schema="ComposeChat")
  */
-class CustomerRegister
+class ComposeChat
 {
     /**
      * @OA\Property()
