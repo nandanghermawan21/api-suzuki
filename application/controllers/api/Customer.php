@@ -193,8 +193,8 @@ class Customer extends BD_Controller
     }
 
      /**
-     * @OA\Get(path="/api/customer/register",tags={"customer"},
-     *   operationId="register customer",
+     * @OA\Get(path="/api/customer/info",tags={"customer"},
+     *   operationId="ifo customer",
      *   @OA\Parameter(
      *       name="id",
      *       in="query",
