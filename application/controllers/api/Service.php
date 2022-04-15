@@ -5,6 +5,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Service extends BD_Controller
 {
 
+    /**
+     * @OA\Info(title="Game Center API", version="0.1")
+     * @OA\SecurityScheme(
+     *   securityScheme="token",
+     *   type="apiKey",
+     *   name="Authorization",
+     *   in="header"
+     * )
+     */
     function __construct()
     {
         // Construct the parent class
@@ -67,10 +76,10 @@ class Service extends BD_Controller
         $jsonBody  = json_decode(file_get_contents('php://input'), true);
         $location = $this->location->fromJson($jsonBody);
 
-        try{
+        try {
             $location = $location->add();
             $this->response($location->toJson(), 200);
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             $error = new Error_model();
             $error->status = 500;
             $error->message = $e->getMessage();
@@ -78,7 +87,7 @@ class Service extends BD_Controller
         }
     }
 
-     /**
+    /**
      * @OA\get(path="/api/Service/loadlocation",tags={"service"},
      *   operationId="Load Location Sample",
      *   @OA\Parameter(
@@ -100,11 +109,11 @@ class Service extends BD_Controller
     {
         $filter = $this->input->get("filter", true);
 
-        try{
+        try {
             $locations = $this->location->filterRef($filter);
-            
+
             $this->response($locations, 200);
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             $error = new Error_model();
             $error->status = 500;
             $error->message = $e->getMessage();

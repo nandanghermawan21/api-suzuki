@@ -10,13 +10,9 @@ require_once APPPATH . '/libraries/SignatureInvalidException.php';
 
 use \Firebase\JWT\JWT;
 
-/**
- * @OA\Info(title="Training Suzuki API", version="0.1")
- * @OA\servers
- */
 class BD_Controller extends REST_Controller
 {
-    public $user_credential;
+    private $user_credential;
     public function auth()
     {
         // Configure limits on our controller methods
@@ -28,8 +24,6 @@ class BD_Controller extends REST_Controller
         $headers = $this->input->get_request_header('Authorization');
         $kunci = $this->config->item('thekey'); //secret key for encode and decode
         $token = "token";
-        print_r("masuk sini");
-        print_r($headers);
         if (!empty($headers)) {
             if (preg_match('/Bearer\s(\S+)/', $headers, $matches)) {
                 $token = $matches[1];
@@ -40,38 +34,12 @@ class BD_Controller extends REST_Controller
         try {
             $decoded = JWT::decode($token, $kunci, array('HS256'));
             $this->user_data = $decoded;
-            $this->user_credential = $decoded;
         } catch (Exception $e) {
             $invalid = [
                 'status' => $e->getMessage(),
                 'Authorization' => $headers
             ]; //Respon if credential invalid
             $this->response($invalid, 401); //401
-        }
-    }
-
-    public function getData(){
-        $headers = $this->input->get_request_header('Authorization');
-        $kunci = $this->config->item('thekey'); //secret key for encode and decode
-        $token = "token";
-        print_r("masuk sini");
-        print_r($headers);
-        if (!empty($headers)) {
-            if (preg_match('/Bearer\s(\S+)/', $headers, $matches)) {
-                $token = $matches[1];
-            } else if (preg_match('/bearer\s(\S+)/', $headers, $matches)) {
-                $token = $matches[1];
-            }
-        }
-        try {
-            $decoded = JWT::decode($token, $kunci, array('HS256'));
-            return $decoded;
-        } catch (Exception $e) {
-            $invalid = [
-                'status' => $e->getMessage(),
-                'Authorization' => $headers
-            ]; //Respon if credential invalid
-            return null;
         }
     }
 }
