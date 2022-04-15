@@ -115,7 +115,6 @@ class Customer extends BD_Controller
      *       ref="#/components/schemas/CustomerModel"
      *     ),
      *    ),
-     *   security={{"token": {}}},
      * )
      */
     public function confirm_post()
@@ -160,7 +159,6 @@ class Customer extends BD_Controller
      *      ref="#/components/schemas/OtpModel"
      *     ),
      *    ),
-     *   security={{"token": {}}},
      * )
      */
     public function resend_post()

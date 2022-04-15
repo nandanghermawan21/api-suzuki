@@ -17,6 +17,7 @@ class Chat extends BD_Controller
     function __construct()
     {
         parent::__construct();
+        $this->auth();
         $this->load->model('Chat_model', 'chat');
     }
 
