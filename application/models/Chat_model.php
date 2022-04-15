@@ -56,7 +56,7 @@ class Chat_model extends CI_Model
     public $sender;
     private function senderField(): string
     {
-        return "message_type";
+        return "sender";
     }
     public function senderJsonKey(): string
     {
@@ -70,7 +70,7 @@ class Chat_model extends CI_Model
     public $receiver;
     private function receiverField(): string
     {
-        return "message_type";
+        return "receiver";
     }
     public function receiverJsonKey(): string
     {
@@ -135,7 +135,7 @@ class Chat_model extends CI_Model
 
 		$data = array(
 			$this->idField() => $this->id,
-			$this->messageField() => $this->messageType,
+			$this->messageTypeField() => $this->messageType,
 			$this->createDateField() => $this->createDate->format(DATE_ATOM),  // date_format($this->createDate, DateTime::ATOM),
 			$this->senderField() => $this->sender,
 			$this->receiverField() => $this->receiver,
@@ -162,8 +162,6 @@ class Chat_model extends CI_Model
     public function  add(): Chat_model
 	{
 		try {
-            print_r($this->toArray());
-
 			//generate key
 			$this->id = null;
 
