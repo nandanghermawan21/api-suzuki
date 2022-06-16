@@ -62,7 +62,7 @@ class Auth extends BD_Controller
                 $result = new Otp_model();
                 $result->resendUrl = "customer/resend?id=" . $customer->id;
                 $result->confirmUrl = "customer/confirm?id=" . $customer->id;
-                $result->expired =  date_create(date(DATE_ATOM, strtotime($customer->otpValidDate))); //$customer->otpValidDate->format('Y-m-d') . "T" .  $customer->otpValidDate->format('H:i:s.u');
+                // $result->expired =  date_create(date(DATE_ATOM, strtotime($customer->otpValidDate))); //$customer->otpValidDate->format('Y-m-d') . "T" .  $customer->otpValidDate->format('H:i:s.u');
                 $this->response($result, 403);
             }
             $this->response($customerPublic, 200);
